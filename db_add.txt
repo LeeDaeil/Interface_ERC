@@ -40,10 +40,14 @@ DOWN_D	INTEGER	Down distance
 BOR	INTEGER	BOR
 MAKE_UP	INTEGER	MAKE_UP
 iFixPreAb	INTEGER	PreAbnormal(0:off|1:on)
-iFixPreTrip	INTEGER	FixPreTrip(0:off|1:on)
 iFixTrip	INTEGER	FixTrip(0:off|1:on)
 iFixTrain	INTEGER	FixTrain(0:Train|1:Untrain)
 iFixOpMode	INTEGER	Operation Mode (0:Normal| ...)
 iFixMAMode	INTEGER	Autonomous or Manual Mode (0:Man|1:Auto)
 iAutoBLK	INTEGER	Autonomous Operation Required -> Start Blinking
 iManBLK	INTEGER	Manual Operation Required -> Start Blinking
+iPreTripBLK	INTEGER	PreTrip (0:off|1:on) -> Start Blinking
+iSignalBLK	INTEGER	Signal (0:off|1:on) -> Start Blinking
+iCSFBLK	INTEGER	CSF Monitoring (0:off|1:on) -> Start Blinking
+iEmptyAlnon	INTEGER	No alarm (non)
+iEmptyAlem	INTEGER	No alarm (em)

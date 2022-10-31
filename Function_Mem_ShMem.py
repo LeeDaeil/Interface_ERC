@@ -58,6 +58,9 @@ class ShMem:
 
     def get_alarm_des(self, para):
         return self.AlarmDB.get_alarm_des(para)
+    
+    def get_alarm_para(self, type_):
+        return self.AlarmDB.get_alarm_para(type_)
 
     def check_para_name(self, para):
         return True if para in self.mem.keys() else False

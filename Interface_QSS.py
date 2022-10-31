@@ -86,7 +86,7 @@ QssMainLeft = ''.join([
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
         f'font-size: {Content_font_size};',
-        'border: none;'
+        'border: none;',
         'text-align:center;',
         'font-weight: bold;',
         ]),
@@ -109,7 +109,7 @@ QssMainLeft = ''.join([
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
         f'font-size: {Content_font_size};',
-        'border: none;'
+        'border: none;',
         'text-align:center;',
         'font-weight: bold;',
         ]),
@@ -128,7 +128,6 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop2OperationControllerBtnA:checked::hover', [
         f'background-color: {LightBlue};',
         ]),
-    # Operation Selection --------------------------------
     builder('QWidget', 'OperationSelectionWindow', [
         f'background-color: {LightGray};',
         'border-radius: 5px;'
@@ -206,6 +205,78 @@ QssMainLeft = ''.join([
         'font-weight: bold;',
         'border-radius: 5px;'
         ]),    
+    # Pre-trip/Signal/CSFMonitoring -----------------------
+    builder('QWidget', 'MainLeftTop3', [
+        f'background-color: {Gray};',
+        ]),
+    builder('QPushButton', 'MainLeftTop3PreTrip', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainLeftTop3PreTrip[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3PreTrip[blinking="false"]', [
+        f'background-color: {LightWhite};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3PreTrip:hover', [
+        f'background-color: {LightBlue};',
+        ]),
+    builder('QPushButton', 'MainLeftTop3Signal', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainLeftTop3Signal[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3Signal[blinking="false"]', [
+        f'background-color: {LightWhite};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3Signal:hover', [
+        f'background-color: {LightBlue};',
+        ]),
+    builder('QPushButton', 'MainLeftTop3CSF', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainLeftTop3CSF[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3CSF[blinking="false"]', [
+        f'background-color: {LightWhite};'
+        ]),
+    builder('QPushButton', 'MainLeftTop3CSF:hover', [
+        f'background-color: {LightBlue};',
+        ]),
+    # Alarm -----------------------------------------------
+    builder('QWidget', 'MainLeftTop3', [
+        f'background-color: {Gray};',
+        ]),
+    builder('QPushButton', 'MainLeftTop4Alarm', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        ]),
+    builder('QPushButton', 'MainLeftTop4Alarm[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QPushButton', 'MainLeftTop4Alarm[blinking="false"]', [
+        f'background-color: {LightWhite};'
+        ]),
 ])
 QssMainTop = ''.join([
     builder('QWidget', 'MainTopBar', [

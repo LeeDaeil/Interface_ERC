@@ -124,8 +124,6 @@ class OperationSelectionTreeItem(ABCPushButton):
             self.inmem.widget_ids['OperationSelectionTree'].selected_operation_mode = self.in_text
             self.inmem.widget_ids['OperationSelectionTree'].btn_changed()
             super().mousePressEvent(e)
-        else:
-            print('do')
 
 class OperationSelectionOk(ABCPushButton):
     def __init__(self, parent, widget_name=''):
