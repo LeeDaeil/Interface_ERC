@@ -261,8 +261,12 @@ QssMainLeft = ''.join([
         f'background-color: {LightBlue};',
         ]),
     # Alarm -----------------------------------------------
-    builder('QWidget', 'MainLeftTop4', [
+    builder('QWidget', 'MainLeftTop4_1', [
         f'background-color: {Gray};',
+        ]),
+    builder('QWidget', 'MainLeftTop4_2', [
+        f'background-color: {Gray};',
+        f'border: 2px solid {DarkRed};'
         ]),
     builder('QPushButton', 'MainLeftTop4Alarm', [
         f'background-color: {LightGray};',

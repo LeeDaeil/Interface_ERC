@@ -14,7 +14,8 @@ class MainLeft(ABCWidget):
         vl.addWidget(MainLeftTop1(self))
         vl.addWidget(MainLeftTop2(self))
         vl.addWidget(MainLeftTop3(self))
-        vl.addWidget(MainLeftTop4(self))
+        vl.addWidget(MainLeftTop4_1(self))
+        vl.addWidget(MainLeftTop4_2(self))
 
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop1(ABCWidget):
@@ -200,30 +201,39 @@ class MainLeftTop3CSF(ABCPushButton):
         self.style().polish(self)
         return super().timerEvent(e)
 # ------------------------------------------------------------------------------------------------
-class MainLeftTop4(ABCWidget):
+class MainLeftTop4_1(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         
-        vl = QVBoxLayout(self)
-        gl1 = QGridLayout()
-        gl1.setContentsMargins(0, 0, 0, 10)
-        gl2 = QGridLayout()
-        gl2.setContentsMargins(0, 10, 0, 0)
-        vl.addLayout(gl1)
-        vl.addLayout(gl2)
+        gl = QGridLayout(self)
+        alarm_list = self.inmem.ShMem.get_alarm_para('nonem')
+        alarm_count = len(alarm_list)
+        max_alarms_in_row = 5
         
-        for glayer, type_ in zip([gl1, gl2], ['nonem', 'em']):
-            alarm_list = self.inmem.ShMem.get_alarm_para(type_)
-            alarm_count = len(alarm_list)
-            max_alarms_in_row = 5
-            
-            for i in range(0, ((alarm_count//max_alarms_in_row) + 1) * max_alarms_in_row):
-                col = i%max_alarms_in_row
-                row = i//max_alarms_in_row
-                if i < alarm_count:
-                    glayer.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
-                else:
-                    glayer.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlem'), row, col) # empty alarm
+        for i in range(0, ((alarm_count//max_alarms_in_row) + 1) * max_alarms_in_row):
+            col = i%max_alarms_in_row
+            row = i//max_alarms_in_row
+            if i < alarm_count:
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
+            else:
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlnon'), row, col) # empty alarm
+class MainLeftTop4_2(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        
+        gl = QGridLayout(self)
+        alarm_list = self.inmem.ShMem.get_alarm_para('em')
+        alarm_count = len(alarm_list)
+        max_alarms_in_row = 5
+        
+        for i in range(0, ((alarm_count//max_alarms_in_row) + 1) * max_alarms_in_row):
+            col = i%max_alarms_in_row
+            row = i//max_alarms_in_row
+            if i < alarm_count:
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
+            else:
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlem'), row, col) # empty alarm
+
 class MainLeftTop4Alarm(ABCPushButton):
     def __init__(self, parent, widget_name='', alarm_id=''):
         super().__init__(parent, widget_name)
