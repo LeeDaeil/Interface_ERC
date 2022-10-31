@@ -205,18 +205,19 @@ class MainLeftTop4(ABCWidget):
         super().__init__(parent, widget_name)
         
         vl = QVBoxLayout(self)
-        vl.setContentsMargins(0, 0, 0, 10)
         gl1 = QGridLayout()
+        gl1.setContentsMargins(0, 0, 0, 10)
         gl2 = QGridLayout()
+        gl2.setContentsMargins(0, 10, 0, 0)
         vl.addLayout(gl1)
         vl.addLayout(gl2)
-                
+        
         for glayer, type_ in zip([gl1, gl2], ['nonem', 'em']):
             alarm_list = self.inmem.ShMem.get_alarm_para(type_)
             alarm_count = len(alarm_list)
             max_alarms_in_row = 5
             
-            for i in range(0, (alarm_count//max_alarms_in_row) * max_alarms_in_row):
+            for i in range(0, ((alarm_count//max_alarms_in_row) + 1) * max_alarms_in_row):
                 col = i%max_alarms_in_row
                 row = i//max_alarms_in_row
                 if i < alarm_count:
