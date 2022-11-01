@@ -1,3 +1,4 @@
+from dis import dis
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -55,4 +56,21 @@ class SignalResultWidgetTitle(ABCLabel):
 class SignalResultWidgetResult(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setText('temp')
+        self.setText('')
+
+class SignalResultAlarmWidget(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        self.startTimer(200)
+        
+        gl = QGridLayout(self)
+        gl.addWidget(0, 0, SignalResultAlarmItem(self))
+        
+    def timerEvent(self, a0: 'QTimerEvent') -> None:
+        dis_nub = self.inmem.ShMem.get_para_val('iSigValOnDis')
+        return super().timerEvent(a0)
+
+class SignalResultAlarmItem(ABCLabel):
+    def __init__(self, parent, widget_name='', in_text=''):
+        super().__init__(parent, widget_name)
+        self.setText(in_text)

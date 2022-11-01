@@ -42,7 +42,7 @@ class MainLeftTop1Electric(ABCLabel):
         self.startTimer(200)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
-        self.setText(f'Electric Power\n{self.inmem.ShMem.get_para_val("KBCDO22")}[%]')
+        self.setText(f'Electric Power\n{self.inmem.ShMem.get_para_val("KBCDO22")}[MWe]')
         return super().timerEvent(a0)
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop2(ABCWidget):

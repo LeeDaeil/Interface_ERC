@@ -1,10 +1,14 @@
 from datetime import timedelta
 from Function_Mem_AlarmDB import AlarmDB
 from collections import deque
-
+import pandas as pd
 
 class ShMem:
     def __init__(self):
+        # load tape
+        self.tape_db = pd.read_csv('./recoded_tape.txt')
+        self.tape_db_step = 0
+        #
         self.mem = self.make_cns_mem(max_len=10)
         self.AlarmDB: AlarmDB = AlarmDB(self)
         self.add_val_to_list()
@@ -23,7 +27,10 @@ class ShMem:
                         pass  # These values are normally static values in SMABRES Code.
                     else:
                         sig = 0 if temp_[1] == 'INTEGER' else 1
-                        shared_mem[temp_[0]] = {'Sig': sig, 'Val': 0, 'Num': idx, 'List': deque(maxlen=max_len)}
+                        if temp_[0] in self.tape_db.columns:
+                            shared_mem[temp_[0]] = {'Sig': sig, 'Val': self.tape_db.at[0, temp_[0]], 'Num': idx, 'List': deque(maxlen=max_len)}
+                        else:
+                            shared_mem[temp_[0]] = {'Sig': sig, 'Val': 0, 'Num': idx, 'List': deque(maxlen=max_len)}
                         idx += 1
 
         # 다음과정을 통하여 shared_mem 은 PID : { type. val, num }를 가진다.
@@ -31,6 +38,12 @@ class ShMem:
 
     def update_alarmdb(self):
         self.AlarmDB.update_alarmdb_from_ShMem()
+
+    def one_step_tape(self):
+        self.tape_db_step += 1
+        for para in self.mem.keys():
+            v_ = self.tape_db.at[self.tape_db_step, para] if para in self.tape_db.columns else 0
+            self.mem[para]['Val'] = int(v_) if self.mem[para]['Sig'] == 'INTEGER' else float(v_)
 
     def add_val_to_list(self):
         [self.mem[para]['List'].append(self.mem[para]['Val']) for para in self.mem.keys()]

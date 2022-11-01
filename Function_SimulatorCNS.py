@@ -24,14 +24,35 @@ class CNS(QWidget):
         lay2.addWidget(self.paraname)
         lay2.addWidget(self.paraval)
 
+        lay3 = QHBoxLayout()        
+        self.tape_start = QPushButton('Start')
+        self.tape_start.clicked.connect(lambda _:self.change_tape(state='Start'))
+        self.tape_stop = QPushButton('Stop')
+        self.tape_stop.clicked.connect(lambda _:self.change_tape(state='Stop'))
+        lay3.addWidget(self.tape_start)
+        lay3.addWidget(self.tape_stop)
+        self.tape_state = 'Stop'
+        
         self.mes = QLabel('')
 
         lay.addWidget(one_step_btn)
         lay.addLayout(lay2)
+        lay.addLayout(lay3)
         lay.addWidget(self.mes)
+        
+        self.startTimer(600)
+
+    def timerEvent(self, a0: 'QTimerEvent') -> None:
+        if self.tape_state == 'Start':
+            self.one_step()
+        return super().timerEvent(a0)
+
+    def change_tape(self, state):
+        self.tape_state = state
 
     def one_step(self):
-        self.ShMem.change_para_val('KCNTOMS', self.ShMem.get_para_val('KCNTOMS') + 5)
+        # self.ShMem.change_para_val('KCNTOMS', self.ShMem.get_para_val('KCNTOMS') + 5)
+        self.ShMem.one_step_tape()
         self.ShMem.add_val_to_list()
         self.ShMem.update_alarmdb()
         self.mes.setText(f'OneStep 진행함. [KCNTOMS: {self.ShMem.get_para_val("KCNTOMS")}]')

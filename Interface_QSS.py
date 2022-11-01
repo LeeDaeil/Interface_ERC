@@ -23,6 +23,7 @@ Yellow = 'rgb(249, 249, 0)'
 Black = 'rgb(0, 0, 0)'
 Green = 'rgb(0, 170, 0)'
 Orange = 'rgb(255, 0, 0)'
+Orange2 = 'rgb(255, 0, 100)'
 # Font Table --------------------------------------------------
 Global_font = '함초롬돋움'
 Global_font_size = '15pt'
@@ -278,13 +279,24 @@ QssMainLeft = ''.join([
         'font-weight: bold;',
         'border: none;',
         ]),
-
-
-
-
-
-
-
+     builder('QWidget', 'SignalResultAlarmWidget', [
+        f'background-color: {LightGray};',
+        f'border: 2px solid {Gray};'
+        'border-radius: 5px;'
+        ]),
+     builder('QLabel', 'SignalResultAlarmItem', [
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignCenter';",
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),    
+    
+    
+    
+    
+    
+    
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -420,6 +432,54 @@ QssMainRight = ''.join([
         'font-weight: bold;',
         'border: none;',
         'padding-left: 3px;',
+        ]),
+    builder('QPushButton', 'MainRightTop3UnknownEvent', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop3OperationStrategy', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop3ListAlarm', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop3Control', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop3Diagnosis', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop3LCO', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
         ]),
 ])
 # final qss !! 
