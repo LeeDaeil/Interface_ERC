@@ -22,8 +22,7 @@ DarkRed = 'rgb(192, 0, 0)'
 Yellow = 'rgb(249, 249, 0)'
 Black = 'rgb(0, 0, 0)'
 Green = 'rgb(0, 170, 0)'
-Orange = 'rgb(255, 0, 0)'
-Orange2 = 'rgb(255, 0, 100)'
+Orange = 'rgb(255, 192, 0)'
 # Font Table --------------------------------------------------
 Global_font = '함초롬돋움'
 Global_font_size = '15pt'
@@ -279,24 +278,34 @@ QssMainLeft = ''.join([
         'font-weight: bold;',
         'border: none;',
         ]),
-     builder('QWidget', 'SignalResultAlarmWidget', [
+    builder('QWidget', 'SignalResultAlarmWidget', [
         f'background-color: {LightGray};',
         f'border: 2px solid {Gray};'
         'border-radius: 5px;'
         ]),
-     builder('QLabel', 'SignalResultAlarmItem', [
+    builder('QLabel', 'SignalResultAlarmItem', [
+        f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
         f'border: 1px solid {Gray};'
         ]),    
-    
-    
-    
-    
-    
-    
+    builder('QLabel', 'SignalResultAlarmItem[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QLabel', 'SignalResultAlarmItem[blinking="false"]', [
+        f'background-color: {LightGray};'
+        ]),
+    builder('QPushButton', 'SignalResultClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
+        ]),
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -313,6 +322,81 @@ QssMainLeft = ''.join([
         ]),
     builder('QPushButton', 'MainLeftTop3CSF:hover', [
         f'background-color: {LightBlue};',
+        ]),
+    builder('QWidget', 'CSFMonitoringWindow', [
+        f'background-color: {LightGray};',
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'CSFMonitoringTitle', [
+        f'background-color: {DarkGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'padding-left: 3px;',
+        'border-top-left-radius: 5px;',
+        'border-top-right-radius: 5px;'
+        ]),
+    builder('QWidget', 'CSFMonitoringAlarmWidget', [
+        f'background-color: {LightGray};',
+        f'border: 2px solid {Gray};'
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'CSFMonitoringAlarmLabel', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignCenter';",
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel1Item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel1Item:checked', [
+        f'background-color: {Green};',
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel2Item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel2Item:checked', [
+        f'background-color: {Yellow};',
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel3Item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel3Item:checked', [
+        f'background-color: {Orange};',
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel4Item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),
+    builder('QPushButton', 'CSFMonitoringAlarmLevel4Item:checked', [
+        f'background-color: {DarkRed};',
+        ]),
+    builder('QPushButton', 'CSFMonitoringClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
         ]),
     # Alarm -----------------------------------------------
     builder('QWidget', 'MainLeftTop4_1', [

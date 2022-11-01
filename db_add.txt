@@ -53,3 +53,9 @@ iEmptyAlnon	INTEGER	No alarm (non)
 iEmptyAlem	INTEGER	No alarm (em)
 iOpHistory	INTEGER	Operation History (0: Normal, 1: Abnormal, 2: Emergency)
 iSigValOnDis	INTEGER	0: No | 1 ~ 28: Fault Nub
+iCSFReactivity	INTEGER	Reactivity Control
+iCSFCoreHeat	INTEGER	Core heat removal
+iCSFRCSHeat	INTEGER	RCS Heat removal
+iCSFRCSPres	INTEGER	RCS Pressure Control
+iCSFCTMT	INTEGER	Containment Pressure and Temperature
+iCSFRCSInvt	INTEGER	RCS Inventory Control
