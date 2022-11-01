@@ -8,6 +8,8 @@ from Interface_QSS import qss
 
 from Interface_MainTopBar import MainTopBar
 from Interface_MainLeft import MainLeft
+from Interface_MainMiddle import MainMiddle
+from Interface_MainRight import MainRight
 
 class Main(QWidget):
     def __init__(self, ShMem):
@@ -26,6 +28,8 @@ class Main(QWidget):
         vl = QHBoxLayout()
         hl.addLayout(vl)
         vl.addWidget(MainLeft(self))
+        vl.addWidget(MainMiddle(self))
+        vl.addWidget(MainRight(self))
         # End frame --------------------------------------------------
         
     # window drag

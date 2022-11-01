@@ -10,6 +10,8 @@ from Interface_MainLeftCSFMonitoring import *
 class MainLeft(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedWidth(450)
+        
         vl = QVBoxLayout(self)
         vl.addWidget(MainLeftTop1(self))
         vl.addWidget(MainLeftTop2(self))
@@ -217,6 +219,7 @@ class MainLeftTop4_1(ABCWidget):
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
             else:
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlnon'), row, col) # empty alarm
+
 class MainLeftTop4_2(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)

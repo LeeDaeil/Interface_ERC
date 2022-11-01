@@ -21,6 +21,8 @@ LightBlue = 'rgb(0, 178, 216)'
 DarkRed = 'rgb(192, 0, 0)'
 Yellow = 'rgb(249, 249, 0)'
 Black = 'rgb(0, 0, 0)'
+Green = 'rgb(0, 170, 0)'
+Orange = 'rgb(255, 0, 0)'
 # Font Table --------------------------------------------------
 Global_font = '함초롬돋움'
 Global_font_size = '15pt'
@@ -243,6 +245,46 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop3Signal:hover', [
         f'background-color: {LightBlue};',
         ]),
+    builder('QWidget', 'SignalWindow', [
+        f'background-color: {LightGray};',
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'SignalTitle', [
+        f'background-color: {DarkGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'padding-left: 3px;',
+        'border-top-left-radius: 5px;',
+        'border-top-right-radius: 5px;'
+        ]),
+    builder('QWidget', 'SignalResultWidget', [
+        f'background-color: {LightGray};',
+        f'border: 2px solid {Gray};'
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'SignalResultWidgetTitle', [
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+    builder('QLabel', 'SignalResultWidgetResult', [
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+
+
+
+
+
+
+
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -299,7 +341,88 @@ QssMainTop = ''.join([
         'border-radius: 5px;'
         ]),
 ])
+QssMainMiddle = ''.join([
+    builder('QWidget', 'MainMiddle', [
+        f'background-color: {LightWhite};',
+        ]),
+])
+QssMainRight = ''.join([
+    builder('QWidget', 'MainRight', [
+        f'background-color: {Gray};',
+        ]),
+    # MainRightTop1 -----------------------------------------------------------------
+    builder('QLabel', 'MainRightTop1Title', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignCenter';",
+        'border-radius: 5px;',
+        'font-weight: bold;',
+        ]),
+    builder('QPushButton', 'MainRightTop1Normal', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;',
+        ]),
+    builder('QPushButton', 'MainRightTop1Normal:checked', [
+        f'background-color: {Green};',
+        ]),
+    builder('QPushButton', 'MainRightTop1Abnormal', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;',
+        ]),
+    builder('QPushButton', 'MainRightTop1Abnormal:checked', [
+        f'background-color: {Yellow};',
+        ]),
+    builder('QPushButton', 'MainRightTop1Emergency', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;',
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;',
+        ]),
+    builder('QPushButton', 'MainRightTop1Emergency:checked', [
+        f'background-color: {DarkRed};',
+        ]),
+    # MainRightTop2 -----------------------------------------------------------------
+    builder('QTableWidget', 'MainRightTop2TimeTable', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+    builder('QTableWidget', 'MainRightTop2TimeTable QHeaderView::section', [
+        f'background-color: {DarkGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-top: 3px;',
+        'padding-left: 3px;',
+        ]),
+    builder('QTableWidget', 'MainRightTop2TimeTable:item', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'text-align: left;',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-left: 3px;',
+        ]),
+])
 # final qss !! 
 qss = ''.join(
-    [QssMain, QssMainLeft, QssMainTop]
+    [QssMain, QssMainLeft, QssMainTop, QssMainMiddle, QssMainRight]
 )

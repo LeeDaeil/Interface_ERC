@@ -6,7 +6,7 @@ from Interface_ABCWidget import *
 class MainTopBar(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        
+        self.setFixedHeight(50)
         # Frame ------------------------------------------------------
         hl = QHBoxLayout(self)
         self.timerlabel = MainTopBarTimer(self)

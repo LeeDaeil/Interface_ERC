@@ -14,7 +14,8 @@ class OperationSelectionWindow(ABCWidget):
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        vl.addWidget(OperationSelectionTitle(self))
+        self.title_label = OperationSelectionTitle(self)
+        vl.addWidget(self.title_label)
         vl.addWidget(OperationSelectionTree(self))
         hl = QHBoxLayout()
         hl.addStretch(1)

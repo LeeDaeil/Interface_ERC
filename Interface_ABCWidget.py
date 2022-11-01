@@ -115,3 +115,10 @@ class ABCTreeWidget(QTreeWidget, TOOL):
         self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
         self.widget_name=type(self).__name__ if widget_name == '' else widget_name
         self.setObjectName(self.widget_name)
+        
+class ABCScrollBar(QScrollBar, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCScrollBar, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+        self.setObjectName(self.widget_name)
