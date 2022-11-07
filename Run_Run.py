@@ -36,6 +36,7 @@ class InterfaceRun(Process):
     def __init__(self, mem):
         super(InterfaceRun, self).__init__()
         app = QApplication(sys.argv)
+        app.setStyle('Windows')
         cns = CNS(mem)
         cns.show()
         w = Main(mem)

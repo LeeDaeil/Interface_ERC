@@ -8,7 +8,7 @@ from Interface_QSS import qss
 class OperationSelectionWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 300, 500)
+        self.setGeometry(0, 0, 380, 500)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
@@ -17,10 +17,14 @@ class OperationSelectionWindow(ABCWidget):
         self.title_label = OperationSelectionTitle(self)
         vl.addWidget(self.title_label)
         vl.addWidget(OperationSelectionTree(self))
+        vl.setSpacing(0)
+        vl.setContentsMargins(0, 0, 0, 0)
         hl = QHBoxLayout()
+        hl.setContentsMargins(0, 0, 10, 10)
         hl.addStretch(1)
         hl.addWidget(OperationSelectionOk(self))
         hl.addWidget(OperationSelectionClose(self))
+        hl.setSpacing(10)
         vl.addLayout(hl)
 
     # window drag
@@ -49,10 +53,11 @@ class OperationSelectionTitle(ABCLabel):
 class OperationSelectionTree(ABCTreeWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setContentsMargins(0, 0, 0, 0)
         self.setHeaderHidden(True)
         self.setColumnCount(1)
         self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-
+        self.setFocusPolicy(Qt.NoFocus)
         self.selected_operation_mode = ''
         self.procedure_names = {} # 
         self.procedure_nubs = {} #
@@ -74,7 +79,7 @@ class OperationSelectionTree(ABCTreeWidget):
                 1: ['Ab01', 'Ab02', 'Ab03', 'Ab04','Ab06'],
                 2: ['LOCA', 'SGTR', 'MSLB', 'SBO', 'LOAF'],
             }
-            btn_list = [OperationSelectionTreeItem(self, in_text=_, fixwidth=150) for _ in op_mode[i]]
+            btn_list = [OperationSelectionTreeItem(self, in_text=_, fixwidth=175) for _ in op_mode[i]]
             self.procedure_buts.append(btn_list)
             
             for btn_xx in btn_list:
@@ -118,7 +123,7 @@ class OperationSelectionTreeItem(ABCPushButton):
         self.setText(in_text)
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedWidth(fixwidth)
+        self.setFixedSize(fixwidth, 35)
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
         if not self.top_item:
@@ -129,6 +134,7 @@ class OperationSelectionTreeItem(ABCPushButton):
 class OperationSelectionOk(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(64, 25)
         self.setText('확인')
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
@@ -140,6 +146,7 @@ class OperationSelectionOk(ABCPushButton):
 class OperationSelectionClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(64, 25)
         self.setText('닫기')
     
     def mousePressEvent(self, e: QMouseEvent) -> None:

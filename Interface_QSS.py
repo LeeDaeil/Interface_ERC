@@ -17,10 +17,11 @@ def builder(objecttype:str, objectname:str, contents:list):
 def rgb_to_qCOLOR(color_code:str):
     color_code = color_code.replace('rgb(', '').replace(')', '').replace(' ', '').split(',')
     return QColor(int(color_code[0]), int(color_code[1]), int(color_code[2]))
+
 # Color Table -------------------------------------------------
-DarkGray = 'rgb(78, 78, 78)'
+DarkGray = 'rgb(80, 80, 80)'
 Gray = 'rgb(181, 181, 181)'
-LightGray = 'rgb(231, 231, 231)'
+LightGray = 'rgb(231, 231, 234)'
 LightWhite = 'rgb(255, 255, 255)'
 LightBlue = 'rgb(0, 178, 216)'
 DarkRed = 'rgb(192, 0, 0)'
@@ -29,11 +30,12 @@ Black = 'rgb(0, 0, 0)'
 Green = 'rgb(0, 170, 0)'
 Orange = 'rgb(255, 192, 0)'
 # Font Table --------------------------------------------------
-Global_font = '함초롬돋움'
 Global_font_size_nub = 15
 Content_font_size_nub = 12
 Global_font_size = f'{Global_font_size_nub}pt'
 Content_font_size = f'{Content_font_size_nub}pt'
+Global_font = 'Arial'
+Global_font2 = '맑은 고딕'
 # Qss ---------------------------------------------------------
 QssMain = ''.join(
     builder('QWidget', 'Main', [
@@ -139,17 +141,17 @@ QssMainLeft = ''.join([
         ]),
     builder('QWidget', 'OperationSelectionWindow', [
         f'background-color: {LightGray};',
-        'border-radius: 5px;'
+        # 'border-radius: 5px;'
         ]),
     builder('QLabel', 'OperationSelectionTitle', [
         f'background-color: {DarkGray};',
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size};',
-        "qproperty-alignment: 'AlignLeft';",
+        "text-align: Left;",
         'font-weight: bold;',
-        'padding: 5px;',
-        'border-top-left-radius: 5px;',
-        'border-top-right-radius: 5px;'
+        'padding-left: 5px;',
+        'border-top-left-radius: 10px;',
+        'border-top-right-radius: 10px;'
         ]),
     builder('QTreeWidget', 'OperationSelectionTree', [
         f'background-color: {LightGray};',
@@ -165,54 +167,56 @@ QssMainLeft = ''.join([
         f'font-size: {Global_font_size};',
         'font-weight: bold;',
         'border: none;',
-        'padding: 8px 0px 0px 0px;', 
-        ]),
-    builder('QTreeWidget', 'OperationSelectionTree::branch:has-siblings:!adjoins-item', [
-        f'border-image: url(Img/branch-vline.png) 0;',
-        ]),
-    builder('QTreeWidget', 'OperationSelectionTree::branch:has-siblings:adjoins-item', [
-        f'border-image: url(Img/branch-more.png) 0;',
-        ]),
-    builder('QTreeWidget', 'OperationSelectionTree::branch:!has-children:!has-siblings:adjoins-item', [
-        f'border-image: url(Img/branch-end.png) 0;',
-        ]),
-    builder('QTreeWidget', 'OperationSelectionTree::branch:has-children:!has-siblings:closed,QTreeWidget#OperationSelectionTree::branch:closed:has-children:has-siblings', [
-        'border-image: none;',
-        'image: url(Img/branch-closed.png);'
-        ]),
-    builder('QTreeWidget', 'OperationSelectionTree::branch:open:has-children:!has-siblings,QTreeWidget#OperationSelectionTree::branch:open:has-children:has-siblings', [
-        'border-image: none;',
-        'image: url(Img/branch-open.png);'
-        ]),
+        'padding-left: 5px;',
+    ]),
+    # builder('QTreeWidget', 'OperationSelectionTree::branch:has-siblings:!adjoins-item', [
+    #     f'border-image: url(Img/branch-vline.png) 0;',
+    #     ]),
+    # builder('QTreeWidget', 'OperationSelectionTree::branch:has-siblings:adjoins-item', [
+    #     f'border-image: url(Img/branch-more.png) 0;',
+    #     ]),
+    # builder('QTreeWidget', 'OperationSelectionTree::branch:!has-children:!has-siblings:adjoins-item', [
+    #     f'border-image: url(Img/branch-end.png) 0;',
+    #     ]),
+    # builder('QTreeWidget', 'OperationSelectionTree::branch:has-children:!has-siblings:closed,QTreeWidget#OperationSelectionTree::branch:closed:has-children:has-siblings', [
+    #     'border-image: none;',
+    #     f'border-image: url(Img/branch-closed.png) 0;'
+    #     ]),
+    # builder('QTreeWidget', 'OperationSelectionTree::branch:open:has-children:!has-siblings,QTreeWidget#OperationSelectionTree::branch:open:has-children:has-siblings', [
+    #     'border-image: none;',
+    #     f'border-image: url(Img/branch-open.png);'
+    #     ]),
     builder('QPushButton', 'OperationSelectionTreeItem', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size};',
         'border: none;'
-        'text-align:left;',
-        'padding: 8px 0px 0px 0px;',
+        "text-align:left;",
+        'padding-left: 5px;',
+        'margin-bottom: 5px;',
+        'margin-top: 5px;',
         'font-weight: bold;',
         ]),
-    builder('QPushButton', 'OperationSelectionTreeItem:checked', [
-        f'background-color: {LightBlue};',
-        ]),
+    # builder('QPushButton', 'OperationSelectionTreeItem:checked', [
+    #     f'background-color: {LightBlue};',
+    #     ]),
     builder('QPushButton', 'OperationSelectionOk', [
         f'background-color: {LightWhite};',
-        f'font-family: {Global_font};',
+        f'font-family: {Global_font2};',
         f'font-size: {Content_font_size};',
         'border: none;'
-        'text-align:center;',
+        'text-align: center;',
         'font-weight: bold;',
-        'border-radius: 5px;'
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'OperationSelectionClose', [
         f'background-color: {LightWhite};',
-        f'font-family: {Global_font};',
+        f'font-family: {Global_font2};',
         f'font-size: {Content_font_size};',
         'border: none;'
-        'text-align:center;',
+        'text-align: center;',
         'font-weight: bold;',
-        'border-radius: 5px;'
+        'border-radius: 10px;'
         ]),    
     # Pre-trip/Signal/CSFMonitoring -----------------------
     builder('QWidget', 'MainLeftTop3', [
