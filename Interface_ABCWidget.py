@@ -109,13 +109,46 @@ class ABCGraphicsScene(QGraphicsScene, TOOL):
         self.widget_name=type(self).__name__ if widget_name == '' else widget_name
         self.setObjectName(self.widget_name)
 
+    def mousePressEvent(self, event: 'QGraphicsSceneMouseEvent') -> None:
+        print(f'This is {self.widget_name}')
+        return super().mousePressEvent(event)
+class ABCGraphicsView(QGraphicsView, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsView, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+        self.setObjectName(self.widget_name)
+class ABCGraphicsRectItem(QGraphicsRectItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsRectItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsTextItem(QGraphicsTextItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsTextItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsPolygonItem(QGraphicsPolygonItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsPolygonItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsPathItem(QGraphicsPathItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsPathItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsLineItem(QGraphicsLineItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsLineItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
 class ABCTreeWidget(QTreeWidget, TOOL):
     def __init__(self, parent, widget_name=''):
         super(ABCTreeWidget, self).__init__()
         self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
         self.widget_name=type(self).__name__ if widget_name == '' else widget_name
         self.setObjectName(self.widget_name)
-        
 class ABCScrollBar(QScrollBar, TOOL):
     def __init__(self, parent, widget_name=''):
         super(ABCScrollBar, self).__init__()

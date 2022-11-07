@@ -1,6 +1,9 @@
 # ref : https://het.as.utexas.edu/HET/Software/html/stylesheet-reference.html
 # ref : https://doc.qt.io/archives/qt-4.8/stylesheet-examples.html#customizing-qgroupbox
 # ref : https://wikidocs.net/book/2957
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 # Qss builder -------------------------------------------------
 def builder(objecttype:str, objectname:str, contents:list):
     qss_info = f'{objecttype}#{objectname}' + '{'
@@ -11,7 +14,9 @@ def builder(objecttype:str, objectname:str, contents:list):
     qss_info += '}'
     
     return qss_info
-
+def rgb_to_qCOLOR(color_code:str):
+    color_code = color_code.replace('rgb(', '').replace(')', '').replace(' ', '').split(',')
+    return QColor(int(color_code[0]), int(color_code[1]), int(color_code[2]))
 # Color Table -------------------------------------------------
 DarkGray = 'rgb(78, 78, 78)'
 Gray = 'rgb(181, 181, 181)'
@@ -25,8 +30,10 @@ Green = 'rgb(0, 170, 0)'
 Orange = 'rgb(255, 192, 0)'
 # Font Table --------------------------------------------------
 Global_font = '함초롬돋움'
-Global_font_size = '15pt'
-Content_font_size = '12pt'
+Global_font_size_nub = 15
+Content_font_size_nub = 12
+Global_font_size = f'{Global_font_size_nub}pt'
+Content_font_size = f'{Content_font_size_nub}pt'
 # Qss ---------------------------------------------------------
 QssMain = ''.join(
     builder('QWidget', 'Main', [
@@ -228,6 +235,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop3PreTrip:hover', [
         f'background-color: {LightBlue};',
         ]),
+    # MainLeftTop3Signal ----------------------------------
     builder('QPushButton', 'MainLeftTop3Signal', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -306,6 +314,7 @@ QssMainLeft = ''.join([
         'font-weight: bold;',
         'border-radius: 5px;'
         ]),
+    # MainLeftTop3CSF -------------------------------------
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -517,7 +526,8 @@ QssMainRight = ''.join([
         'border: none;',
         'padding-left: 3px;',
         ]),
-    builder('QPushButton', 'MainRightTop3UnknownEvent', [
+    # MainRightTop3OperationStrategy ------------------------------------------------
+    builder('QPushButton', 'MainRightTop3OperationStrategy', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
         f'font-size: {Content_font_size};',
@@ -525,7 +535,32 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
-    builder('QPushButton', 'MainRightTop3OperationStrategy', [
+    builder('QLabel', 'OperationStrategyTitle', [
+        f'background-color: {DarkGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'padding-left: 3px;',
+        'border-top-left-radius: 5px;',
+        'border-top-right-radius: 5px;'
+        ]),
+    builder('QWidget', 'OperationStrategyBoard', [
+        f'background-color: {LightGray};',
+        'border: none;'
+        ]),
+    # OperationStrategyBoardScene -> py 파일에서 수정
+    builder('QPushButton', 'OperationStrategyClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
+        ]),
+    # MainRightTop3ListAlarm --------------------------------------------------------
+    builder('QPushButton', 'MainRightTop3UnknownEvent', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
         f'font-size: {Content_font_size};',
@@ -549,6 +584,7 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    # Diagnosis ---------------------------------------------------------------------
     builder('QPushButton', 'MainRightTop3Diagnosis', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -557,6 +593,68 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    builder('QWidget', 'DiagnosisWindow', [
+        f'background-color: {LightGray};',
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'DiagnosisTitle', [
+        f'background-color: {DarkGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'padding-left: 3px;',
+        'border-top-left-radius: 5px;',
+        'border-top-right-radius: 5px;'
+        ]),
+    builder('QWidget', 'DiagnosisResultWidget', [
+        f'background-color: {LightGray};',
+        f'border: 2px solid {Gray};'
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'DiagnosisResultWidgetTitle', [
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+    builder('QLabel', 'DiagnosisResultWidgetResult', [
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+    builder('QWidget', 'DiagnosisResultAlarmWidget', [
+        f'background-color: {LightGray};',
+        f'border: 2px solid {Gray};'
+        'border-radius: 5px;'
+        ]),
+    builder('QLabel', 'DiagnosisResultAlarmItem', [
+        f'background-color: {LightGray};',        
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size};',
+        "qproperty-alignment: 'AlignCenter';",
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};'
+        ]),    
+    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="true"]', [
+        f'background-color: {Yellow};'
+        ]),
+    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="false"]', [
+        f'background-color: {LightGray};'
+        ]),
+    builder('QPushButton', 'DiagnosisResultClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
+        ]),
+    # LCO ----------------------------------------------
     builder('QPushButton', 'MainRightTop3LCO', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',

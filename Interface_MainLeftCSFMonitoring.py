@@ -74,7 +74,7 @@ class CSFMonitoringAlarmWidget(ABCWidget):
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         for key, val in self.csf_info.items():
             state = self.inmem.ShMem.get_para_val(val[1])
-            val[0].buttons()[state].setChecked(True)
+            val[0].buttons()[int(state)].setChecked(True)
         return super().timerEvent(a0)
 class CSFMonitoringAlarmLabel(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
