@@ -197,9 +197,9 @@ QssMainLeft = ''.join([
         'margin-top: 5px;',
         'font-weight: bold;',
         ]),
-    # builder('QPushButton', 'OperationSelectionTreeItem:checked', [
-    #     f'background-color: {LightBlue};',
-    #     ]),
+    builder('QPushButton', 'OperationSelectionTreeItem:checked', [
+        f'background-color: {LightBlue};',
+        ]),
     builder('QPushButton', 'OperationSelectionOk', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font2};',

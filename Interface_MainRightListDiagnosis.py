@@ -64,34 +64,35 @@ class DiagnosisResultAlarmWidget(ABCWidget):
         self.gl = QGridLayout(self)
 
         self.fault_alarms = {
-            1:  DiagnosisResultAlarmItem(self, in_text='Feedwater pump outlet press'),
-            2:  DiagnosisResultAlarmItem(self, in_text='Feedwater line #1 flow'),
-            3:  DiagnosisResultAlarmItem(self, in_text='Feedwater line #2 flow'),
-            4:  DiagnosisResultAlarmItem(self, in_text='Feedwater line #3 flow'),
-            5:  DiagnosisResultAlarmItem(self, in_text='Feedwater temperature'),
-            6:  DiagnosisResultAlarmItem(self, in_text='Main steam flow'),
-            7:  DiagnosisResultAlarmItem(self, in_text='Steam line #3 flow'),
-            8:  DiagnosisResultAlarmItem(self, in_text='Steam line #2 flow'),
-            9:  DiagnosisResultAlarmItem(self, in_text='Steam line #1 flow'),
-            10: DiagnosisResultAlarmItem(self, in_text='Main steam header pressure'),
-            11: DiagnosisResultAlarmItem(self, in_text='Charging line outlet temperature'),
-            12: DiagnosisResultAlarmItem(self, in_text='Loop #1 cold-leg temperature'),
-            13: DiagnosisResultAlarmItem(self, in_text='Loop #2 cold-leg temperature'),
-            14: DiagnosisResultAlarmItem(self, in_text='Loop #3 cold-leg temperature'),
-            15: DiagnosisResultAlarmItem(self, in_text='PRZ temperature'),
-            16: DiagnosisResultAlarmItem(self, in_text='Core outlet temperature'),
-            17: DiagnosisResultAlarmItem(self, in_text='Net letdown flow'),
-            18: DiagnosisResultAlarmItem(self, in_text='PRZ level'),
-            19: DiagnosisResultAlarmItem(self, in_text='PRZ pressure (wide range)'),
-            20: DiagnosisResultAlarmItem(self, in_text='Loop #1 flow'),
-            21: DiagnosisResultAlarmItem(self, in_text='Loop #2 flow'),
-            22: DiagnosisResultAlarmItem(self, in_text='Loop #3 flow'),
-            23: DiagnosisResultAlarmItem(self, in_text='S/G #1 level'),
-            24: DiagnosisResultAlarmItem(self, in_text='S/G #2 level'),
-            25: DiagnosisResultAlarmItem(self, in_text='S/G #3 level'),
-            26: DiagnosisResultAlarmItem(self, in_text='S/G #1 pressure'),
-            27: DiagnosisResultAlarmItem(self, in_text='S/G #2 pressure'),
-            28: DiagnosisResultAlarmItem(self, in_text='S/G #3 pressure'),
+            0:  DiagnosisResultPackWidget(self, in_text='Normal',                           nub=0),
+            1:  DiagnosisResultPackWidget(self, in_text='Feedwater pump outlet press',      nub=1),
+            2:  DiagnosisResultPackWidget(self, in_text='Feedwater line #1 flow',           nub=2),
+            3:  DiagnosisResultPackWidget(self, in_text='Feedwater line #2 flow',           nub=3),
+            4:  DiagnosisResultPackWidget(self, in_text='Feedwater line #3 flow',           nub=4),
+            5:  DiagnosisResultPackWidget(self, in_text='Feedwater temperature',            nub=5),
+            6:  DiagnosisResultPackWidget(self, in_text='Main steam flow',                  nub=6),
+            7:  DiagnosisResultPackWidget(self, in_text='Steam line #3 flow',               nub=7),
+            8:  DiagnosisResultPackWidget(self, in_text='Steam line #2 flow',               nub=8),
+            9:  DiagnosisResultPackWidget(self, in_text='Steam line #1 flow',               nub=9),
+            10: DiagnosisResultPackWidget(self, in_text='Main steam header pressure',       nub=10),
+            11: DiagnosisResultPackWidget(self, in_text='Charging line outlet temperature', nub=11),
+            12: DiagnosisResultPackWidget(self, in_text='Loop #1 cold-leg temperature',     nub=12),
+            13: DiagnosisResultPackWidget(self, in_text='Loop #2 cold-leg temperature',     nub=13),
+            14: DiagnosisResultPackWidget(self, in_text='Loop #3 cold-leg temperature',     nub=14),
+            15: DiagnosisResultPackWidget(self, in_text='PRZ temperature',                  nub=15),
+            16: DiagnosisResultPackWidget(self, in_text='Core outlet temperature',          nub=16),
+            17: DiagnosisResultPackWidget(self, in_text='Net letdown flow',                 nub=17),
+            18: DiagnosisResultPackWidget(self, in_text='PRZ level',                        nub=18),
+            19: DiagnosisResultPackWidget(self, in_text='PRZ pressure (wide range)',        nub=19),
+            20: DiagnosisResultPackWidget(self, in_text='Loop #1 flow',                     nub=20),
+            21: DiagnosisResultPackWidget(self, in_text='Loop #2 flow',                     nub=21),
+            22: DiagnosisResultPackWidget(self, in_text='Loop #3 flow',                     nub=22),
+            23: DiagnosisResultPackWidget(self, in_text='S/G #1 level',                     nub=23),
+            24: DiagnosisResultPackWidget(self, in_text='S/G #2 level',                     nub=24),
+            25: DiagnosisResultPackWidget(self, in_text='S/G #3 level',                     nub=25),
+            26: DiagnosisResultPackWidget(self, in_text='S/G #1 pressure',                  nub=26),
+            27: DiagnosisResultPackWidget(self, in_text='S/G #2 pressure',                  nub=27),
+            28: DiagnosisResultPackWidget(self, in_text='S/G #3 pressure',                  nub=28),
         }
 
         for i, item in enumerate(self.fault_alarms.values()):
@@ -99,11 +100,9 @@ class DiagnosisResultAlarmWidget(ABCWidget):
             row = i//3
             self.gl.addWidget(item, row, col)
         
-    # def timerEvent(self, a0: 'QTimerEvent') -> None:
-    #     dis_nub = self.inmem.ShMem.get_para_val('iSigValOnDis')
-    #     for key in self.fault_alarms.keys():
-    #         self.fault_alarms[key].blink_fun(True if key == dis_nub else False)
-    #     return super().timerEvent(a0)
+    def timerEvent(self, a0: 'QTimerEvent') -> None:
+        [self.fault_alarms[key].blink_fun() for key in self.fault_alarms.keys()]
+        return super().timerEvent(a0)
 class DiagnosisResultPackWidget(ABCWidget):
     def __init__(self, parent, in_text='', nub='', widget_name=''):
         super().__init__(parent, widget_name)
@@ -112,12 +111,19 @@ class DiagnosisResultPackWidget(ABCWidget):
         hl = QHBoxLayout(self)
         self.ab_name_w = DiagnosisResultAlarmItem(self, in_text=in_text)
         self.ab_val_w = DiagnosisResultAlarmItem(self, in_text='')
-        hl.addWidget(DiagnosisResultAlarmItem)
+        hl.addWidget(self.ab_name_w)
+        hl.addWidget(self.ab_val_w)
 
-    def blink_fun(self, run=False):
-        if run:
+    def blink_fun(self):
+        self.ab_val_w.setText(f'{self.inmem.ShMem.get_para_val(f"iDAB{self.nub:02}")} [%]')
+        if self.nub == self.inmem.ShMem.get_para_val('iDABNub'):
             self.inmem.widget_ids['DiagnosisResultWidgetResult'].setText(self.in_text)
-        self.ab_val_w.setText(f'{self.inmem.ShMem.get_para_val(f"AB{self.nub:02}")}')
+            self.ab_name_w.blink_fun(True if self.nub != 0 else False)
+            self.ab_val_w.blink_fun(True if self.nub != 0 else False)
+        else:
+            self.ab_name_w.blink_fun(False)
+            self.ab_val_w.blink_fun(False)
+            
 class DiagnosisResultAlarmItem(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
         super().__init__(parent, widget_name)

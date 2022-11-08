@@ -71,48 +71,50 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
         self.item_m_multiple = 3
         
         self.items = {}
-        # Top --------------------------------------------------------------------------------------------------
-        self.items['t1']      = OperationStrategyBoardItem(self, 350, 10, self.item_w * 0.5, self.item_h * 0.5, in_text='Start')
-        self.items['t2']      = OperationStrategyBoardItem(self, self.items['t1'].sx - self.items['t1'].w * 0.5, self.items['t1'].ey, in_text='Are alarms and\ntrip occur?', box=False)
-        # Normal
-        self.items['n1']      = OperationStrategyBoardItem(self, self.items['t2'].sx - self.item_w - self.item_m * self.item_m_multiple,
-                                                      self.items['t2'].ey,  in_text='Normal\noperation strategy')
-        self.items['n2']      = OperationStrategyBoardItem(self, self.items['n1'].sx, self.items['n1'].ey, in_text='Auto control RL')
-        self.items['n3']      = OperationStrategyBoardItem(self, self.items['n2'].sx, self.items['n2'].ey, in_text='Are all the actions\nperformed?', box=False)
-        # Abnormal
-        self.items['a1']      = OperationStrategyBoardItem(self, self.items['t2'].sx, self.items['t2'].ey, in_text='Abnormal\noperation strategy')
-        self.items['a2']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a1'].ey, in_text='Is the scenario\ntrained?', box=False)
-        self.items['a3']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a2'].ey, in_text="Is the operator's\nintervention required?", box=False)
-        self.items['a4']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a3'].ey, in_text='Request for\noperator intervention')
-        self.items['a5']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a4'].ey, in_text='Auto control LSTM')
-        self.items['a6']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a5'].ey, in_text='Are all the actions\nperformed?', box=False)
-        self.items['a7']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a6'].ey, in_text='Manual control')
+        # Box --------------------------------------------------------------------------------------------------
+        if True:
+            # Top
+            self.items['t1']      = OperationStrategyBoardItem(self, 350, 10, self.item_w * 0.5, self.item_h * 0.5, in_text='Start')
+            self.items['t2']      = OperationStrategyBoardItem(self, self.items['t1'].sx - self.items['t1'].w * 0.5, self.items['t1'].ey, in_text='Are alarms and\ntrip occur?', box=False)
+            # Normal
+            self.items['n1']      = OperationStrategyBoardItem(self, self.items['t2'].sx - self.item_w - self.item_m * self.item_m_multiple,
+                                                        self.items['t2'].ey,  in_text='Normal\noperation strategy')
+            self.items['n2']      = OperationStrategyBoardItem(self, self.items['n1'].sx, self.items['n1'].ey, in_text='Auto control RL')
+            self.items['n3']      = OperationStrategyBoardItem(self, self.items['n2'].sx, self.items['n2'].ey, in_text='Are all the actions\nperformed?', box=False)
+            # Abnormal
+            self.items['a1']      = OperationStrategyBoardItem(self, self.items['t2'].sx, self.items['t2'].ey, in_text='Abnormal\noperation strategy')
+            self.items['a2']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a1'].ey, in_text='Is the scenario\ntrained?', box=False)
+            self.items['a3']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a2'].ey, in_text="Is the operator's\nintervention required?", box=False)
+            self.items['a4']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a3'].ey, in_text='Request for\noperator intervention')
+            self.items['a5']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a4'].ey, in_text='Auto control LSTM')
+            self.items['a6']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a5'].ey, in_text='Are all the actions\nperformed?', box=False)
+            self.items['a7']      = OperationStrategyBoardItem(self, self.items['a1'].sx, self.items['a6'].ey, in_text='Manual control')
 
-        self.items['a8']      = OperationStrategyBoardItem(self, self.items['a1'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a4'].ey, in_text='Auto control LSTM')
-        self.items['a9']      = OperationStrategyBoardItem(self, self.items['a8'].sx, self.items['a8'].ey, in_text='Are all the actions\nperformed?', box=False)
-        
-        self.items['a10']     = OperationStrategyBoardItem(self, self.items['a8'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a2'].ey, in_text='Request for\noperator intervention')
-        self.items['a11']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a10'].ey, in_text='Auto control RL')
-        self.items['a12']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a11'].ey, in_text='Is the operator involved?', box=False)
-        self.items['a13']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a12'].ey, in_text='Manual control')
-        # Emergency
-        self.items['e1']      = OperationStrategyBoardItem(self, self.items['a10'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['t2'].ey, in_text='Emergency\noperation strategy')
-        self.items['e2']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e1'].ey, in_text='Is Tech Spec\ncomplied?', box=False)
-        self.items['e3']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['a10'].ey, in_text='Is initiating event\nidentified?', box=False)
-        self.items['e4']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e3'].ey, in_text='Auto control LSTM')
-        self.items['e5']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e4'].ey, in_text='Is the status of all\nthe safety functions\nas expected?', box=False)
+            self.items['a8']      = OperationStrategyBoardItem(self, self.items['a1'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a4'].ey, in_text='Auto control LSTM')
+            self.items['a9']      = OperationStrategyBoardItem(self, self.items['a8'].sx, self.items['a8'].ey, in_text='Are all the actions\nperformed?', box=False)
+            
+            self.items['a10']     = OperationStrategyBoardItem(self, self.items['a8'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a2'].ey, in_text='Request for\noperator intervention')
+            self.items['a11']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a10'].ey, in_text='Auto control RL')
+            self.items['a12']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a11'].ey, in_text='Is the operator involved?', box=False)
+            self.items['a13']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a12'].ey, in_text='Manual control')
+            # Emergency
+            self.items['e1']      = OperationStrategyBoardItem(self, self.items['a10'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['t2'].ey, in_text='Emergency\noperation strategy')
+            self.items['e2']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e1'].ey, in_text='Is Tech Spec\ncomplied?', box=False)
+            self.items['e3']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['a10'].ey, in_text='Is initiating event\nidentified?', box=False)
+            self.items['e4']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e3'].ey, in_text='Auto control LSTM')
+            self.items['e5']      = OperationStrategyBoardItem(self, self.items['e1'].sx, self.items['e4'].ey, in_text='Is the status of all\nthe safety functions\nas expected?', box=False)
 
-        self.items['e6']      = OperationStrategyBoardItem(self, self.items['e2'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['e1'].ey, in_text='Execute\nTech Spec action')
-        self.items['e7']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['a10'].ey, in_text='Are all the safety\nfunctions normal?', box=False)
-        self.items['e8']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['e4'].ey, in_text='Auto control ES')
-        self.items['e9']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['e8'].ey, in_text='Is the status of all\nthe safety functions\nas expected?', box=False)
-        
-        self.items['e10']     = OperationStrategyBoardItem(self, self.items['e6'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a10'].ey, in_text='Manual control')
-        # End --------------------------------------------------------------------------------------------------
-        self.items['ae']      = OperationStrategyBoardItem(self, self.items['a7'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
-        self.items['ne']      = OperationStrategyBoardItem(self, self.items['n3'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
-        self.items['ee']      = OperationStrategyBoardItem(self, self.items['e4'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
-        # Box End ----------------------------------------------------------------------------------------------
+            self.items['e6']      = OperationStrategyBoardItem(self, self.items['e2'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['e1'].ey, in_text='Execute\nTech Spec action')
+            self.items['e7']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['a10'].ey, in_text='Are all the safety\nfunctions normal?', box=False)
+            self.items['e8']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['e4'].ey, in_text='Auto control ES')
+            self.items['e9']      = OperationStrategyBoardItem(self, self.items['e6'].sx, self.items['e8'].ey, in_text='Is the status of all\nthe safety functions\nas expected?', box=False)
+            
+            self.items['e10']     = OperationStrategyBoardItem(self, self.items['e6'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a10'].ey, in_text='Manual control')
+            # End --------------------------------------------------------------------------------------------------
+            self.items['ae']      = OperationStrategyBoardItem(self, self.items['a7'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
+            self.items['ne']      = OperationStrategyBoardItem(self, self.items['n3'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
+            self.items['ee']      = OperationStrategyBoardItem(self, self.items['e4'].sx + self.items['t1'].w*0.5, self.items['a7'].ey, self.items['t1'].w, self.items['t1'].h, in_text='End')
+        # Box - Box line ---------------------------------------------------------------------------------------
         if True:
             self.items['t1_2']    = OperationStrategyBoardLineItem(self, self.items['t1'].BottomP, self.items['t2'].TopP)
             self.items['t2_n1']   = OperationStrategyBoardLineItem(self, self.items['t2'].LeftP, self.items['n1'].TopP, angle=10)
@@ -129,6 +131,7 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
             self.items['a5_61']   = OperationStrategyBoardLineItem(self, self.items['a5'].BottomP, self.items['a6'].TopP)
             self.items['a5_62']   = OperationStrategyBoardLineItem(self, self.items['a5'].RightP, self.items['a6'].RightP, angle=2)
             self.items['a6_7']    = OperationStrategyBoardLineItem(self, self.items['a6'].BottomP, self.items['a7'].TopP)
+            self.items['a8_a9']   = OperationStrategyBoardLineItem(self, self.items['a8'].RightP, self.items['a9'].RightP, angle=2)
             self.items['a7_e']    = OperationStrategyBoardLineItem(self, self.items['a7'].BottomP, self.items['ae'].TopP)
             
             self.items['a3_8']    = OperationStrategyBoardLineItem(self, self.items['a3'].RightP, self.items['a8'].TopP, angle=10)
@@ -163,28 +166,29 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
             self.items['e10_e9']   = OperationStrategyBoardLineItem(self, self.items['e10'].BottomP, self.items['e9'].RightP, angle=11)
             self.items['e10_ee']   = OperationStrategyBoardLineItem(self, self.items['e10'].RightP, self.items['ee'].TopP - QPointF(0, self.item_m*0.5), angle=2)
         # NY ---------------------------------------------------------------------------------------------------
-        self.items['n3n']     = OperationStrategyBoardYNItem(self, self.items['n3'].RightP, 1, 'N')      
-        self.items['n3y']     = OperationStrategyBoardYNItem(self, self.items['n3'].BottomP, 3, 'Y')      
-        self.items['a2n']     = OperationStrategyBoardYNItem(self, self.items['a2'].RightP, 1, 'N')      
-        self.items['a2y']     = OperationStrategyBoardYNItem(self, self.items['a2'].BottomP, 3, 'Y')      
-        self.items['a3n']     = OperationStrategyBoardYNItem(self, self.items['a3'].RightP, 1, 'N')      
-        self.items['a3y']     = OperationStrategyBoardYNItem(self, self.items['a3'].BottomP, 3, 'Y')      
-        self.items['a6n']     = OperationStrategyBoardYNItem(self, self.items['a6'].RightP, 1, 'N')      
-        self.items['a6y']     = OperationStrategyBoardYNItem(self, self.items['a6'].BottomP, 3, 'Y')     
-        self.items['a9n']     = OperationStrategyBoardYNItem(self, self.items['a9'].RightP, 1, 'N')     
-        self.items['a9y']     = OperationStrategyBoardYNItem(self, self.items['a9'].BottomP, 3, 'Y')     
-        self.items['a12n']     = OperationStrategyBoardYNItem(self, self.items['a12'].RightP, 1, 'N')     
-        self.items['a12y']     = OperationStrategyBoardYNItem(self, self.items['a12'].BottomP, 3, 'Y')
-        self.items['e2n']     = OperationStrategyBoardYNItem(self, self.items['e2'].RightP, 1, 'N')
-        self.items['e2y']     = OperationStrategyBoardYNItem(self, self.items['e2'].BottomP, 3, 'Y')
-        self.items['e3n']     = OperationStrategyBoardYNItem(self, self.items['e3'].RightP, 1, 'N')
-        self.items['e3y']     = OperationStrategyBoardYNItem(self, self.items['e3'].BottomP, 3, 'Y')
-        self.items['e5n']     = OperationStrategyBoardYNItem(self, self.items['e5'].RightP, 1, 'N')
-        self.items['e5y']     = OperationStrategyBoardYNItem(self, self.items['e5'].BottomP, 3, 'Y')
-        self.items['e7n']     = OperationStrategyBoardYNItem(self, self.items['e7'].RightP, 1, 'N')
-        self.items['e7y']     = OperationStrategyBoardYNItem(self, self.items['e7'].BottomP, 3, 'Y')
-        self.items['e9n']     = OperationStrategyBoardYNItem(self, self.items['e9'].RightP, 1, 'N')
-        self.items['e9y']     = OperationStrategyBoardYNItem(self, self.items['e9'].BottomP, 3, 'Y')
+        if True:
+            self.items['n3n']     = OperationStrategyBoardYNItem(self, self.items['n3'].RightP, 1, 'N')      
+            self.items['n3y']     = OperationStrategyBoardYNItem(self, self.items['n3'].BottomP, 3, 'Y')      
+            self.items['a2n']     = OperationStrategyBoardYNItem(self, self.items['a2'].RightP, 1, 'N')      
+            self.items['a2y']     = OperationStrategyBoardYNItem(self, self.items['a2'].BottomP, 3, 'Y')      
+            self.items['a3n']     = OperationStrategyBoardYNItem(self, self.items['a3'].RightP, 1, 'N')      
+            self.items['a3y']     = OperationStrategyBoardYNItem(self, self.items['a3'].BottomP, 3, 'Y')      
+            self.items['a6n']     = OperationStrategyBoardYNItem(self, self.items['a6'].RightP, 1, 'N')      
+            self.items['a6y']     = OperationStrategyBoardYNItem(self, self.items['a6'].BottomP, 3, 'Y')     
+            self.items['a9n']     = OperationStrategyBoardYNItem(self, self.items['a9'].RightP, 1, 'N')     
+            self.items['a9y']     = OperationStrategyBoardYNItem(self, self.items['a9'].BottomP, 3, 'Y')     
+            self.items['a12n']     = OperationStrategyBoardYNItem(self, self.items['a12'].RightP, 1, 'N')     
+            self.items['a12y']     = OperationStrategyBoardYNItem(self, self.items['a12'].BottomP, 3, 'Y')
+            self.items['e2n']     = OperationStrategyBoardYNItem(self, self.items['e2'].RightP, 1, 'N')
+            self.items['e2y']     = OperationStrategyBoardYNItem(self, self.items['e2'].BottomP, 3, 'Y')
+            self.items['e3n']     = OperationStrategyBoardYNItem(self, self.items['e3'].RightP, 1, 'N')
+            self.items['e3y']     = OperationStrategyBoardYNItem(self, self.items['e3'].BottomP, 3, 'Y')
+            self.items['e5n']     = OperationStrategyBoardYNItem(self, self.items['e5'].RightP, 1, 'N')
+            self.items['e5y']     = OperationStrategyBoardYNItem(self, self.items['e5'].BottomP, 3, 'Y')
+            self.items['e7n']     = OperationStrategyBoardYNItem(self, self.items['e7'].RightP, 1, 'N')
+            self.items['e7y']     = OperationStrategyBoardYNItem(self, self.items['e7'].BottomP, 3, 'Y')
+            self.items['e9n']     = OperationStrategyBoardYNItem(self, self.items['e9'].RightP, 1, 'N')
+            self.items['e9y']     = OperationStrategyBoardYNItem(self, self.items['e9'].BottomP, 3, 'Y')
         [self.addItem(w) for w in self.items.values()]
         self.startTimer(600)
 

@@ -53,32 +53,40 @@ iEmptyAlnon	INTEGER	No alarm (non)
 iEmptyAlem	INTEGER	No alarm (em)
 iOpHistory	INTEGER	Operation History (0: Normal, 1: Abnormal, 2: Emergency)
 iSigValOnDis	INTEGER	0: No | 1 ~ 28: Fault Nub
-iCSFReactivity	INTEGER	Reactivity Control
-iCSFCoreHeat	INTEGER	Core heat removal
-iCSFRCSHeat	INTEGER	RCS Heat removal
-iCSFRCSPres	INTEGER	RCS Pressure Control
-iCSFCTMT	INTEGER	Containment Pressure and Temperature
-iCSFRCSInvt	INTEGER	RCS Inventory Control
-iOpStrategy	INTEGER	Operation level
-iDABNub	INTEGER	Diagnosis nuber
-iDAB00	INTEGER	Normal
-iDAB01	INTEGER	Ab01
-iDAB02	INTEGER	Ab02
-iDAB03	INTEGER	Ab03
-iDAB04	INTEGER	Ab04
-iDAB05	INTEGER	Ab05
-iDAB06	INTEGER	Ab06
-iDAB07	INTEGER	Ab07
-iDAB08	INTEGER	Ab08
-iDAB09	INTEGER	Ab09
-iDAB10	INTEGER	Ab10
-iDAB11	INTEGER	Ab11
-iDAB12	INTEGER	Ab12
-iDAB13	INTEGER	Ab13
-iDAB14	INTEGER	Ab14
-iDAB15	INTEGER	Ab15
-iDAB16	INTEGER	Ab16
-iDAB17	INTEGER	Ab17
-iDAB18	INTEGER	Ab18
-iDAB19	INTEGER	Ab19
-iDAB20	INTEGER	Ab20
+iCSFReactivity	INTEGER	Reactivity Control Ex) 1, 2, 3, 4
+iCSFCoreHeat	INTEGER	Core heat removal Ex) 1, 2, 3, 4
+iCSFRCSHeat	INTEGER	RCS Heat removal Ex) 1, 2, 3, 4
+iCSFRCSPres	INTEGER	RCS Pressure Control Ex) 1, 2, 3, 4
+iCSFCTMT	INTEGER	Containment Pressure and Temperature Ex) 1, 2, 3, 4
+iCSFRCSInvt	INTEGER	RCS Inventory Control Ex) 1, 2, 3, 4
+iOpStrategy	INTEGER	Operation level Ex) 1, 2, 3, ...
+iDABNub	INTEGER	Diagnosis nuber Ex) 1, 2, 3 ...
+iDAB00	INTEGER	Normal Ex) 1 -> 1%
+iDAB01	INTEGER	Ab01 Ex) 1 -> 1%
+iDAB02	INTEGER	Ab02 Ex) 1 -> 1%
+iDAB03	INTEGER	Ab03 Ex) 1 -> 1%
+iDAB04	INTEGER	Ab04 Ex) 1 -> 1%
+iDAB05	INTEGER	Ab05 Ex) 1 -> 1%
+iDAB06	INTEGER	Ab06 Ex) 1 -> 1%
+iDAB07	INTEGER	Ab07 Ex) 1 -> 1%
+iDAB08	INTEGER	Ab08 Ex) 1 -> 1%
+iDAB09	INTEGER	Ab09 Ex) 1 -> 1%
+iDAB10	INTEGER	Ab10 Ex) 1 -> 1%
+iDAB11	INTEGER	Ab11 Ex) 1 -> 1%
+iDAB12	INTEGER	Ab12 Ex) 1 -> 1%
+iDAB13	INTEGER	Ab13 Ex) 1 -> 1%
+iDAB14	INTEGER	Ab14 Ex) 1 -> 1%
+iDAB15	INTEGER	Ab15 Ex) 1 -> 1%
+iDAB16	INTEGER	Ab16 Ex) 1 -> 1%
+iDAB17	INTEGER	Ab17 Ex) 1 -> 1%
+iDAB18	INTEGER	Ab18 Ex) 1 -> 1%
+iDAB19	INTEGER	Ab19 Ex) 1 -> 1%
+iDAB20	INTEGER	Ab20 Ex) 1 -> 1%
+iDAB21	INTEGER	Ab21 Ex) 1 -> 1%
+iDAB22	INTEGER	Ab22 Ex) 1 -> 1%
+iDAB23	INTEGER	Ab23 Ex) 1 -> 1%
+iDAB24	INTEGER	Ab24 Ex) 1 -> 1%
+iDAB25	INTEGER	Ab25 Ex) 1 -> 1%
+iDAB26	INTEGER	Ab26 Ex) 1 -> 1%
+iDAB27	INTEGER	Ab27 Ex) 1 -> 1%
+iDAB28	INTEGER	Ab28 Ex) 1 -> 1%

@@ -16,7 +16,8 @@ class OperationSelectionWindow(ABCWidget):
         vl = QVBoxLayout(self)
         self.title_label = OperationSelectionTitle(self)
         vl.addWidget(self.title_label)
-        vl.addWidget(OperationSelectionTree(self))
+        self.op_tree = OperationSelectionTree(self)
+        vl.addWidget(self.op_tree)
         vl.setSpacing(0)
         vl.setContentsMargins(0, 0, 0, 0)
         hl = QHBoxLayout()
@@ -43,6 +44,9 @@ class OperationSelectionWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+
+    def initiation(self):
+        self.op_tree.initiation()
 
 class OperationSelectionTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
@@ -91,7 +95,9 @@ class OperationSelectionTree(ABCTreeWidget):
                 self.procedure_nubs[btn_xx.in_text] = len(self.procedure_nubs)
                 #
                 self.btn_xx_group.addButton(btn_xx)
-                
+        self.initiation()
+
+    def initiation(self):
         # 초기 상태 업데이트        
         for btn_group, top_btn in zip(self.procedure_buts, self.btn_x_group.buttons()):
             for btn in btn_group:

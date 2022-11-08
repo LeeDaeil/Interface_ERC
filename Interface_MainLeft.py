@@ -76,6 +76,7 @@ class MainLeftTop2OperationSelectionBtn(ABCPushButton):
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
+        self.w.initiation()
         return super().mousePressEvent(e)
 
 class MainLeftTop2OperationController(ABCLabel):
