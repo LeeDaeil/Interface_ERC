@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg17"
+   sodipodi:docname="images.svg"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.1997092"
+     inkscape:cx="177.52347"
+     inkscape:cy="130.24449"
+     inkscape:window-width="1332"
+     inkscape:window-height="1082"
+     inkscape:window-x="1180"
+     inkscape:window-y="278"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs14" />
+  <g
+     inkscape:label="레이어 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="Pump_Off"
+       data-name="레이어 1"
+       transform="matrix(0.1615502,0,0,0.1615502,37.895588,84.069431)">
+      <g
+         id="pump_l_stop"
+         data-name="pump l stop"
+         transform="translate(-151.7266,-446.17909)">
+        <ellipse
+           id="path16656-58"
+           class="cls-1"
+           cx="41.130001"
+           cy="31.969999"
+           rx="32.57"
+           ry="31.969999"
+           style="fill:#4b9c89;fill-opacity:1" />
+        <rect
+           id="rect16762-0"
+           class="cls-1"
+           y="0"
+           width="41.130001"
+           height="27.51"
+           x="0"
+           style="fill:#4b9c89;fill-opacity:1" />
+        <path
+           id="path16797-3"
+           class="cls-1"
+           d="m 73.7,76.53 c -21.88,0 -65.81,0 -65.81,0 l 31.95,-32.3 z"
+           style="fill:#4b9c89;fill-opacity:1" />
+      </g>
+    </g>
+    <g
+       id="Pump_On"
+       data-name="레이어 1"
+       transform="matrix(0.1615502,0,0,0.1615502,71.235798,83.691513)"
+       style="fill:#b61c2e;fill-opacity:1">
+      <g
+         id="pump_l_stop-5"
+         data-name="pump l stop"
+         transform="translate(-151.7266,-446.17909)"
+         style="fill:#b61c2e;fill-opacity:1">
+        <ellipse
+           id="path16656-58-5"
+           class="cls-1"
+           cx="41.130001"
+           cy="31.969999"
+           rx="32.57"
+           ry="31.969999"
+           style="fill:#b61c2e;fill-opacity:1" />
+        <rect
+           id="rect16762-0-7"
+           class="cls-1"
+           y="0"
+           width="41.130001"
+           height="27.51"
+           x="0"
+           style="fill:#b61c2e;fill-opacity:1" />
+        <path
+           id="path16797-3-5"
+           class="cls-1"
+           d="m 73.7,76.53 c -21.88,0 -65.81,0 -65.81,0 l 31.95,-32.3 z"
+           style="fill:#b61c2e;fill-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -26,16 +26,19 @@ LightWhite = 'rgb(255, 255, 255)'
 LightBlue = 'rgb(0, 178, 216)'
 DarkRed = 'rgb(192, 0, 0)'
 Yellow = 'rgb(249, 249, 0)'
+DarkYellow = 'rgb(255, 192, 0)'
 Black = 'rgb(0, 0, 0)'
 Green = 'rgb(0, 170, 0)'
 Orange = 'rgb(255, 192, 0)'
 # Font Table --------------------------------------------------
 Global_font_size_nub = 15
 Content_font_size_nub = 12
+Mimic_font_size_nub = 12
 Global_font_size = f'{Global_font_size_nub}pt'
 Content_font_size = f'{Content_font_size_nub}pt'
 Global_font = 'Arial'
 Global_font2 = '맑은 고딕'
+
 # Qss ---------------------------------------------------------
 QssMain = ''.join(
     builder('QWidget', 'Main', [
@@ -452,7 +455,8 @@ QssMainTop = ''.join([
 ])
 QssMainMiddle = ''.join([
     builder('QWidget', 'MainMiddle', [
-        f'background-color: {LightWhite};',
+        f'background-color: {LightGray};',
+        'border: none;'
         ]),
 ])
 QssMainRight = ''.join([

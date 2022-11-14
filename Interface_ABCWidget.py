@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtSvg import QGraphicsSvgItem, QSvgRenderer
 from Function_Mem_ShMem import ShMem, InterfaceMem
 
 
@@ -141,6 +142,16 @@ class ABCGraphicsPathItem(QGraphicsPathItem, TOOL):
 class ABCGraphicsLineItem(QGraphicsLineItem, TOOL):
     def __init__(self, parent, widget_name=''):
         super(ABCGraphicsLineItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsSvgItem(QGraphicsSvgItem, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsSvgItem, self).__init__()
+        self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
+        self.widget_name=type(self).__name__ if widget_name == '' else widget_name
+class ABCGraphicsItemGroup(QGraphicsItemGroup, TOOL):
+    def __init__(self, parent, widget_name=''):
+        super(ABCGraphicsItemGroup, self).__init__()
         self.inmem: InterfaceMem = TOOL.make_shmem(parent, self, widget_name)
         self.widget_name=type(self).__name__ if widget_name == '' else widget_name
 class ABCTreeWidget(QTreeWidget, TOOL):
