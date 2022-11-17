@@ -23,13 +23,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.1997092"
-     inkscape:cx="177.52347"
-     inkscape:cy="130.24449"
+     inkscape:zoom="1.0998546"
+     inkscape:cx="220.48369"
+     inkscape:cy="304.58572"
      inkscape:window-width="1332"
-     inkscape:window-height="1082"
-     inkscape:window-x="1180"
-     inkscape:window-y="278"
+     inkscape:window-height="903"
+     inkscape:window-x="1252"
+     inkscape:window-y="263"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
@@ -100,6 +100,106 @@
            class="cls-1"
            d="m 73.7,76.53 c -21.88,0 -65.81,0 -65.81,0 l 31.95,-32.3 z"
            style="fill:#b61c2e;fill-opacity:1" />
+      </g>
+    </g>
+    <g
+       id="HX_V"
+       transform="matrix(0.15360426,0,0,0.15360426,33.594343,37.153423)">
+      <g
+         id="HX"
+         transform="translate(-286.6288,-293.22058)">
+        <rect
+           id="rect15956-0"
+           class="cls-1"
+           x="159.36194"
+           y="293.9252"
+           width="47.73"
+           height="95.449997"
+           style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+        <g
+           id="g6551"
+           transform="translate(-1.1752319e-5,-0.45460011)">
+          <path
+             id="rect19827-7"
+             class="cls-1"
+             d="m 159.43695,321.4248 h 47.58 v 41.36 h -47.58 z"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-9-6"
+             class="cls-1"
+             d="m 175.00695,348.3648 c 3.46,3.27 5.89,6.05 8.82,9.08"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-9-0"
+             class="cls-1"
+             d="m 183.82695,357.4448 v 5.36"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-0"
+             class="cls-1"
+             d="m 183.82695,321.4248 v 6.59"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-80"
+             class="cls-1"
+             d="m 183.82695,328.0048 c 3.96,3.58 6.74,6.63 10.1,9.95"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-1-2-8-8"
+             class="cls-1"
+             d="m 193.98695,337.9548 -18.98,10.41"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="HX_H"
+       transform="matrix(0,0.15360426,-0.15360426,0,52.873378,63.243623)">
+      <g
+         id="HX-7"
+         transform="translate(-286.6288,-293.22058)">
+        <rect
+           id="rect15956-0-2"
+           class="cls-1"
+           x="159.36194"
+           y="293.9252"
+           width="47.73"
+           height="95.449997"
+           style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+        <g
+           id="g6551-0"
+           transform="translate(-1.1752319e-5,-0.45460011)">
+          <path
+             id="rect19827-7-8"
+             class="cls-1"
+             d="m 159.43695,321.4248 h 47.58 v 41.36 h -47.58 z"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-9-6-0"
+             class="cls-1"
+             d="m 175.00695,348.3648 c 3.46,3.27 5.89,6.05 8.82,9.08"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-9-0-5"
+             class="cls-1"
+             d="m 183.82695,357.4448 v 5.36"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-0-6"
+             class="cls-1"
+             d="m 183.82695,321.4248 v 6.59"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-80-9"
+             class="cls-1"
+             d="m 183.82695,328.0048 c 3.96,3.58 6.74,6.63 10.1,9.95"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+          <path
+             id="path31413-2-1-2-8-8-4"
+             class="cls-1"
+             d="m 193.98695,337.9548 -18.98,10.41"
+             style="fill:#727171;stroke:#231815;stroke-width:0.5px" />
+        </g>
       </g>
     </g>
   </g>

@@ -1,0 +1,48 @@
+{
+  "P1": {
+    "Id": "P1",
+    "CType": "Pump",
+    "x": 10,
+    "y": 10,
+    "direction": "R",
+    "alarm_name": "iMMP1A",
+    "comp_name": "RHR PP",
+    "para_name": "iMMP1S",
+    "connected_id": [
+      "L1"
+    ]
+  },
+  "L1": {
+    "Id": "L1",
+    "CType": "Pipe",
+    "x1": 100.0,
+    "y1": 100.0,
+    "x2": 150.0,
+    "y2": 100.0,
+    "arrow": true,
+    "connected_id": [
+      "L2"
+    ]
+  },
+  "L2": {
+    "Id": "L2",
+    "CType": "Pipe",
+    "x1": 180.0,
+    "y1": 192.0,
+    "x2": 180.0,
+    "y2": 242.0,
+    "arrow": true,
+    "connected_id": []
+  },
+  "N1": {
+    "Id": "N1",
+    "CType": "Img",
+    "x": 104.0,
+    "y": 359.0,
+    "img_name": "HX",
+    "direction": "V",
+    "comp_name": "RHR HX",
+    "comp_name_direction": "Right",
+    "alarm_name": "iMMN1A"
+  }
+}

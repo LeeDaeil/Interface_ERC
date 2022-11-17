@@ -1,0 +1,28 @@
+{
+    "P1": {
+      "Id": "P1",
+      "CType": "Pump",
+      "x": 10,
+      "y": 10,
+      "direction": "R",
+      "comp_name": "TEMP1",
+      "para_name": "iTestS",
+      "alarm_name": "iTestA",
+      "connected_id": [
+        "L1"
+      ]
+    },
+    "P2": {
+      "Id": "P2",
+      "CType": "Pump",
+      "x": 225.0,
+      "y": 228.0,
+      "direction": "R",
+      "comp_name": "TEMP1",
+      "para_name": "iTestS",
+      "alarm_name": "iTestA",
+      "connected_id": [
+        "L1"
+      ]
+    }
+  }
