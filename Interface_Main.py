@@ -15,7 +15,7 @@ class Main(QWidget):
     def __init__(self, ShMem):
         super(Main, self).__init__()
         self.inmem:InterfaceMem = InterfaceMem(ShMem, self)
-        self.setGeometry(0, 0, 1920, 1080)
+        self.setGeometry(0, 0, 2560, 1440)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setObjectName('Main')
         self.setStyleSheet(qss) # qss load

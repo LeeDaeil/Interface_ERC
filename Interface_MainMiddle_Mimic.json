@@ -2,24 +2,33 @@
   "P1": {
     "Id": "P1",
     "CType": "Pump",
-    "x": 10,
-    "y": 10,
+    "x": 102.0,
+    "y": 641.0,
     "direction": "R",
     "alarm_name": "iMMP1A",
-    "comp_name": "RHR PP",
+    "comp_name": "GOODPP",
     "para_name": "iMMP1S",
-    "connected_id": [
-      "L1"
-    ]
+    "connected_id": []
+  },
+  "P2": {
+    "Id": "P2",
+    "CType": "RCP",
+    "x": 224.0,
+    "y": 717.0,
+    "direction": "R",
+    "alarm_name": "iMMP1A",
+    "comp_name": "RCP #1",
+    "para_name": "iMMP1S",
+    "connected_id": []
   },
   "L1": {
     "Id": "L1",
     "CType": "Pipe",
-    "x1": 100.0,
-    "y1": 100.0,
-    "x2": 150.0,
-    "y2": 100.0,
-    "arrow": true,
+    "x1": 150.0,
+    "y1": 189.0,
+    "x2": 200.0,
+    "y2": 189.0,
+    "arrow": "False",
     "connected_id": [
       "L2"
     ]
@@ -27,22 +36,150 @@
   "L2": {
     "Id": "L2",
     "CType": "Pipe",
-    "x1": 180.0,
-    "y1": 192.0,
-    "x2": 180.0,
-    "y2": 242.0,
-    "arrow": true,
+    "x1": 496.0,
+    "y1": 372.0,
+    "x2": 496.0,
+    "y2": 422.0,
+    "arrow": "true",
     "connected_id": []
+  },
+  "V1": {
+    "Id": "V1",
+    "CType": "Valve",
+    "x": 272.0,
+    "y": 608.0,
+    "direction": "V",
+    "alarm_name": "iMMP1A",
+    "comp_name": "RHR PP",
+    "comp_name_direction": "Right",
+    "para_name": "iMMP1S",
+    "connected_id": [
+      "L2"
+    ]
+  },
+  "V2": {
+    "Id": "V2",
+    "CType": "Valve",
+    "x": 379.0,
+    "y": 423.0,
+    "direction": "V",
+    "alarm_name": "iMMP1A",
+    "comp_name": "BHV6",
+    "comp_name_direction": "Right",
+    "para_name": "BHV6",
+    "connected_id": [
+      "L2"
+    ]
   },
   "N1": {
     "Id": "N1",
     "CType": "Img",
-    "x": 104.0,
-    "y": 359.0,
+    "x": 126.0,
+    "y": 414.0,
     "img_name": "HX",
     "direction": "V",
     "comp_name": "RHR HX",
     "comp_name_direction": "Right",
     "alarm_name": "iMMN1A"
+  },
+  "N2": {
+    "Id": "N2",
+    "CType": "Img",
+    "x": 74.0,
+    "y": 259.0,
+    "img_name": "ACC",
+    "direction": "V",
+    "comp_name": "VCT",
+    "comp_name_direction": "Top",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "N3": {
+    "Id": "N3",
+    "CType": "Img",
+    "x": 9.0,
+    "y": 925.0,
+    "img_name": "Sump",
+    "direction": "V",
+    "comp_name": "CTMT SUMP",
+    "comp_name_direction": "Top",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "N4": {
+    "Id": "N4",
+    "CType": "Img",
+    "x": 7.0,
+    "y": 6.0,
+    "img_name": "Sump",
+    "direction": "V",
+    "comp_name": "RWST",
+    "comp_name_direction": "Top",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "N5": {
+    "Id": "N5",
+    "CType": "Img",
+    "x": 499.0,
+    "y": 528.0,
+    "img_name": "SG",
+    "direction": "V",
+    "comp_name": "PZR",
+    "comp_name_direction": "Top",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "N6": {
+    "Id": "N6",
+    "CType": "Img",
+    "x": 593.0,
+    "y": 239.0,
+    "img_name": "Turbine",
+    "direction": "H",
+    "comp_name": "HP",
+    "comp_name_direction": "Center",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "N7": {
+    "Id": "N7",
+    "CType": "Img",
+    "x": 258.0,
+    "y": 128.0,
+    "img_name": "ION",
+    "direction": "V",
+    "comp_name": "ION",
+    "comp_name_direction": "Top",
+    "comp_name_size": 16,
+    "alarm_name": "iMMNOA"
+  },
+  "I1": {
+    "Id": "I1",
+    "CType": "Indicator",
+    "x": 166.0,
+    "y": 308.0,
+    "unit": "%",
+    "comp_name": "P",
+    "comp_name_size": 16,
+    "para_name": "ZSGN1",
+    "alarm_name": "iMMP1A",
+    "connected_id": [
+      "L2"
+    ]
+  },
+  "I2": {
+    "Id": "I2",
+    "CType": "Indicator",
+    "x": 123.0,
+    "y": 23.0,
+    "unit": "kg/\u33a0",
+    "alarm_name": "iMMP1A",
+    "comp_name": "L",
+    "comp_name_size": 16,
+    "para_name": "ZRWST",
+    "connected_id": [
+      "L1"
+    ]
   }
 }
