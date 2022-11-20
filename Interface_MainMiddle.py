@@ -8,6 +8,7 @@ import json
 import ast
 
 TEST = True
+MOVE = False
 def CPrint(txt):
     if TEST: print(txt)
 class MainMiddle(ABCWidget):
@@ -29,10 +30,15 @@ class MainMiddle(ABCWidget):
         self.shortcut_move_item_right = QShortcut(Qt.Key.Key_Right, self, lambda: self.inmem.widget_ids['MainMiddleMimicScene'].move_item('right'))
         self.shortcut_move_item_left = QShortcut(Qt.Key.Key_Left, self, lambda: self.inmem.widget_ids['MainMiddleMimicScene'].move_item('left'))
         self.shortcut_move_item_delete = QShortcut(Qt.Key.Key_Delete, self, self.inmem.widget_ids['MainMiddleMimicScene'].delete_item)
+        self.shortcut_move_item_hold = QShortcut(Qt.Key.Key_F2, self, self.set_hold_items)
         
     def resizeEvent(self, a0: QResizeEvent) -> None:
         w, h = self.GraphicsView.size().width(), self.GraphicsView.size().height()
         self.GraphicsScene.setSceneRect(QRectF(0, 0, w, h))
+
+    def set_hold_items(self):
+        MOVE = not MOVE
+        print(f'Move mode {MOVE}')
 class MainMiddleMimicView(ABCGraphicsView):
     def __init__(self, parent, widget_name='', scene=None):
         super().__init__(parent, widget_name)
@@ -50,7 +56,7 @@ class MainMiddleMimicScene(ABCGraphicsScene):
         self.load_scene()
 
         self.startTimer(600)
-    
+
     def load_scene(self):
         """
         저장 화면 불러오기 (Ctrl+L)
@@ -72,7 +78,7 @@ class MainMiddleMimicScene(ABCGraphicsScene):
                 self.ItemBox[id] = LineG(self, self.ItemAgs[id])
             elif self.ItemAgs[id]['CType'] == 'Indicator':
                 self.ItemBox[id] = IndiG(self, self.ItemAgs[id])
-            elif self.ItemAgs[id]['CType'] == 'Valve':
+            elif self.ItemAgs[id]['CType'] in ['Valve', 'TValve']:
                 self.ItemBox[id] = ValveG(self, self.ItemAgs[id])
             self.addItem(self.ItemBox[id])
     
@@ -116,7 +122,11 @@ class MainMiddleMimicScene(ABCGraphicsScene):
         self.load_scene()
 
     def max_id_nub(self, id_type):
-        return max([int(id_name[1:]) if id_name[0] == id_type else 0 for id_name in self.ItemAgs.keys()])
+        id_type_list = [int(id_name[1:]) if id_name[0] == id_type else 0 for id_name in self.ItemAgs.keys()]
+        if len(id_type_list) == 0:
+            return 0
+        else:
+            return max([int(id_name[1:]) if id_name[0] == id_type else 0 for id_name in self.ItemAgs.keys()])
     
     def find_empty_id(self, id_type):
         """ id_type 중 비어 있거나 채워지지 않는 곳을 먼저 id로 주고 다 차있으면 id + 1 값 반환 """
@@ -150,10 +160,10 @@ class MainMiddleMimicScene(ABCGraphicsScene):
             elif act == pipe:
                 Id = f'{self.find_empty_id("L")}'
                 self.ItemAgs[Id] = {"Id": f"{Id}", "CType": "Pipe", "x1": x, "y1": y, 
-                                    "x1": x + 50, "y1": y + 50, "arrow": "true","connected_id": []}
+                                    "x2": x + 50, "y2": y + 50, "arrow": "true","connected_id": []}
             elif act == imgs:
                 Id = f'{self.find_empty_id("N")}'
-                self.ItemAgs[Id] = {"Id": f"{Id}", "CType": "Img", "x": x, "y": y,
+                self.ItemAgs[Id] = {"Id": f"{Id}", "CType": "Img", "x": x, "y": y, "img_name": "Sump",
                                     "direction": "V", "comp_name": "TEMP", "comp_name_direction": "Top",
                                     "comp_name_size": 16, "alarm_name": "iTestA"}
             elif act == indi:
@@ -365,7 +375,7 @@ class Indicator(ABCGraphicsRectItem):
                                 self.Width - 4,
                                 self.Hight - 4,
                                 ),
-                         Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter, f'{val}')
+                         Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter, f'{val:.1f}')
     
     def update_args(self, args):
         self.ParaName = args['para_name']
@@ -398,8 +408,9 @@ class PumpG(ABCGraphicsItemGroup):
         self.addToGroup(self.compLabel)
         self.addToGroup(self.comp)
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.setFlag(QGraphicsItem.ItemIsMovable, True)
+        self.setFlag(QGraphicsItem.ItemIsMovable, MOVE)
         self.setPos(self.args['x'], self.args['y'])
+        self.flow = 0.0
     
     def update_state(self):
         val = self.inmem.ShMem.get_para_val(self.args['para_name'])
@@ -491,8 +502,9 @@ class ValveG(ABCGraphicsItemGroup):
         self.addToGroup(self.compLabel)
         self.addToGroup(self.comp)
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.setFlag(QGraphicsItem.ItemIsMovable, True)
+        self.setFlag(QGraphicsItem.ItemIsMovable, MOVE)
         self.setPos(self.args['x'], self.args['y'])
+        self.flow = 0.0
         
     def update_state(self):
         val = self.inmem.ShMem.get_para_val(self.args['para_name'])
@@ -588,8 +600,9 @@ class ImgG(ABCGraphicsItemGroup):
         self.addToGroup(self.comp)
         self.addToGroup(self.compLabel)
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.setFlag(QGraphicsItem.ItemIsMovable, True)
+        self.setFlag(QGraphicsItem.ItemIsMovable, MOVE)
         self.setPos(self.args['x'], self.args['y'])
+        self.flow = 0.0
 
     def update_state(self):
         self.compLabel.update()
@@ -685,9 +698,11 @@ class IndiG(ABCGraphicsItemGroup):
         self.addToGroup(self.comp)
         self.addToGroup(self.unitLabel)
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.setFlag(QGraphicsItem.ItemIsMovable, True)
+        self.setFlag(QGraphicsItem.ItemIsMovable, MOVE)
         self.setPos(self.args['x'], self.args['y'])
         #
+        self.flow = 0.0
+
     def update_state(self):
         val = self.inmem.ShMem.get_para_val(self.args['para_name'])
         self.comp.update()
@@ -768,8 +783,10 @@ class ArrowHead(ABCGraphicsPolygonItem):
         self.update_arrow(args)
 
     def update_arrow(self, args):
-        if bool(args['arrow']):
+        if args['arrow'] == 'True':
             self.setPolygon(QPolygonF([QPointF(-5, 0), QPointF(5, 0), QPointF(0, 10)]))
+        else:
+            self.setPolygon(QPolygonF([QPointF(-5, 0), QPointF(5, 0)]))
         self.setBrush(QBrush(rgb_to_qCOLOR(DarkGray), Qt.BrushStyle.SolidPattern))
         self.setPen(QPen(Qt.PenStyle.NoPen))
         self.setPos(QPointF(args['x2'], args['y2']))
@@ -795,11 +812,12 @@ class LineG(ABCGraphicsItemGroup):
         self.addToGroup(self.Pipe)
         self.addToGroup(self.Arrowhead)
         self.setFlag(QGraphicsItem.ItemIsSelectable, True)
-        self.setFlag(QGraphicsItem.ItemIsMovable, True)
+        self.setFlag(QGraphicsItem.ItemIsMovable, MOVE)
         self.flow = 0.0
         
     def update_state(self):
         if self.flow > 0:
+            self.flow = 1 if self.flow >= 1 else self.flow
             self.Arrowhead.setBrush(QBrush(rgb_to_qCOLOR(LightWhite), Qt.BrushStyle.SolidPattern))
             self.Pipe.setPen(QPen(rgb_to_qCOLOR(LightWhite), 3))
         else:
@@ -811,7 +829,7 @@ class LineG(ABCGraphicsItemGroup):
         if self.args['connected_id'] != []:
             for line_id in self.args['connected_id']:
                 if line_id in self.inmem.widget_ids['MainMiddleMimicScene'].ItemBox.keys():
-                    self.inmem.widget_ids['MainMiddleMimicScene'].ItemBox[line_id].flow = self.flow
+                    self.inmem.widget_ids['MainMiddleMimicScene'].ItemBox[line_id].flow += self.flow
                 else:
                     CPrint(f"{self.args['Id']}와 {line_id} 가 연결되지 않음. Json 파일 수정 필요함.")
                     
@@ -916,7 +934,6 @@ class LineG(ABCGraphicsItemGroup):
         # 아이템 제거 후 재 그리기?
         self.removeFromGroup(self.Pipe)
         self.removeFromGroup(self.Arrowhead)
-
         self.addToGroup(self.Pipe)
         self.addToGroup(self.Arrowhead)
         self.setPos(0, 0)
