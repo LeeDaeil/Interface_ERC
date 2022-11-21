@@ -8,7 +8,7 @@ import json
 import ast
 
 TEST = True
-MOVE = False
+MOVE = True
 def CPrint(txt):
     if TEST: print(txt)
 class MainMiddle(ABCWidget):
@@ -30,15 +30,10 @@ class MainMiddle(ABCWidget):
         self.shortcut_move_item_right = QShortcut(Qt.Key.Key_Right, self, lambda: self.inmem.widget_ids['MainMiddleMimicScene'].move_item('right'))
         self.shortcut_move_item_left = QShortcut(Qt.Key.Key_Left, self, lambda: self.inmem.widget_ids['MainMiddleMimicScene'].move_item('left'))
         self.shortcut_move_item_delete = QShortcut(Qt.Key.Key_Delete, self, self.inmem.widget_ids['MainMiddleMimicScene'].delete_item)
-        self.shortcut_move_item_hold = QShortcut(Qt.Key.Key_F2, self, self.set_hold_items)
         
     def resizeEvent(self, a0: QResizeEvent) -> None:
         w, h = self.GraphicsView.size().width(), self.GraphicsView.size().height()
         self.GraphicsScene.setSceneRect(QRectF(0, 0, w, h))
-
-    def set_hold_items(self):
-        MOVE = not MOVE
-        print(f'Move mode {MOVE}')
 class MainMiddleMimicView(ABCGraphicsView):
     def __init__(self, parent, widget_name='', scene=None):
         super().__init__(parent, widget_name)
