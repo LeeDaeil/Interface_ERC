@@ -143,18 +143,26 @@ QssMainLeft = ''.join([
         f'background-color: {LightBlue};',
         ]),
     builder('QWidget', 'OperationSelectionWindow', [
-        f'background-color: {LightGray};',
-        # 'border-radius: 5px;'
+        f'background-color:transparent;',
+        'border-top-left-radius: 10px;',
+        'border-top-right-radius: 10px;',
         ]),
-    builder('QLabel', 'OperationSelectionTitle', [
+    builder('QWidget', 'OperationSelectionBottom', [
+        f'background-color: {LightGray};',
+    ]),
+    builder('QWidget', 'OperationSelectionTitle_BG', [
         f'background-color: {DarkGray};',
+        'border-top-left-radius: 10px;',
+        'border-top-right-radius: 10px;'
+    ]),
+    builder('QLabel', 'OperationSelectionTitle', [
+        f'background-color: {LightGray};',
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size};',
         "text-align: Left;",
         'font-weight: bold;',
-        'padding-left: 5px;',
-        'border-top-left-radius: 10px;',
-        'border-top-right-radius: 10px;'
+        'padding-left: 3px;',
+        'border-radius: 10px;',
         ]),
     builder('QTreeWidget', 'OperationSelectionTree', [
         f'background-color: {LightGray};',
