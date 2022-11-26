@@ -103,4 +103,4 @@ class InterfaceMem:
         return self.widget_ids
 
     def get_time(self):
-        return str(timedelta(seconds=self.ShMem.get_para_val('KCNTOMS') / 5))
+        return timedelta(seconds=self.ShMem.get_para_val('KCNTOMS') / 5)

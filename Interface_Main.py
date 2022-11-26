@@ -22,14 +22,17 @@ class Main(QWidget):
         self.m_flag = False
         # Frame ------------------------------------------------------
         hl = QVBoxLayout(self)
+        hl.setContentsMargins(0, 0, 0, 0)
         self.maintopbar = MainTopBar(self)
         hl.addWidget(self.maintopbar)
-        #
+        hl.setSpacing(0)
         vl = QHBoxLayout()
+        vl.setContentsMargins(10, 10, 10, 10)
         hl.addLayout(vl)
         vl.addWidget(MainLeft(self))
         vl.addWidget(MainMiddle(self))
         vl.addWidget(MainRight(self))
+
         # End frame --------------------------------------------------
         
     # window drag
