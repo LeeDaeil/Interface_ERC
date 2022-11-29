@@ -10,14 +10,12 @@ class OperationSelectionWindow(ABCWidget):
         super().__init__(parent, widget_name)
         self.setGeometry(10, 10, 300, 500)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
-        self.setAttribute(Qt.WA_TranslucentBackground)      # Border 투명화
+        self.setAttribute(Qt.WA_TranslucentBackground)      # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
         title_bg = OperationSelectionTitle_BG(self)
-        # self.title_label = OperationSelectionTitle(self)
-        # vl.addWidget(self.title_label)
         vl.addWidget(title_bg)
         self.op_tree = OperationSelectionTree(self)
         vl.addWidget(self.op_tree)

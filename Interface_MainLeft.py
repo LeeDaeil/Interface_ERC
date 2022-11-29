@@ -10,8 +10,8 @@ from Interface_MainLeftCSFMonitoring import *
 class MainLeft(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedWidth(662)
-        
+        self.setFixedWidth(642)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         vl = QVBoxLayout(self)
         vl.setContentsMargins(0, 0, 0, 0)
         vl.addWidget(MainLeftTop1(self))
@@ -225,25 +225,29 @@ class MainLeftTop3CSF(ABCPushButton):
 class MainLeftTop4_1(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        
         gl = QGridLayout(self)
+        gl.setContentsMargins(0, 0, 0, 0)
         alarm_list = self.inmem.ShMem.get_alarm_para('nonem')
         alarm_count = len(alarm_list)
         max_alarms_in_row = 5
-        
+
         for i in range(0, ((alarm_count//max_alarms_in_row) + 1) * max_alarms_in_row):
             col = i%max_alarms_in_row
             row = i//max_alarms_in_row
             if i < alarm_count:
-                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)
             else:
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlnon'), row, col) # empty alarm
+
+        gl.setRowStretch(gl.rowCount(), 1)
+        gl.setColumnStretch(gl.columnCount(), 1)
 
 class MainLeftTop4_2(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        
+        self.setAttribute(Qt.WA_TranslucentBackground)  # Border 투명화
         gl = QGridLayout(self)
+        gl.setContentsMargins(0, 0, 0, 0)
         alarm_list = self.inmem.ShMem.get_alarm_para('em')
         alarm_count = len(alarm_list)
         max_alarms_in_row = 5
@@ -252,18 +256,35 @@ class MainLeftTop4_2(ABCWidget):
             col = i%max_alarms_in_row
             row = i//max_alarms_in_row
             if i < alarm_count:
-                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)      
+                gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)
             else:
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlem'), row, col) # empty alarm
+
+        gl.setRowStretch(gl.rowCount(), 1)
+        gl.setColumnStretch(gl.columnCount(), 1)
+
 
 class MainLeftTop4Alarm(ABCPushButton):
     def __init__(self, parent, widget_name='', alarm_id=''):
         super().__init__(parent, widget_name)
-        self.setText(self.inmem.ShMem.get_alarm_des(alarm_id))
+        self.setFixedSize(124, 53)
+        self.setContentsMargins(0, 0, 0, 0)
         self.alarm_id = alarm_id
         self.blink = False
+        lay = QHBoxLayout(self)
+        label = QLabel(self)
+        label.setStyleSheet("font-size:8pt;")
+        label.setText(self.inmem.ShMem.get_alarm_des(alarm_id))
+        label.setAlignment(Qt.AlignCenter)
+        label.setWordWrap(True)
+        label.setTextInteractionFlags(Qt.NoTextInteraction)
+        label.setMouseTracking(False)
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        lay.addWidget(label)
+        self.setLayout(lay)
+
         self.startTimer(600)
-    
+
     def timerEvent(self, e: QTimerEvent) -> None:
         if self.inmem.ShMem.get_para_val(self.alarm_id) == 0:
             self.setProperty('blinking', False)

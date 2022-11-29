@@ -39,7 +39,7 @@ Global_font2 = '맑은 고딕'
 
 for font_size in range(0, 5):
     # globals()['Global_font_size%d'%font_size] = f'{font_size * 3 + 12}pt'
-    globals()['Global_font_size{}'.format(font_size+1)] = f'{font_size * 3 + 12}pt'
+    globals()['Global_font_size{}'.format(font_size)] = f'{font_size * 3 + 10}pt'
 
 # Qss ---------------------------------------------------------
 QssMain = ''.join(
@@ -49,7 +49,7 @@ QssMain = ''.join(
 )
 QssMainLeft = ''.join([
     builder('QWidget', 'MainLeft', [
-        f'background-color: {Gray};',
+        f'background-color: transparent;',
         ]),
     # ---------------------------------------------------
     builder('QWidget', 'MainLeftTop1', [
@@ -255,29 +255,40 @@ QssMainLeft = ''.join([
         ]),
     builder('QWidget', 'SignalWindow', [
         f'background-color: {LightGray};',
-        'border-radius: 5px;'
+        'border-top-left-radius: 10px;',
+        'border-top-right-radius: 10px;',
         ]),
-    builder('QLabel', 'SignalTitle', [
+    builder('QWidget', 'SignalTitle_BG', [
         f'background-color: {DarkGray};',
+        'border-top-left-radius: 10px;',
+        'border-top-right-radius: 10px;'
+    ]),
+    builder('QLabel', 'SignalTitle', [
+        f'background-color: {LightGray};',
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
+        "text-align: Left;",
         'font-weight: bold;',
         'padding-left: 3px;',
-        'border-top-left-radius: 5px;',
-        'border-top-right-radius: 5px;'
+        'border-radius: 10px;',
         ]),
+    builder('QWidget', 'SignalBackground', [
+        f'background-color: {LightGray};',
+    ]),
     builder('QWidget', 'SignalResultWidget', [
         f'background-color: {LightGray};',
         f'border: 2px solid {Gray};'
-        'border-radius: 5px;'
+        'border-radius: 10px;'
         ]),
+
     builder('QLabel', 'SignalResultWidgetTitle', [
+        'background-color: None;',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
+        f'font-size: {Global_font_size3};',
+        "text-align: Left;",
         'font-weight: bold;',
-        'border: none;',
+        'padding-left: 3px;',
+        'border-radius: 10px;',
         ]),
     builder('QLabel', 'SignalResultWidgetResult', [
         f'font-family: {Global_font};',
@@ -289,15 +300,14 @@ QssMainLeft = ''.join([
     builder('QWidget', 'SignalResultAlarmWidget', [
         f'background-color: {LightGray};',
         f'border: 2px solid {Gray};'
-        'border-radius: 5px;'
+        'border-radius: 10px;'
         ]),
     builder('QLabel', 'SignalResultAlarmItem', [
         f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Global_font_size1};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
-        f'border: 1px solid {Gray};'
         ]),    
     builder('QLabel', 'SignalResultAlarmItem[blinking="true"]', [
         f'background-color: {Yellow};'
@@ -308,7 +318,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'SignalResultClose', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size1};',
         'border: none;'
         'text-align:center;',
         'font-weight: bold;',
@@ -317,11 +327,12 @@ QssMainLeft = ''.join([
     # MainLeftTop3CSF -------------------------------------
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
-        f'font-family: {Global_font};',
+        f'font-family: {Global_font2};',
         f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'MainLeftTop3CSF[blinking="true"]', [
         f'background-color: {Yellow};'
@@ -412,13 +423,12 @@ QssMainLeft = ''.join([
         f'background-color: {Gray};',
         ]),
     builder('QWidget', 'MainLeftTop4_2', [
-        f'background-color: {Gray};',
-        f'border: 2px solid {DarkRed};'
+        f'background-color: transparent;',
         ]),
     builder('QPushButton', 'MainLeftTop4Alarm', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size0};',
         'border: none;',
         'text-align:center;',
         ]),
@@ -448,8 +458,9 @@ QssMainTop = ''.join([
 ])
 QssMainMiddle = ''.join([
     builder('QWidget', 'MainMiddle', [
-        f'background-color: {LightGray};',
-        'border: none;'
+        f'background-color: {Gray};',
+        'border: 3px solid #4E4E4E;',
+        'border-radius: 10px;',
         ]),
 ])
 QssMainRight = ''.join([
@@ -460,7 +471,7 @@ QssMainRight = ''.join([
     builder('QLabel', 'MainRightTop1Title', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Global_font_size4};',
         "qproperty-alignment: 'AlignCenter';",
         'border-radius: 5px;',
         'font-weight: bold;',
@@ -468,7 +479,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop1Normal', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -480,7 +491,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop1Abnormal', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -492,7 +503,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop1Emergency', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -505,14 +516,16 @@ QssMainRight = ''.join([
     builder('QTableWidget', 'MainRightTop2TimeTable', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size1};',
         'font-weight: bold;',
         'border: none;',
+        'border-bottom-left-radius: 10px;',
+        'border-bottom-right-radius: 10px;',
         ]),
     builder('QTableWidget', 'MainRightTop2TimeTable QHeaderView::section', [
-        f'background-color: {DarkGray};',
+        f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size1};',
         'font-weight: bold;',
         'border: none;',
         'padding-top: 3px;',
@@ -521,7 +534,7 @@ QssMainRight = ''.join([
     builder('QTableWidget', 'MainRightTop2TimeTable:item', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size1};',
         'text-align: left;',
         'font-weight: bold;',
         'border: none;',
@@ -531,7 +544,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3OperationStrategy', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -564,7 +577,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3UnknownEvent', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -572,7 +585,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3ListAlarm', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -580,7 +593,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3Control', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -589,7 +602,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3Diagnosis', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
@@ -659,7 +672,7 @@ QssMainRight = ''.join([
     builder('QPushButton', 'MainRightTop3LCO', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
+        f'font-size: {Global_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;',
