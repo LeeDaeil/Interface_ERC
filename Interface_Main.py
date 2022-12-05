@@ -22,26 +22,34 @@ class Main(QWidget):
         self.m_flag = False
         # Frame ------------------------------------------------------
         hl = QVBoxLayout(self)
+        hl.setContentsMargins(0, 0, 0, 0)
         self.maintopbar = MainTopBar(self)
         hl.addWidget(self.maintopbar)
-        #
+        hl.setSpacing(0)
         vl = QHBoxLayout()
+        vl.setContentsMargins(10, 10, 10, 10)
         hl.addLayout(vl)
         vl.addWidget(MainLeft(self))
         vl.addWidget(MainMiddle(self))
         vl.addWidget(MainRight(self))
+        vl.setSpacing(15)
+        vl.addStretch(1)
+
+
+
         # End frame --------------------------------------------------
-        
+    def check_mouse_in_area(self):
+        return any([self.underMouse()])
     # window drag
     def mousePressEvent(self, event):        
-        if (event.button() == Qt.LeftButton) and self.maintopbar.check_mouse_in_area():
+        if (event.button() == Qt.LeftButton) and self.check_mouse_in_area():
             self.m_flag = True
             self.m_Position = event.globalPos() - self.pos()
             event.accept()
             self.setCursor(QCursor(Qt.OpenHandCursor))
 
     def mouseMoveEvent(self, QMouseEvent):
-        if Qt.LeftButton and self.m_flag and self.maintopbar.check_mouse_in_area():
+        if Qt.LeftButton and self.m_flag and self.check_mouse_in_area():
             self.move(QMouseEvent.globalPos() - self.m_Position)  # 윈도우 position 변경
             QMouseEvent.accept()
 
@@ -52,3 +60,10 @@ class Main(QWidget):
     def close(self) -> bool:
         QApplication.closeAllWindows()
         return super().close()
+
+    def paintEvent(self, e):
+        qp = QPainter()
+        qp.begin(self)
+        qp.setPen(QPen(QColor(192, 0, 0), 2))
+        qp.drawRect(5, 1210, 654, 240)
+        qp.end()

@@ -13,25 +13,32 @@ from Interface_MainRightListLCO import *
 class MainRight(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedWidth(450)
-        
+        self.setContentsMargins(0, 0, 0, 0)
+        self.setFixedWidth(554)
         vl = QVBoxLayout(self)
+        vl.setContentsMargins(0, 0, 0, 0)
         vl.addWidget(MainRightTop1(self))
         vl.addWidget(MainRightTop2(self))
         vl.addWidget(MainRightTop3(self))
+        vl.setSpacing(10)
+        vl.addStretch(1)
         
 class MainRightTop1(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
+        vl.setContentsMargins(0, 0, 0, 0)
         vl.addWidget(MainRightTop1Title(self))
         
         hl = QHBoxLayout()
+        hl.setContentsMargins(0, 0, 0, 0)
         self.btn_group = QButtonGroup()
         self.btn_list = [MainRightTop1Normal(self), MainRightTop1Abnormal(self), MainRightTop1Emergency(self)]        
         [self.btn_group.addButton(w) for w in self.btn_list]
         [hl.addWidget(w) for w in self.btn_list]
+        hl.setSpacing(10)
         vl.addLayout(hl)
+        vl.setSpacing(10)
 
         self.startTimer(200)
     
@@ -45,12 +52,14 @@ class MainRightTop1(ABCWidget):
 class MainRightTop1Title(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(554, 40)
         self.setText('Operation History')
 
 class MainRightTop1Normal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Normal')
+        self.setFixedSize(178, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
@@ -58,6 +67,7 @@ class MainRightTop1Abnormal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Abnormal')
+        self.setFixedSize(178, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
@@ -65,14 +75,16 @@ class MainRightTop1Emergency(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Emergency')
+        self.setFixedSize(178, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
 class MainRightTop2(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        
+
         hl = QHBoxLayout(self)
+        hl.setContentsMargins(0, 0, 0, 0)
         scroll_ = MainRightTop2Scroller(self)
 
         hl.addWidget(MainRightTop2TimeTable(self, ScrollBarW=scroll_))
@@ -81,12 +93,13 @@ class MainRightTop2(ABCWidget):
 class MainRightTop2TimeTable(ABCTableWidget):
     def __init__(self, parent, widget_name='', ScrollBarW=''):
         super().__init__(parent, widget_name)
+        self.setFixedHeight(1105)
         self.setColumnCount(3)
         self.setColumnWidth(0, 20)
         self.setColumnWidth(1, 80)
         self.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.setHorizontalHeaderLabels(['T', 'Time', 'Description'])
+        self.setHorizontalHeaderLabels([' T', 'Time', 'Description'])
         self.verticalHeader().setVisible(False)
         self.setShowGrid(False)
         # Scroll
@@ -120,21 +133,24 @@ class MainRightTop2Scroller(ABCScrollBar):
 class MainRightTop3(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        
+
         gl = QGridLayout(self)
+        gl.setContentsMargins(0, 0, 0, 0)
         gl.addWidget(MainRightTop3UnknownEvent(self), 0, 0)
         gl.addWidget(MainRightTop3OperationStrategy(self), 0, 1)
         gl.addWidget(MainRightTop3ListAlarm(self), 1, 0)
         gl.addWidget(MainRightTop3Control(self), 1, 1)
         gl.addWidget(MainRightTop3Diagnosis(self), 2, 0)
         gl.addWidget(MainRightTop3LCO(self), 2, 1)
+        gl.setSpacing(10)
 
 class MainRightTop3UnknownEvent(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.w = UnknownEventWindow(self)
         self.setText('Unknown Event')
-    
+        self.setFixedSize(272, 50)
+
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
         return super().mousePressEvent(e)
@@ -144,6 +160,7 @@ class MainRightTop3OperationStrategy(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = OperationStrategyWindow(self)
         self.setText('Operation Strategy')
+        self.setFixedSize(272, 50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -154,6 +171,7 @@ class MainRightTop3ListAlarm(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = ListAlarmWindow(self)
         self.setText('List Alarm')
+        self.setFixedSize(272, 50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -164,6 +182,7 @@ class MainRightTop3Control(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = ControlWindow(self)
         self.setText('Control')
+        self.setFixedSize(272, 50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -174,6 +193,7 @@ class MainRightTop3Diagnosis(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = DiagnosisWindow(self)
         self.setText('Diagnosis')
+        self.setFixedSize(272, 50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -184,7 +204,8 @@ class MainRightTop3LCO(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = LCOWindow(self)
         self.setText('LCO')
-        
+        self.setFixedSize(272, 50)
+
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
         return super().mousePressEvent(e)

@@ -7,61 +7,102 @@ from Interface_QSS import qss
 class SignalWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 500, 400)
+        self.setGeometry(0, 0, 1170, 690)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
+        self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        self.title_label = SignalTitle(self)
-        vl.addWidget(self.title_label)
-        vl.addWidget(SignalResultWidget(self))
-        vl.addWidget(SignalResultAlarmWidget(self))
+        vl_bg = QVBoxLayout(self)
+        self.title_bg = SignalTitle_BG(self)
+        bg_w = SignalBackground(self)
+        bg_w.setLayout(vl_bg)
+        vl_bg.addWidget(SignalResultWidget(self))
+        vl_bg.addWidget(SignalResultAlarmWidget(self))
+        vl.addWidget(self.title_bg)
+        vl.addWidget(bg_w)
+        vl.setSpacing(0)
+        vl_bg.setSpacing(15)
+        vl.setContentsMargins(0, 0, 0, 0)
+        vl_bg.setContentsMargins(15, 15, 15, 15)
 
+        bg_w2 = SignalBackground(self)
         hl = QHBoxLayout()
+        hl.setContentsMargins(0, 0, 15, 15)
         hl.addStretch(1)
         hl.addWidget(SignalResultClose(self))
-        vl.addLayout(hl)
+        hl.setSpacing(10)
+        bg_w2.setLayout(hl)
+        vl.addWidget(bg_w2)
+
+
     # window drag
     def mousePressEvent(self, event):        
-        if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
+        if (event.button() == Qt.LeftButton) and self.title_bg.underMouse():
             self.m_flag = True
             self.m_Position = event.globalPos() - self.pos()
             event.accept()
             self.setCursor(QCursor(Qt.OpenHandCursor))
 
     def mouseMoveEvent(self, QMouseEvent):
-        if Qt.LeftButton and self.m_flag and self.title_label.underMouse():
+        if Qt.LeftButton and self.m_flag and self.title_bg.underMouse():
             self.move(QMouseEvent.globalPos() - self.m_Position)  # 윈도우 position 변경
             QMouseEvent.accept()
 
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+
+class SignalTitle_BG(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        layout = QHBoxLayout(self)
+        layout.addWidget(SignalTitle(self))
+        layout.setContentsMargins(5, 5, 5, 5)
+        layout.addStretch(1)
+        self.setFixedHeight(35)
+
 class SignalTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Signal Validation')
-        self.setFixedHeight(30)
+        self.setFixedSize(240, 25)
+
+class SignalBackground(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+
 class SignalResultWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedHeight(50)
         hl = QHBoxLayout(self)
         hl.addWidget(SignalResultWidgetTitle(self))
         hl.addWidget(SignalResultWidgetResult(self))
+
 class SignalResultWidgetTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Signal Validation Result :')
+
 class SignalResultWidgetResult(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('')
+
 class SignalResultAlarmWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.startTimer(600)
         self.gl = QGridLayout(self)
+        self.gl.setSpacing(5)
+        v_line = QFrame(self)
+        v_line.setLineWidth(2)
+        v_line.setMidLineWidth(1)
+        v_line.setFrameShape(QFrame.HLine)
+        v_line.setFrameShadow(QFrame.Raised)
+        v_line.setPalette(QPalette(QColor(0, 0, 0)))
 
         self.fault_alarms = {
             1: SignalResultAlarmItem(self, in_text='Feedwater pump outlet press'),
@@ -98,16 +139,23 @@ class SignalResultAlarmWidget(ABCWidget):
             col = i%4
             row = i//4
             self.gl.addWidget(item, row, col)
-        
+        self.gl.addWidget(v_line, 0, 0, 4, 4)  # Line 추가
+
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         dis_nub = self.inmem.ShMem.get_para_val('iSigValOnDis')
         for key in self.fault_alarms.keys():
             self.fault_alarms[key].blink_fun(True if key == dis_nub else False)
         return super().timerEvent(a0)
+
+
+
+
+
 class SignalResultAlarmItem(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
         super().__init__(parent, widget_name)
         self.setText(in_text)
+        self.setFixedSize(285, 75)
         self.blink = False
 
     def blink_fun(self, run=False):
@@ -121,6 +169,7 @@ class SignalResultAlarmItem(ABCLabel):
 class SignalResultClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(160, 25)
         self.setText('닫기')
 
     def mousePressEvent(self, e: QMouseEvent) -> None:

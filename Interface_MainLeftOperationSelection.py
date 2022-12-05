@@ -8,25 +8,29 @@ from Interface_QSS import qss
 class OperationSelectionWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 380, 500)
+        self.setGeometry(10, 10, 300, 500)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
+        self.setAttribute(Qt.WA_TranslucentBackground)      # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        self.title_label = OperationSelectionTitle(self)
-        vl.addWidget(self.title_label)
+        title_bg = OperationSelectionTitle_BG(self)
+        vl.addWidget(title_bg)
         self.op_tree = OperationSelectionTree(self)
         vl.addWidget(self.op_tree)
         vl.setSpacing(0)
         vl.setContentsMargins(0, 0, 0, 0)
+
+        bottom_w = OperationSelectionBottom(self)
         hl = QHBoxLayout()
         hl.setContentsMargins(0, 0, 10, 10)
         hl.addStretch(1)
         hl.addWidget(OperationSelectionOk(self))
         hl.addWidget(OperationSelectionClose(self))
         hl.setSpacing(10)
-        vl.addLayout(hl)
+        bottom_w.setLayout(hl)
+        vl.addWidget(bottom_w)
 
     # window drag
     def mousePressEvent(self, event):        
@@ -48,11 +52,24 @@ class OperationSelectionWindow(ABCWidget):
     def initiation(self):
         self.op_tree.initiation()
 
+class OperationSelectionTitle_BG(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        layout = QHBoxLayout(self)
+        layout.addWidget(OperationSelectionTitle(self))
+        layout.setContentsMargins(5, 5, 5, 5)
+        layout.addStretch(1)
+        self.setFixedHeight(35)
+
 class OperationSelectionTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Operation Selection')
-        self.setFixedHeight(30)
+        self.setFixedSize(240, 25)
+
+class OperationSelectionBottom(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
 
 class OperationSelectionTree(ABCTreeWidget):
     def __init__(self, parent, widget_name=''):
@@ -140,7 +157,7 @@ class OperationSelectionTreeItem(ABCPushButton):
 class OperationSelectionOk(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(64, 25)
+        self.setFixedSize(80, 25)
         self.setText('확인')
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
@@ -152,7 +169,7 @@ class OperationSelectionOk(ABCPushButton):
 class OperationSelectionClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(64, 25)
+        self.setFixedSize(80, 25)
         self.setText('닫기')
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
