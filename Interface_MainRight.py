@@ -10,18 +10,18 @@ from Interface_MainRightListControl import *
 from Interface_MainRightListDiagnosis import *
 from Interface_MainRightListLCO import *
 
+Total_W = 554
 class MainRight(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setContentsMargins(0, 0, 0, 0)
-        self.setFixedWidth(554)
+        self.setFixedWidth(Total_W)
         vl = QVBoxLayout(self)
         vl.setContentsMargins(0, 0, 0, 0)
         vl.addWidget(MainRightTop1(self))
         vl.addWidget(MainRightTop2(self))
         vl.addWidget(MainRightTop3(self))
         vl.setSpacing(10)
-        vl.addStretch(1)
         
 class MainRightTop1(ABCWidget):
     def __init__(self, parent, widget_name=''):
@@ -43,7 +43,6 @@ class MainRightTop1(ABCWidget):
         self.startTimer(200)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
-        history_val = self.inmem.ShMem.get_para_val('iOpHistory')
         for i, btn in enumerate(self.btn_group.buttons()):
             if self.inmem.ShMem.get_para_val('iOpHistory') == i:
                 btn.setChecked(True)
@@ -52,14 +51,14 @@ class MainRightTop1(ABCWidget):
 class MainRightTop1Title(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(554, 40)
+        self.setFixedSize(Total_W, 40)
         self.setText('Operation History')
 
 class MainRightTop1Normal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Normal')
-        self.setFixedSize(178, 40)
+        self.setFixedSize((Total_W-10*2)/3, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
@@ -67,7 +66,7 @@ class MainRightTop1Abnormal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Abnormal')
-        self.setFixedSize(178, 40)
+        self.setFixedSize((Total_W-10*2)/3, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
@@ -75,7 +74,7 @@ class MainRightTop1Emergency(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Emergency')
-        self.setFixedSize(178, 40)
+        self.setFixedSize((Total_W-10*2)/3, 40)
         self.setCheckable(True)
         self.setChecked(False)
 
@@ -93,7 +92,7 @@ class MainRightTop2(ABCWidget):
 class MainRightTop2TimeTable(ABCTableWidget):
     def __init__(self, parent, widget_name='', ScrollBarW=''):
         super().__init__(parent, widget_name)
-        self.setFixedHeight(1105)
+        self.setFixedHeight(1085)
         self.setColumnCount(3)
         self.setColumnWidth(0, 20)
         self.setColumnWidth(1, 80)
@@ -149,7 +148,7 @@ class MainRightTop3UnknownEvent(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = UnknownEventWindow(self)
         self.setText('Unknown Event')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -160,7 +159,7 @@ class MainRightTop3OperationStrategy(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = OperationStrategyWindow(self)
         self.setText('Operation Strategy')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -171,7 +170,7 @@ class MainRightTop3ListAlarm(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = ListAlarmWindow(self)
         self.setText('List Alarm')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -182,7 +181,7 @@ class MainRightTop3Control(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = ControlWindow(self)
         self.setText('Control')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -193,7 +192,7 @@ class MainRightTop3Diagnosis(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = DiagnosisWindow(self)
         self.setText('Diagnosis')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -204,7 +203,7 @@ class MainRightTop3LCO(ABCPushButton):
         super().__init__(parent, widget_name)
         self.w = LCOWindow(self)
         self.setText('LCO')
-        self.setFixedSize(272, 50)
+        self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()

@@ -6,11 +6,16 @@ from Interface_MainLeftOperationSelection import *
 from Interface_MainLeftPreTrip import *
 from Interface_MainLeftSignal import *
 from Interface_MainLeftCSFMonitoring import *
+from Interface_QSS import rgb_to_qCOLOR, DarkRed
 
+#
+Total_W = 580 #642
+Selection_W = 280
+SelectionMA = (Total_W - Selection_W - 10 * 4)/2
 class MainLeft(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedWidth(642)
+        self.setFixedWidth(Total_W)
         self.setAttribute(Qt.WA_TranslucentBackground)
         vl = QVBoxLayout(self)
         vl.setContentsMargins(0, 0, 0, 0)
@@ -21,17 +26,15 @@ class MainLeft(ABCWidget):
         vl.addWidget(MainLeftTop4_2(self))
         vl.setSpacing(10)
         vl.addStretch(1)
-
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop1(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(642, 74)
+        self.setFixedHeight(74)
         hl = QHBoxLayout(self)
         hl.setContentsMargins(0, 0, 0, 0)
         hl.addWidget(MainLeftTop1ReactorPower(self))
         hl.addWidget(MainLeftTop1Electric(self))
-
 class MainLeftTop1ReactorPower(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -40,7 +43,6 @@ class MainLeftTop1ReactorPower(ABCLabel):
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         self.setText(f'Reactor Power\n{self.inmem.ShMem.get_para_val("KBCDO23")} [%]')
         return super().timerEvent(a0)
-
 class MainLeftTop1Electric(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -53,7 +55,7 @@ class MainLeftTop1Electric(ABCLabel):
 class MainLeftTop2(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(642, 110)
+        self.setFixedHeight(110)
         vl = QVBoxLayout(self)
         vl.setContentsMargins(10, 10, 10, 10)
         hl1 = QHBoxLayout()
@@ -68,17 +70,15 @@ class MainLeftTop2(ABCWidget):
         self.btngroup.addButton(MainLeftTop2OperationControllerBtnM(self))
         self.btngroup.addButton(MainLeftTop2OperationControllerBtnA(self))
         [hl2.addWidget(w_btn) for w_btn in self.btngroup.buttons()]
-
 class MainLeftTop2OperationSelection(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(314, 40)
+        self.setFixedSize(Selection_W, 40)
         self.setText('Operation Selection')
-
 class MainLeftTop2OperationSelectionBtn(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(298, 40)
+        self.setFixedHeight(40)
         self.w = OperationSelectionWindow(self)
         self.setText('Refueling')
     
@@ -86,17 +86,15 @@ class MainLeftTop2OperationSelectionBtn(ABCPushButton):
         self.w.show()
         self.w.initiation()
         return super().mousePressEvent(e)
-
 class MainLeftTop2OperationController(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(314, 40)
+        self.setFixedSize(Selection_W, 40)
         self.setText('Operation Controller')
-
 class MainLeftTop2OperationControllerBtnM(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(144, 40)
+        self.setFixedSize(SelectionMA, 40)
         self.setText('Manual')
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 0 else False)
@@ -116,11 +114,10 @@ class MainLeftTop2OperationControllerBtnM(ABCPushButton):
             self.blink = not self.blink
         self.style().polish(self)
         return super().timerEvent(e)
-
 class MainLeftTop2OperationControllerBtnA(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(144, 40)
+        self.setFixedSize(SelectionMA, 40)
         self.setText('Autonomous')
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 1 else False)
@@ -155,11 +152,10 @@ class MainLeftTop3(ABCWidget):
         vl.addLayout(hl)
         vl.addWidget(MainLeftTop3CSF(self))
         vl.setSpacing(10)
-
 class MainLeftTop3PreTrip(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(316, 50)
+        self.setFixedSize((Total_W-10)/2, 50)
         self.w = PretripWindow(self)
         self.setText('Pre-trip')
         self.blink = False
@@ -177,11 +173,10 @@ class MainLeftTop3PreTrip(ABCPushButton):
             self.blink = not self.blink
         self.style().polish(self)
         return super().timerEvent(e)
-    
 class MainLeftTop3Signal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(316, 50)
+        self.setFixedSize((Total_W-10)/2, 50)
         self.w = SignalWindow(self)
         self.setText('Signal')
         self.blink = False
@@ -199,11 +194,10 @@ class MainLeftTop3Signal(ABCPushButton):
             self.blink = not self.blink
         self.style().polish(self)
         return super().timerEvent(e)
-
 class MainLeftTop3CSF(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(642, 50)
+        self.setFixedHeight(50)
         self.w = CSFMonitoringWindow(self)
         self.setText('CSF Monitoring')
         self.blink = False
@@ -238,10 +232,6 @@ class MainLeftTop4_1(ABCWidget):
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)
             else:
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlnon'), row, col) # empty alarm
-
-        gl.setRowStretch(gl.rowCount(), 1)
-        gl.setColumnStretch(gl.columnCount(), 1)
-
 class MainLeftTop4_2(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -259,30 +249,16 @@ class MainLeftTop4_2(ABCWidget):
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id=alarm_list[i]), row, col)
             else:
                 gl.addWidget(MainLeftTop4Alarm(self, alarm_id='iEmptyAlem'), row, col) # empty alarm
-
-        gl.setRowStretch(gl.rowCount(), 1)
-        gl.setColumnStretch(gl.columnCount(), 1)
-
-
-class MainLeftTop4Alarm(ABCPushButton):
+class MainLeftTop4Alarm(ABCLabel):
     def __init__(self, parent, widget_name='', alarm_id=''):
         super().__init__(parent, widget_name)
-        self.setFixedSize(124, 53)
+        self.setFixedSize((Total_W-5*4)/5, 52)
         self.setContentsMargins(0, 0, 0, 0)
         self.alarm_id = alarm_id
         self.blink = False
-        lay = QHBoxLayout(self)
-        label = QLabel(self)
-        label.setStyleSheet("font-size:8pt;")
-        label.setText(self.inmem.ShMem.get_alarm_des(alarm_id))
-        label.setAlignment(Qt.AlignCenter)
-        label.setWordWrap(True)
-        label.setTextInteractionFlags(Qt.NoTextInteraction)
-        label.setMouseTracking(False)
-        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        lay.addWidget(label)
-        self.setLayout(lay)
-
+        self.setText(self.inmem.ShMem.get_alarm_des(alarm_id))
+        self.setAlignment(Qt.AlignCenter)
+        self.setWordWrap(True)
         self.startTimer(600)
 
     def timerEvent(self, e: QTimerEvent) -> None:

@@ -14,7 +14,7 @@ class SignalWindow(ABCWidget):
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        vl_bg = QVBoxLayout(self)
+        vl_bg = QVBoxLayout()
         self.title_bg = SignalTitle_BG(self)
         bg_w = SignalBackground(self)
         bg_w.setLayout(vl_bg)

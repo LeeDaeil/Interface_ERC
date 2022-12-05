@@ -27,15 +27,12 @@ class Main(QWidget):
         hl.addWidget(self.maintopbar)
         hl.setSpacing(0)
         vl = QHBoxLayout()
-        vl.setContentsMargins(10, 10, 10, 10)
-        hl.addLayout(vl)
+        vl.setContentsMargins(10, 10, 10, 10)        
         vl.addWidget(MainLeft(self))
         vl.addWidget(MainMiddle(self))
         vl.addWidget(MainRight(self))
-        vl.setSpacing(15)
-        vl.addStretch(1)
-
-
+        vl.setSpacing(10)
+        hl.addLayout(vl)
 
         # End frame --------------------------------------------------
     def check_mouse_in_area(self):
@@ -65,5 +62,5 @@ class Main(QWidget):
         qp = QPainter()
         qp.begin(self)
         qp.setPen(QPen(QColor(192, 0, 0), 2))
-        qp.drawRect(5, 1210, 654, 240)
+        qp.drawRect(5, 1195, 590, 239)
         qp.end()

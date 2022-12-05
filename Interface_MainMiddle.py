@@ -14,8 +14,7 @@ def CPrint(txt):
 class MainMiddle(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedWidth(1314)
-        self.setMinimumHeight(1372)
+        # self.setFixedWidth(1414)
         self.setContentsMargins(0, 0, 0, 0)
         vl = QVBoxLayout(self)
         self.GraphicsScene = MainMiddleMimicScene(self)

@@ -27,10 +27,7 @@ class MainTopBarTimer(ABCLabel):
         self.startTimer(200)
 
     def timerEvent(self, a0: 'QTimerEvent') -> None:
-        current_time = datetime.now() + self.inmem.get_time()
-        real_time = current_time.strftime('%Y.%m.%d')
-        real_time2 = current_time.strftime("%H:%M:%S")
-        self.setText(real_time + " / " + real_time2)
+        self.setText(datetime.now().strftime('%Y.%m.%d') + " / " + self.inmem.get_time())
         return super().timerEvent(a0)
 
 class MainTopBarClose(ABCPushButton):

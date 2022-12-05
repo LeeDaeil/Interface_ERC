@@ -25,9 +25,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.1997092"
-     inkscape:cx="279.1278"
-     inkscape:cy="250.71496"
+     inkscape:zoom="1.0998546"
+     inkscape:cx="410.50881"
+     inkscape:cy="403.23512"
      inkscape:window-width="1504"
      inkscape:window-height="1080"
      inkscape:window-x="322"
@@ -1932,6 +1932,36 @@
              id="path244-0-6-0-5-4"
              style="fill:#2b9291;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
         </g>
+      </g>
+    </g>
+    <g
+       id="RX_V"
+       transform="matrix(0.02249431,0,0,0.02249431,113.21191,129.06802)"
+       v:mID="23"
+       v:groupContext="group">
+      <v:userDefs>
+        <v:ud
+           v:nameU="visNavOrder"
+           v:val="VT0(4000):26" />
+      </v:userDefs>
+      <title
+         id="title1014">시트.23</title>
+      <g
+         id="shape1-2"
+         v:mID="1"
+         v:groupContext="shape">
+        <title
+           id="title1016">시트.1</title>
+        <v:userDefs>
+          <v:ud
+             v:nameU="visNavOrder"
+             v:val="VT0(1000):26" />
+        </v:userDefs>
+        <path
+           d="M 108.55,308.81 H 0 v 111.02 h 108.55 v 766.42 a 302.755,179.569 -180 0 0 595.73,0 V 419.83 H 812.83 V 308.81 H 704.28 V 147.93 a 302.755,179.569 -180 0 0 -595.73,0 z"
+           class="st1"
+           id="path1018"
+           style="fill:#4f4e4e;stroke:#525252;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round" />
       </g>
     </g>
   </g>

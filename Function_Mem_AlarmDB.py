@@ -86,7 +86,7 @@ class AlarmDB:
             'KLAMPO328': {'Val': 0, 'Em':False, 'Des': 'MSL 1,2,3 PRESS LOW'},
             'KLAMPO329': {'Val': 0, 'Em':False, 'Des': 'AFW(MD) ACTUATED'},
             'KLAMPO330': {'Val': 0, 'Em':False, 'Des': 'CONDENSER LEVEL LO'},
-            'KLAMPO331': {'Val': 0, 'Em':False, 'Des': 'FW PUMP DISCHARGE HEADER PRESS HI'},
+            'KLAMPO331': {'Val': 0, 'Em':False, 'Des': 'FW PUMP DIS HEADER PRESS HI'},
             'KLAMPO332': {'Val': 0, 'Em':False, 'Des': 'FW PUMP TRIP'},
             'KLAMPO333': {'Val': 0, 'Em':False, 'Des': 'FW temp hi'},
             'KLAMPO334': {'Val': 0, 'Em':False, 'Des': 'CONDENSATE PUMP FLOW LO'},
