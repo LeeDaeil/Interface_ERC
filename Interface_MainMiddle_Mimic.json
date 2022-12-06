@@ -8,7 +8,7 @@
     "direction": "V",
     "comp_name": "RWST",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "I0": {
@@ -155,7 +155,7 @@
     "direction": "V",
     "comp_name": "VCT",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "L5": {
@@ -237,7 +237,7 @@
     "direction": "V",
     "comp_name": "ION",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "L10": {
@@ -789,7 +789,7 @@
     "direction": "V",
     "comp_name": "ACCUM",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "N5": {
@@ -801,7 +801,7 @@
     "direction": "V",
     "comp_name": "CTMT SUMP",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "P4": {
@@ -832,9 +832,9 @@
   "L43": {
     "Id": "L43",
     "CType": "Pipe",
-    "x1": 38.0,
+    "x1": 39.0,
     "y1": 1243.0,
-    "x2": 38.0,
+    "x2": 39.0,
     "y2": 1279.0,
     "arrow": "true",
     "connected_id": []
@@ -944,7 +944,7 @@
     "direction": "V",
     "comp_name": "REACTOR",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "N7": {
@@ -956,7 +956,7 @@
     "direction": "V",
     "comp_name": "PZR",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "N10": {
@@ -968,7 +968,7 @@
     "direction": "V",
     "comp_name": "SG",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "N9": {
@@ -980,7 +980,7 @@
     "direction": "H",
     "comp_name": "HP",
     "comp_name_direction": "Center",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "N12": {
@@ -992,7 +992,7 @@
     "direction": "H",
     "comp_name": "LP",
     "comp_name_direction": "Center",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "V13": {
@@ -1673,8 +1673,8 @@
   "I19": {
     "Id": "I19",
     "CType": "Indicator",
-    "x": 631.0,
-    "y": 1012.0,
+    "x": 647.0,
+    "y": 1006.0,
     "unit": "",
     "comp_name": "T",
     "comp_name_size": 16,
@@ -1685,8 +1685,8 @@
   "I22": {
     "Id": "I22",
     "CType": "Indicator",
-    "x": 631.0,
-    "y": 1048.0,
+    "x": 647.0,
+    "y": 1081.0,
     "unit": "",
     "comp_name": "T",
     "comp_name_size": 16,
@@ -1697,8 +1697,8 @@
   "I21": {
     "Id": "I21",
     "CType": "Indicator",
-    "x": 631.0,
-    "y": 1083.0,
+    "x": 647.0,
+    "y": 1154.0,
     "unit": "",
     "comp_name": "T",
     "comp_name_size": 16,
@@ -1731,9 +1731,9 @@
   "L88": {
     "Id": "L88",
     "CType": "Pipe",
-    "x1": 872.0,
+    "x1": 871.0,
     "y1": 414.0,
-    "x2": 872.0,
+    "x2": 871.0,
     "y2": 704.0,
     "arrow": "true",
     "connected_id": []
@@ -1811,7 +1811,7 @@
   "L90": {
     "Id": "L90",
     "CType": "Pipe",
-    "x1": 873.0,
+    "x1": 872.0,
     "y1": 414.0,
     "x2": 954.0,
     "y2": 414.0,
@@ -1905,7 +1905,7 @@
     "direction": "V",
     "comp_name": "CONDENSER",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "I24": {
@@ -2618,7 +2618,7 @@
     "direction": "V",
     "comp_name": "CST",
     "comp_name_direction": "Top",
-    "comp_name_size": 16,
+    "comp_name_size": 14,
     "alarm_name": "iTestA"
   },
   "V29": {
@@ -3006,9 +3006,9 @@
     "Id": "L117",
     "CType": "Pipe",
     "x1": 788.0,
-    "y1": 91.0,
+    "y1": 93.0,
     "x2": 842.0,
-    "y2": 91.0,
+    "y2": 93.0,
     "arrow": "true",
     "connected_id": []
   },
@@ -3133,9 +3133,9 @@
   "L163": {
     "Id": "L163",
     "CType": "Pipe",
-    "x1": 787.0,
+    "x1": 788.0,
     "y1": 39.0,
-    "x2": 787.0,
+    "x2": 788.0,
     "y2": 21.0,
     "arrow": "True",
     "connected_id": []
@@ -3143,9 +3143,9 @@
   "L162": {
     "Id": "L162",
     "CType": "Pipe",
-    "x1": 872.0,
+    "x1": 871.0,
     "y1": 386.0,
-    "x2": 872.0,
+    "x2": 871.0,
     "y2": 414.0,
     "arrow": "true",
     "connected_id": []
@@ -3153,9 +3153,9 @@
   "L165": {
     "Id": "L165",
     "CType": "Pipe",
-    "x1": 954.0,
+    "x1": 953.0,
     "y1": 388.0,
-    "x2": 954.0,
+    "x2": 953.0,
     "y2": 411.0,
     "arrow": "true",
     "connected_id": []

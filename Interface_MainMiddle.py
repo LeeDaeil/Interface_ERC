@@ -394,7 +394,7 @@ class Indicator(ABCGraphicsRectItem):
 class PumpG(ABCGraphicsItemGroup):
     def __init__(self, parent, args, widget_name=''):
         super().__init__(parent, widget_name='')
-        self.DistCompToName = 1.5
+        self.DistCompToName = 0.5
         self.args = args
         self.compLabel = CompLabel(self, args)
         self.comp = SvgPump(self, args)
@@ -488,7 +488,7 @@ class PumpG(ABCGraphicsItemGroup):
 class ValveG(ABCGraphicsItemGroup):
     def __init__(self, parent, args, widget_name=''):
         super().__init__(parent, widget_name)
-        self.DistCompToName = 1.5
+        self.DistCompToName = 0.5
         self.args = args
         self.compLabel = CompLabel(self, args)
         self.comp = SvgValve(self, args)
@@ -586,7 +586,7 @@ class ValveG(ABCGraphicsItemGroup):
 class ImgG(ABCGraphicsItemGroup):
     def __init__(self, parent, args, widget_name=''):
         super().__init__(parent, widget_name)
-        self.DistCompToName = 1.5
+        self.DistCompToName = 0.5
         self.args = args
         self.compLabel = CompLabel(self, args)
         self.comp = SvgImg(self, args)
@@ -682,7 +682,7 @@ class ImgG(ABCGraphicsItemGroup):
 class IndiG(ABCGraphicsItemGroup):
     def __init__(self, parent, args, widget_name=''):
         super().__init__(parent, widget_name)
-        self.DistCompToName = 1.5
+        self.DistCompToName = 0.5
         self.args = args
         self.compLabel = CompLabel(self, args)
         self.unitLabel = BasicLabel(self, args)

@@ -83,15 +83,15 @@ QssMainLeft = ''.join([
     builder('QLabel', 'MainLeftTop2OperationSelection', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
-        'border-radius: 10px;'
+        'border-radius: 5px;'
         ]),
     builder('QPushButton', 'MainLeftTop2OperationSelectionBtn', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         'border: none;',
         'text-align:center;',
         'font-weight: bold;'
@@ -102,10 +102,10 @@ QssMainLeft = ''.join([
     builder('QLabel', 'MainLeftTop2OperationController', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
-        'border-radius: 10px;'
+        'border-radius: 5px;'
         ]),
     builder('QPushButton', 'MainLeftTop2OperationControllerBtnM', [
         f'background-color: {LightWhite};',
@@ -153,6 +153,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop2OperationControllerBtnA:checked::hover', [
         f'background-color: {LightBlue};',
         ]),
+    ## Selection part
     builder('QWidget', 'OperationSelectionWindow', [
         f'background-color:transparent;',
         'border-top-left-radius: 10px;',
