@@ -2,26 +2,23 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from Interface_ABCWidget import *
-from Interface_ABCWidget import *
 from Interface_QSS import qss
 
 class CSFMonitoringWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 500, 400)
+        self.setGeometry(594, 324, 600, 450)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
+        self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        self.title_label = CSFMonitoringTitle(self)
+        vl.setSpacing(0)
+        vl.setContentsMargins(0, 0, 0, 0)
+        self.title_label = CSFMonitoringTitle_BG(self)
         vl.addWidget(self.title_label)
-        vl.addWidget(CSFMonitoringAlarmWidget(self))
-
-        hl = QHBoxLayout()
-        hl.addStretch(1)
-        hl.addWidget(CSFMonitoringClose(self))
-        vl.addLayout(hl)
+        vl.addWidget(CSFMonitoringAlarmWidget_BG(self))
     # window drag
     def mousePressEvent(self, event):        
         if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
@@ -38,17 +35,38 @@ class CSFMonitoringWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+        print(self.widget_name, self.geometry())
+class CSFMonitoringTitle_BG(ABCLabel):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        self.setFixedHeight(25 + 10) # Title size + margin * 2
+        hl = QHBoxLayout(self)
+        hl.setContentsMargins(5, 5, 5, 5)
+        hl.addWidget(CSFMonitoringTitle(self))
+        hl.addStretch(1)
 class CSFMonitoringTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('CSF Monitoring')
-        self.setFixedHeight(30)
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
+        self.setFixedSize(240, 25)
+class CSFMonitoringAlarmWidget_BG(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.setContentsMargins(10, 10, 10, 10)
+        vl.addWidget(CSFMonitoringAlarmWidget(self))
+        hl = QHBoxLayout()
+        hl.addStretch(1)
+        hl.addWidget(CSFMonitoringClose(self))
+        vl.addLayout(hl)
 class CSFMonitoringAlarmWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.startTimer(600)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         vl = QVBoxLayout(self)
+        vl.setContentsMargins(2, 2, 2, 2)
         
         self.csf_info = {
             'Reactivity Control': [QButtonGroup(), 'iCSFReactivity'],
@@ -80,50 +98,39 @@ class CSFMonitoringAlarmLabel(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
         super().__init__(parent, widget_name)
         self.setText(in_text)
+        self.setFixedHeight(50)
 class CSFMonitoringAlarmLevel1Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 1')
         self.setCheckable(True)
         self.setChecked(True)
-        self.setFixedWidth(80)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
-        pass
+        self.setFixedSize(90, 50)
 class CSFMonitoringAlarmLevel2Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 2')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedWidth(80)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
-        pass
+        self.setFixedSize(90, 50)
 class CSFMonitoringAlarmLevel3Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 3')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedWidth(80)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
-        pass
+        self.setFixedSize(90, 50)
 class CSFMonitoringAlarmLevel4Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 4')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedWidth(80)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
-        pass
-
+        self.setFixedSize(90, 50)
 class CSFMonitoringClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(160, 25)
         self.setText('닫기')
 
     def mousePressEvent(self, e: QMouseEvent) -> None:

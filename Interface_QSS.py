@@ -307,7 +307,7 @@ QssMainLeft = ''.join([
         ]),
     builder('QWidget', 'SignalResultAlarmWidget', [
         f'background-color: {LightGray};',
-        f'border: 2px solid {Gray};'
+        f'border: 3px solid {Gray};'
         'border-radius: 10px;'
         ]),
     builder('QLabel', 'SignalResultAlarmItem', [
@@ -316,13 +316,14 @@ QssMainLeft = ''.join([
         f'font-size: {Global_font_size1};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
-        ]),    
-    builder('QLabel', 'SignalResultAlarmItem[blinking="true"]', [
-        f'background-color: {Yellow};'
         ]),
-    builder('QLabel', 'SignalResultAlarmItem[blinking="false"]', [
-        f'background-color: {LightGray};'
-        ]),
+    builder('QLabel', 'SignalResultAlarmItem[blinking="true"]', [f'background-color: {Yellow};']),
+    builder('QLabel', 'SignalResultAlarmItem[coner="TopR"]', [f'border: 1px solid {Gray};', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'SignalResultAlarmItem[coner="TopL"]', [f'border: 1px solid {Gray};', 'border-top-left-radius: 10px;']),
+    builder('QLabel', 'SignalResultAlarmItem[coner="BotR"]', [f'border: 1px solid {Gray};', 'border-bottom-right-radius: 10px;']),
+    builder('QLabel', 'SignalResultAlarmItem[coner="BotL"]', [f'border: 1px solid {Gray};', 'border-bottom-left-radius: 10px;']),
+    builder('QLabel', 'SignalResultAlarmItem[coner="In"]', [f'border: 1px solid {Gray};']),
+    builder('QLabel', 'SignalResultAlarmItem[blinking="false"]', [f'background-color: {LightGray};']),
     builder('QPushButton', 'SignalResultClose', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -350,25 +351,17 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop3CSF:hover', [
         f'background-color: {LightBlue};',
         ]),
-    builder('QWidget', 'CSFMonitoringWindow', [
-        f'background-color: {LightGray};',
-        'border-radius: 5px;'
-        ]),
+    builder('QWidget', 'CSFMonitoringTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
     builder('QLabel', 'CSFMonitoringTitle', [
-        f'background-color: {DarkGray};',
+        f'background-color: {LightGray};',
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
+        'border-radius: 10px;'
         'padding-left: 3px;',
-        'border-top-left-radius: 5px;',
-        'border-top-right-radius: 5px;'
         ]),
-    builder('QWidget', 'CSFMonitoringAlarmWidget', [
-        f'background-color: {LightGray};',
-        f'border: 2px solid {Gray};'
-        'border-radius: 5px;'
-        ]),
+    builder('QWidget', 'CSFMonitoringAlarmWidget_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'CSFMonitoringAlarmWidget', [f'background-color: {LightGray};']),
     builder('QLabel', 'CSFMonitoringAlarmLabel', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',

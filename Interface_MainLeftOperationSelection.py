@@ -8,7 +8,7 @@ from Interface_QSS import qss
 class OperationSelectionWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(10, 10, 300, 500)
+        self.setGeometry(584, 154, 300, 500)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)      # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -48,6 +48,7 @@ class OperationSelectionWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+        print(self.widget_name, self.geometry())
 
     def initiation(self):
         self.op_tree.initiation()

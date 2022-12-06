@@ -7,7 +7,7 @@ from Interface_QSS import qss
 class SignalWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 1170, 690)
+        self.setGeometry(595, 266, 1170, 690)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -53,6 +53,7 @@ class SignalWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+        print(self.widget_name, self.geometry())
 
 class SignalTitle_BG(ABCWidget):
     def __init__(self, parent, widget_name=''):
@@ -96,19 +97,14 @@ class SignalResultAlarmWidget(ABCWidget):
         super().__init__(parent, widget_name)
         self.startTimer(600)
         self.gl = QGridLayout(self)
-        self.gl.setSpacing(5)
-        v_line = QFrame(self)
-        v_line.setLineWidth(2)
-        v_line.setMidLineWidth(1)
-        v_line.setFrameShape(QFrame.HLine)
-        v_line.setFrameShadow(QFrame.Raised)
-        v_line.setPalette(QPalette(QColor(0, 0, 0)))
+        self.gl.setContentsMargins(2, 2, 2, 2)
+        self.gl.setSpacing(0)
 
         self.fault_alarms = {
-            1: SignalResultAlarmItem(self, in_text='Feedwater pump outlet press'),
+            1: SignalResultAlarmItem(self, in_text='Feedwater pump outlet press', coner_type='TopL'),
             2: SignalResultAlarmItem(self, in_text='Feedwater line #1 flow'),
             3: SignalResultAlarmItem(self, in_text='Feedwater line #2 flow'),
-            4: SignalResultAlarmItem(self, in_text='Feedwater line #3 flow'),
+            4: SignalResultAlarmItem(self, in_text='Feedwater line #3 flow', coner_type='TopR'),
             5: SignalResultAlarmItem(self, in_text='Feedwater temperature'),
             6: SignalResultAlarmItem(self, in_text='Main steam flow'),
             7: SignalResultAlarmItem(self, in_text='Steam line #3 flow'),
@@ -129,34 +125,29 @@ class SignalResultAlarmWidget(ABCWidget):
             22: SignalResultAlarmItem(self, in_text='Loop #3 flow'),
             23: SignalResultAlarmItem(self, in_text='S/G #1 level'),
             24: SignalResultAlarmItem(self, in_text='S/G #2 level'),
-            25: SignalResultAlarmItem(self, in_text='S/G #3 level'),
+            25: SignalResultAlarmItem(self, in_text='S/G #3 level', coner_type='BotL'),
             26: SignalResultAlarmItem(self, in_text='S/G #1 pressure'),
             27: SignalResultAlarmItem(self, in_text='S/G #2 pressure'),
-            28: SignalResultAlarmItem(self, in_text='S/G #3 pressure'),
+            28: SignalResultAlarmItem(self, in_text='S/G #3 pressure', coner_type='BotR'),
         }
 
         for i, item in enumerate(self.fault_alarms.values()):
             col = i%4
             row = i//4
             self.gl.addWidget(item, row, col)
-        self.gl.addWidget(v_line, 0, 0, 4, 4)  # Line 추가
-
+            
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         dis_nub = self.inmem.ShMem.get_para_val('iSigValOnDis')
         for key in self.fault_alarms.keys():
             self.fault_alarms[key].blink_fun(True if key == dis_nub else False)
         return super().timerEvent(a0)
-
-
-
-
-
 class SignalResultAlarmItem(ABCLabel):
-    def __init__(self, parent, widget_name='', in_text=''):
+    def __init__(self, parent, widget_name='', in_text='', coner_type='In'):
         super().__init__(parent, widget_name)
         self.setText(in_text)
         self.setFixedSize(285, 75)
         self.blink = False
+        self.coner_type = coner_type
 
     def blink_fun(self, run=False):
         if run:
@@ -165,6 +156,7 @@ class SignalResultAlarmItem(ABCLabel):
             self.inmem.widget_ids['SignalResultWidgetResult'].setText(self.text())
         else:
             self.setProperty('blinking', False)
+        self.setProperty('coner', self.coner_type)
         self.style().polish(self)
 class SignalResultClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
