@@ -49,6 +49,7 @@ iManBLK	INTEGER	Manual Operation Required -> Start Blinking
 iPreTripBLK	INTEGER	PreTrip (0:off|1:on) -> Start Blinking
 iSignalBLK	INTEGER	Signal (0:off|1:on) -> Start Blinking
 iCSFBLK	INTEGER	CSF Monitoring (0:off|1:on) -> Start Blinking
+iDigBLK	INTEGER	Diagnosis Monitoring (0:off|1:on) -> Start Blinking
 iEmptyAlnon	INTEGER	No alarm (non)
 iEmptyAlem	INTEGER	No alarm (em)
 iOpHistory	INTEGER	Operation History (0: Normal, 1: Abnormal, 2: Emergency)

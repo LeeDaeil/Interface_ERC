@@ -6,6 +6,7 @@ from Interface_MainLeftOperationSelection import *
 from Interface_MainLeftPreTrip import *
 from Interface_MainLeftSignal import *
 from Interface_MainLeftCSFMonitoring import *
+from Interface_MainLeftDiagnosis import *
 from Interface_QSS import rgb_to_qCOLOR, DarkRed
 
 #
@@ -80,7 +81,8 @@ class MainLeftTop2OperationSelectionBtn(ABCPushButton):
         super().__init__(parent, widget_name)
         self.setFixedHeight(40)
         self.w = OperationSelectionWindow(self)
-        self.setText('Refueling')
+        OpMode = self.inmem.ShMem.get_para_val('iFixOpMode')
+        self.setText(self.inmem.widget_ids['OperationSelectionTree'].transform_nub_to_procedure_name(OpMode))
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -142,15 +144,23 @@ class MainLeftTop3(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
-        hl = QHBoxLayout()
+        hl1 = QHBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
-        hl.setContentsMargins(0, 0, 0, 0)
-        hl.addWidget(MainLeftTop3PreTrip(self))
-        hl.addWidget(MainLeftTop3Signal(self))
-        hl.setSpacing(10)
-        hl.addStretch(1)
-        vl.addLayout(hl)
-        vl.addWidget(MainLeftTop3CSF(self))
+        hl1.setContentsMargins(0, 0, 0, 0)
+        hl1.addWidget(MainLeftTop3PreTrip(self))
+        hl1.addWidget(MainLeftTop3Signal(self))
+        hl1.setSpacing(10)
+        hl1.addStretch(1)
+        vl.addLayout(hl1)
+        #
+        hl2 = QHBoxLayout()
+        hl2.setContentsMargins(0, 0, 0, 0)
+        hl2.addWidget(MainLeftTop3CSF(self))
+        hl2.addWidget(MainLeftTop3Diagnosis(self))
+        hl2.setSpacing(10)
+        hl2.addStretch(1)
+        vl.addLayout(hl2)
+        #
         vl.setSpacing(10)
 class MainLeftTop3PreTrip(ABCPushButton):
     def __init__(self, parent, widget_name=''):
@@ -197,7 +207,7 @@ class MainLeftTop3Signal(ABCPushButton):
 class MainLeftTop3CSF(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setFixedHeight(50)
+        self.setFixedSize((Total_W-10)/2, 50)
         self.w = CSFMonitoringWindow(self)
         self.setText('CSF Monitoring')
         self.blink = False
@@ -209,6 +219,27 @@ class MainLeftTop3CSF(ABCPushButton):
     
     def timerEvent(self, e: QTimerEvent) -> None:
         if self.inmem.ShMem.get_para_val('iCSFBLK') == 0:
+            self.setProperty('blinking', False)
+        else:
+            self.setProperty('blinking', self.blink)
+            self.blink = not self.blink
+        self.style().polish(self)
+        return super().timerEvent(e)
+class MainLeftTop3Diagnosis(ABCPushButton):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        self.setFixedSize((Total_W-10)/2, 50)
+        self.w = DiagnosisWindow(self)
+        self.setText('Diagnosis')
+        self.blink = False
+        self.startTimer(600)
+        
+    def mousePressEvent(self, e: QMouseEvent) -> None:
+        self.w.show()
+        return super().mousePressEvent(e)
+    
+    def timerEvent(self, e: QTimerEvent) -> None:
+        if self.inmem.ShMem.get_para_val('iDigBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)

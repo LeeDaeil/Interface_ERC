@@ -28,6 +28,9 @@ class Run:
     def start_process(self):
         """ MainProcess 동작 """
         mem = self.make_shmem()
+        
+        mem.change_para_val('iFixOpMode', 3) # 'Hotstand-by
+        
         p_list = [InterfaceRun(mem)]
         [pr_.start() for pr_ in p_list]
         [pr_.join() for pr_ in p_list]  # finished at the same time

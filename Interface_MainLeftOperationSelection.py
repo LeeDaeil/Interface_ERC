@@ -8,7 +8,7 @@ from Interface_QSS import qss
 class OperationSelectionWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(584, 154, 300, 500)
+        self.setGeometry(594, 154, 300, 500)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)      # widget 투명화
         self.setStyleSheet(qss) # qss load

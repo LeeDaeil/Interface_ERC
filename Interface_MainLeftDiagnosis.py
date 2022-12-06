@@ -7,7 +7,7 @@ from Interface_QSS import qss
 class DiagnosisWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 500, 400)
+        self.setGeometry(594, 323, 500, 400)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
@@ -38,6 +38,7 @@ class DiagnosisWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+        print(self.widget_name, self.geometry())
 class DiagnosisTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)

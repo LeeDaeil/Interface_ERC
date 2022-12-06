@@ -7,7 +7,7 @@ from Interface_MainRightUnknownEvent import *
 from Interface_MainRightOperationStrategy import *
 from Interface_MainRightListAlarm import *
 from Interface_MainRightListControl import *
-from Interface_MainRightListDiagnosis import *
+from Interface_MainLeftDiagnosis import *
 from Interface_MainRightListLCO import *
 
 Total_W = 554
@@ -135,25 +135,21 @@ class MainRightTop3(ABCWidget):
 
         gl = QGridLayout(self)
         gl.setContentsMargins(0, 0, 0, 0)
-        gl.addWidget(MainRightTop3UnknownEvent(self), 0, 0)
+        gl.addWidget(MainRightTop3LCO(self), 0, 0)
         gl.addWidget(MainRightTop3OperationStrategy(self), 0, 1)
         gl.addWidget(MainRightTop3ListAlarm(self), 1, 0)
         gl.addWidget(MainRightTop3Control(self), 1, 1)
-        gl.addWidget(MainRightTop3Diagnosis(self), 2, 0)
-        gl.addWidget(MainRightTop3LCO(self), 2, 1)
         gl.setSpacing(10)
-
-class MainRightTop3UnknownEvent(ABCPushButton):
+class MainRightTop3LCO(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.w = UnknownEventWindow(self)
-        self.setText('Unknown Event')
+        self.w = LCOWindow(self)
+        self.setText('LCO')
         self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
         return super().mousePressEvent(e)
-
 class MainRightTop3OperationStrategy(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -198,13 +194,3 @@ class MainRightTop3Diagnosis(ABCPushButton):
         self.w.show()
         return super().mousePressEvent(e)
 
-class MainRightTop3LCO(ABCPushButton):
-    def __init__(self, parent, widget_name=''):
-        super().__init__(parent, widget_name)
-        self.w = LCOWindow(self)
-        self.setText('LCO')
-        self.setFixedHeight(50)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
-        self.w.show()
-        return super().mousePressEvent(e)
