@@ -9,19 +9,16 @@ class DiagnosisWindow(ABCWidget):
         super().__init__(parent, widget_name)
         self.setGeometry(594, 323, 500, 400)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
+        self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        self.title_label = DiagnosisTitle(self)
+        vl.setSpacing(0)
+        vl.setContentsMargins(0, 0, 0, 0)
+        self.title_label = DiagnosisTitle_BG(self)
         vl.addWidget(self.title_label)
-        vl.addWidget(DiagnosisResultWidget(self))
-        vl.addWidget(DiagnosisResultAlarmWidget(self))
-
-        hl = QHBoxLayout()
-        hl.addStretch(1)
-        hl.addWidget(DiagnosisResultClose(self))
-        vl.addLayout(hl)
+        vl.addWidget(DiagnosisResultWidget_BG(self))
     # window drag
     def mousePressEvent(self, event):        
         if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
@@ -39,11 +36,30 @@ class DiagnosisWindow(ABCWidget):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
         print(self.widget_name, self.geometry())
+class DiagnosisTitle_BG(ABCLabel):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        self.setFixedHeight(25 + 10) # Title size + margin * 2
+        hl = QHBoxLayout(self)
+        hl.setContentsMargins(5, 5, 5, 5)
+        hl.addWidget(DiagnosisTitle(self))
+        hl.addStretch(1)
 class DiagnosisTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('Diagnosis Validation')
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
         self.setFixedHeight(30)
+class DiagnosisResultWidget_BG(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.setContentsMargins(10, 10, 10, 10)
+        vl.addWidget(DiagnosisResultWidget(self))
+        hl = QHBoxLayout()
+        hl.addStretch(1)
+        hl.addWidget(DiagnosisResultClose(self))
+        vl.addLayout(hl)
 class DiagnosisResultWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -63,6 +79,8 @@ class DiagnosisResultAlarmWidget(ABCWidget):
         super().__init__(parent, widget_name)
         self.startTimer(600)
         self.gl = QGridLayout(self)
+        self.gl.setContentsMargins(2, 2, 2, 2)
+        self.gl.setSpacing(0)
 
         self.fault_alarms = {
             0:  DiagnosisResultPackWidget(self, in_text='Normal',                                 nub=0),
@@ -116,7 +134,6 @@ class DiagnosisResultPackWidget(ABCWidget):
         else:
             self.ab_name_w.blink_fun(False)
             self.ab_val_w.blink_fun(False)
-            
 class DiagnosisResultAlarmItem(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
         super().__init__(parent, widget_name)

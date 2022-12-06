@@ -336,7 +336,7 @@ QssMainLeft = ''.join([
     # MainLeftTop3CSF -------------------------------------
     builder('QPushButton', 'MainLeftTop3CSF', [
         f'background-color: {LightWhite};',
-        f'font-family: {Global_font2};',
+        f'font-family: {Global_font};',
         f'font-size: {Title_font_size2};',
         'border: none;',
         'text-align:center;',
@@ -432,17 +432,13 @@ QssMainLeft = ''.join([
         f'background-color: {DarkGray};',
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
         'padding-left: 3px;',
         'border-top-left-radius: 5px;',
         'border-top-right-radius: 5px;'
         ]),
-    builder('QWidget', 'DiagnosisResultWidget', [
-        f'background-color: {LightGray};',
-        f'border: 2px solid {Gray};'
-        'border-radius: 5px;'
-        ]),
+    builder('QWidget', 'DiagnosisResultWidget_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'DiagnosisResultWidget', [f'background-color: {LightGray};']),
     builder('QLabel', 'DiagnosisResultWidgetTitle', [
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size2};',

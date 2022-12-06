@@ -166,13 +166,13 @@ class MainLeftTop3PreTrip(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setFixedSize((Total_W-10)/2, 50)
-        self.w = PretripWindow(self)
+        # self.w = PretripWindow(self)
         self.setText('Pre-trip')
         self.blink = False
         self.startTimer(600)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
-        self.w.show()
+        # self.w.show()
         return super().mousePressEvent(e)
 
     def timerEvent(self, e: QTimerEvent) -> None:
