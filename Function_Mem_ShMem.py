@@ -53,6 +53,7 @@ class ShMem:
 
     def change_para_val(self, para, val):
         self.mem[para]['Val'] = val
+        self.update_alarmdb()
 
     def get_para_val(self, para):
         return self.mem[para]['Val']

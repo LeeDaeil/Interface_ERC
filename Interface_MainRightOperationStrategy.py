@@ -9,20 +9,18 @@ import typing
 class OperationStrategyWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(0, 0, 2000, 1000)
+        self.setGeometry(550, 313, 2000, 1000)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
+        self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
         self.m_flag = False
 
         vl = QVBoxLayout(self)
-        self.title_label = OperationStrategyTitle(self)
+        vl.setSpacing(0)
+        vl.setContentsMargins(0, 0, 0, 0)
+        self.title_label = OperationStrategyTitle_BG(self)
         vl.addWidget(self.title_label)
-        vl.addWidget(OperationStrategyBoard(self))
-
-        hl = QHBoxLayout()
-        hl.addStretch(1)
-        hl.addWidget(OperationStrategyClose(self))
-        vl.addLayout(hl)
+        vl.addWidget(OperationStrategyBoard_BG(self))
     # window drag
     def mousePressEvent(self, event):        
         if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
@@ -39,11 +37,31 @@ class OperationStrategyWindow(ABCWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
+        print(self.widget_name, self.geometry())
+class OperationStrategyTitle_BG(ABCLabel):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        self.setFixedHeight(25 + 10) # Title size + margin * 2
+        hl = QHBoxLayout(self)
+        hl.setContentsMargins(5, 5, 5, 5)
+        hl.addWidget(OperationStrategyTitle(self))
+        hl.addStretch(1)
 class OperationStrategyTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('OperationStrategy')
-        self.setFixedHeight(30)
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
+        self.setFixedSize(240, 25)
+class OperationStrategyBoard_BG(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.setContentsMargins(10, 10, 10, 10)
+        vl.addWidget(OperationStrategyBoard(self))
+        hl = QHBoxLayout()
+        hl.addStretch(1)
+        hl.addWidget(OperationStrategyClose(self))
+        vl.addLayout(hl)
 class OperationStrategyBoard(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -315,6 +333,7 @@ class OperationStrategyBoardYNItem(ABCGraphicsRectItem):
 class OperationStrategyClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(160, 25)
         self.setText('닫기')
 
     def mousePressEvent(self, e: QMouseEvent) -> None:

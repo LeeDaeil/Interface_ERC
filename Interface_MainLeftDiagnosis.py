@@ -7,7 +7,7 @@ from Interface_QSS import qss
 class DiagnosisWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(594, 323, 500, 400)
+        self.setGeometry(594, 323, 500, 410)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -49,7 +49,7 @@ class DiagnosisTitle(ABCLabel):
         super().__init__(parent, widget_name)
         self.setText('Diagnosis Validation')
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
-        self.setFixedHeight(30)
+        self.setFixedSize(240, 25)
 class DiagnosisResultWidget_BG(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -156,6 +156,7 @@ class DiagnosisResultAlarmItem(ABCLabel):
 class DiagnosisResultClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.setFixedSize(160, 25)
         self.setText('닫기')
 
     def mousePressEvent(self, e: QMouseEvent) -> None:

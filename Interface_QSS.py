@@ -427,13 +427,12 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop3Diagnosis:hover', [f'background-color: {LightBlue};']),
     builder('QWidget', 'DiagnosisTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
     builder('QLabel', 'DiagnosisTitle', [
-        f'background-color: {DarkGray};',
+        f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Global_font_size2};',
         'font-weight: bold;',
+        'border-radius: 10px;',
         'padding-left: 3px;',
-        'border-top-left-radius: 5px;',
-        'border-top-right-radius: 5px;'
         ]),
     builder('QWidget', 'DiagnosisResultWidget_BG', [f'background-color: {LightGray};']),
     builder('QWidget', 'DiagnosisResultWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
@@ -610,20 +609,18 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    builder('QPushButton', 'MainRightTop3OperationStrategy:hover', [f'background-color: {LightBlue};']),
+    builder('QWidget', 'OperationStrategyTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
     builder('QLabel', 'OperationStrategyTitle', [
-        f'background-color: {DarkGray};',
-        f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
-        'font-weight: bold;',
-        'padding-left: 3px;',
-        'border-top-left-radius: 5px;',
-        'border-top-right-radius: 5px;'
-        ]),
-    builder('QWidget', 'OperationStrategyBoard', [
         f'background-color: {LightGray};',
-        'border: none;'
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size2};',
+        'font-weight: bold;',
+        'border-radius: 10px;',
+        'padding-left: 3px;',
         ]),
+    builder('QWidget', 'OperationStrategyBoard_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'OperationStrategyBoard', [f'background-color: {LightGray};', 'border: none;']),
     # OperationStrategyBoardScene -> py 파일에서 수정
     builder('QPushButton', 'OperationStrategyClose', [
         f'background-color: {LightWhite};',
