@@ -475,11 +475,11 @@ class AlarmDB:
         # --------- R16  RCS 1,2,3 lo flow alert(92% from KAERI87-37)
         CWSGRL = {1: 4232.0, 2: 0.0}
         if ((mem['WSGRCP1']['Val'] < CWSGRL[1] and mem['KRCP1']['Val'] == 1) or
-                (mem['WSGRCP1']['Val'] < CWSGRL[1] and mem['KRCP1']['Val'] == 1) or
-                (mem['WSGRCP1']['Val'] < CWSGRL[1] and mem['KRCP1']['Val'] == 1)):
-            alarm_dict['KLAMPO316']['Val'] = 10
+                (mem['WSGRCP2']['Val'] < CWSGRL[1] and mem['KRCP2']['Val'] == 1) or
+                (mem['WSGRCP3']['Val'] < CWSGRL[1] and mem['KRCP3']['Val'] == 1)):
+            alarm_dict['KLAMPO316']['Val'] = 1
         else:
-            alarm_dict['KLAMPO316']['Val'] = 900
+            alarm_dict['KLAMPO316']['Val'] = 0
         # --------- R17  PRT temp hi(45deg C )
         if mem['UPRT']['Val'] > mem['CUPRT']['Val']:
             alarm_dict['KLAMPO317']['Val'] = 1

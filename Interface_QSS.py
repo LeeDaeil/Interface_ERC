@@ -658,7 +658,6 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
-    
 
 ])
 # final qss !! 

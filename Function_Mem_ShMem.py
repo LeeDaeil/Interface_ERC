@@ -38,12 +38,15 @@ class ShMem:
 
     def update_alarmdb(self):
         self.AlarmDB.update_alarmdb_from_ShMem()
+        for para in self.AlarmDB.alarmdb.keys():
+            self.mem[para]['Val'] = self.AlarmDB.alarmdb[para]['Val']
 
     def one_step_tape(self):
         self.tape_db_step += 1
         for para in self.mem.keys():
             v_ = self.tape_db.at[self.tape_db_step, para] if para in self.tape_db.columns else 0
             self.mem[para]['Val'] = int(v_) if self.mem[para]['Sig'] == 'INTEGER' else float(v_)
+        self.update_alarmdb()
 
     def add_val_to_list(self):
         [self.mem[para]['List'].append(self.mem[para]['Val']) for para in self.mem.keys()]
