@@ -352,7 +352,7 @@ QssMainLeft = ''.join([
         f'font-family: {Global_font};',
         f'font-size: {Global_font_size2};',
         'font-weight: bold;',
-        'border-radius: 10px;'
+        'border-radius: 10px;',
         'padding-left: 3px;',
         ]),
     builder('QWidget', 'CSFMonitoringAlarmWidget_BG', [f'background-color: {LightGray};']),
@@ -425,31 +425,28 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'MainLeftTop3Diagnosis[blinking="true"]', [f'background-color: {Yellow};']),
     builder('QPushButton', 'MainLeftTop3Diagnosis[blinking="false"]', [f'background-color: {LightWhite};']),
     builder('QPushButton', 'MainLeftTop3Diagnosis:hover', [f'background-color: {LightBlue};']),
-    builder('QWidget', 'DiagnosisWindow', [
-        f'background-color: {LightGray};',
-        'border-radius: 5px;'
-        ]),
+    builder('QWidget', 'DiagnosisTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
     builder('QLabel', 'DiagnosisTitle', [
         f'background-color: {DarkGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
         'padding-left: 3px;',
         'border-top-left-radius: 5px;',
         'border-top-right-radius: 5px;'
         ]),
     builder('QWidget', 'DiagnosisResultWidget_BG', [f'background-color: {LightGray};']),
-    builder('QWidget', 'DiagnosisResultWidget', [f'background-color: {LightGray};']),
+    builder('QWidget', 'DiagnosisResultWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
     builder('QLabel', 'DiagnosisResultWidgetTitle', [
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
         'border: none;',
         ]),
     builder('QLabel', 'DiagnosisResultWidgetResult', [
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
         'border: none;',
@@ -462,17 +459,19 @@ QssMainLeft = ''.join([
     builder('QLabel', 'DiagnosisResultAlarmItem', [
         f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size3};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
-        f'border: 1px solid {Gray};'
         ]),    
-    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="true"]', [
-        f'background-color: {Yellow};'
-        ]),
-    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="false"]', [
-        f'background-color: {LightGray};'
-        ]),
+    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="true"]', [f'background-color: {Yellow};']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="false"]', [f'background-color: {LightGray};']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="1"]', [f'border-right: 1px solid {Gray};', f'border-bottom: 1px solid {Gray};', 'border-top-left-radius: 10px;']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="2"]', [f'border-right: 1px solid {Gray};', f'border-bottom: 1px solid {Gray};']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="3"]', [f'border-bottom: 1px solid {Gray};', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="4"]', [f'border-bottom: 1px solid {Gray};']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="5"]', ['border-bottom-right-radius: 10px;']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="6"]', [f'border-right: 1px solid {Gray};']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[Corner="7"]', [f'border-right: 1px solid {Gray};', 'border-bottom-left-radius: 10px;']),
     builder('QPushButton', 'DiagnosisResultClose', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
