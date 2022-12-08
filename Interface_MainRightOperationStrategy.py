@@ -9,7 +9,7 @@ import typing
 class OperationStrategyWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(550, 313, 2000, 1000)
+        self.setGeometry(640, 543, 1350, 890)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -56,7 +56,7 @@ class OperationStrategyBoard_BG(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
-        vl.setContentsMargins(10, 10, 10, 10)
+        vl.setContentsMargins(0, 10, 10, 10)
         vl.addWidget(OperationStrategyBoard(self))
         hl = QHBoxLayout()
         hl.addStretch(1)
@@ -83,16 +83,16 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
         super().__init__(parent, widget_name)
         self.setBackgroundBrush(rgb_to_qCOLOR(LightGray))
         
-        self.item_w = 200
+        self.item_w = 154
         self.item_h = 70
-        self.item_m = 25
-        self.item_m_multiple = 3
+        self.item_m = 16
+        self.item_m_multiple = 2
         
         self.items = {}
         # Box --------------------------------------------------------------------------------------------------
         if True:
             # Top
-            self.items['t1']      = OperationStrategyBoardItem(self, 350, 10, self.item_w * 0.5, self.item_h * 0.5, in_text='Start')
+            self.items['t1']      = OperationStrategyBoardItem(self, 230, 0, self.item_w * 0.5, self.item_h * 0.5, in_text='Start')
             self.items['t2']      = OperationStrategyBoardItem(self, self.items['t1'].sx - self.items['t1'].w * 0.5, self.items['t1'].ey, in_text='Are alarms and\ntrip occur?', box=False)
             # Normal
             self.items['n1']      = OperationStrategyBoardItem(self, self.items['t2'].sx - self.item_w - self.item_m * self.item_m_multiple,
@@ -113,7 +113,7 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
             
             self.items['a10']     = OperationStrategyBoardItem(self, self.items['a8'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['a2'].ey, in_text='Request for\noperator intervention')
             self.items['a11']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a10'].ey, in_text='Auto control RL')
-            self.items['a12']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a11'].ey, in_text='Is the operator involved?', box=False)
+            self.items['a12']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a11'].ey, in_text='Is the operator\ninvolved?', box=False)
             self.items['a13']     = OperationStrategyBoardItem(self, self.items['a10'].sx, self.items['a12'].ey, in_text='Manual control')
             # Emergency
             self.items['e1']      = OperationStrategyBoardItem(self, self.items['a10'].sx + self.item_w + self.item_m * self.item_m_multiple, self.items['t2'].ey, in_text='Emergency\noperation strategy')
