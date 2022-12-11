@@ -62,5 +62,5 @@ class Main(QWidget):
         qp = QPainter()
         qp.begin(self)
         qp.setPen(QPen(QColor(192, 0, 0), 2))
-        qp.drawRect(5, 1195, 590, 239)
+        qp.drawRect(5, 1195, 590, 236)
         qp.end()

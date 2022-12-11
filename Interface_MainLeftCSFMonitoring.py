@@ -7,7 +7,7 @@ from Interface_QSS import qss
 class CSFMonitoringWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(594, 324, 600, 450)
+        self.setGeometry(594, 324, 850, 600)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -41,7 +41,7 @@ class CSFMonitoringTitle_BG(ABCLabel):
         super().__init__(parent, widget_name)
         self.setFixedHeight(25 + 10) # Title size + margin * 2
         hl = QHBoxLayout(self)
-        hl.setContentsMargins(5, 5, 5, 5)
+        hl.setContentsMargins(10, 5, 5, 5)
         hl.addWidget(CSFMonitoringTitle(self))
         hl.addStretch(1)
 class CSFMonitoringTitle(ABCLabel):
@@ -54,10 +54,12 @@ class CSFMonitoringAlarmWidget_BG(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
-        vl.setContentsMargins(10, 10, 10, 10)
+        vl.setContentsMargins(15, 15, 15, 15)
+        vl.setSpacing(15)
         vl.addWidget(CSFMonitoringAlarmWidget(self))
         hl = QHBoxLayout()
         hl.addStretch(1)
+        hl.setContentsMargins(0, 0, 0, 0)
         hl.addWidget(CSFMonitoringClose(self))
         vl.addLayout(hl)
 class CSFMonitoringAlarmWidget(ABCWidget):
@@ -66,19 +68,21 @@ class CSFMonitoringAlarmWidget(ABCWidget):
         self.startTimer(600)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         vl = QVBoxLayout(self)
-        vl.setContentsMargins(2, 2, 2, 2)
-        
+        vl.setContentsMargins(0, 0, 0, 0)
+        vl.setSpacing(15)
         self.csf_info = {
             'Reactivity Control': [QButtonGroup(), 'iCSFReactivity'],
             'Core Heat Removal': [QButtonGroup(), 'iCSFCoreHeat'],
             'RCS Heat Removal': [QButtonGroup(), 'iCSFRCSHeat'],
             'RCS Pressure Control': [QButtonGroup(), 'iCSFRCSPres'],
-            'Containment Pressure and\nTemperature Control': [QButtonGroup(), 'iCSFCTMT'],
+            'Containment Pressure and Temperature Control': [QButtonGroup(), 'iCSFCTMT'],
             'RCS Inventory Control': [QButtonGroup(), 'iCSFRCSInvt'],
         }
 
         for key, val in self.csf_info.items():
             h = QHBoxLayout()
+            h.setContentsMargins(0, 0, 0, 0)
+            h.setSpacing(10)
             h.addWidget(CSFMonitoringAlarmLabel(self, in_text=key))
             val[0].addButton(CSFMonitoringAlarmLevel1Item(self))
             val[0].addButton(CSFMonitoringAlarmLevel2Item(self))
@@ -98,35 +102,36 @@ class CSFMonitoringAlarmLabel(ABCLabel):
     def __init__(self, parent, widget_name='', in_text=''):
         super().__init__(parent, widget_name)
         self.setText(in_text)
-        self.setFixedHeight(50)
+        self.setWordWrap(True)
+        self.setFixedSize(260, 70)
 class CSFMonitoringAlarmLevel1Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 1')
         self.setCheckable(True)
         self.setChecked(True)
-        self.setFixedSize(90, 50)
+        self.setFixedSize(130, 70)
 class CSFMonitoringAlarmLevel2Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 2')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedSize(90, 50)
+        self.setFixedSize(130, 70)
 class CSFMonitoringAlarmLevel3Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 3')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedSize(90, 50)
+        self.setFixedSize(130, 70)
 class CSFMonitoringAlarmLevel4Item(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText(f'Level 4')
         self.setCheckable(True)
         self.setChecked(False)
-        self.setFixedSize(90, 50)
+        self.setFixedSize(130, 70)
 class CSFMonitoringClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
