@@ -7,7 +7,7 @@ from Interface_QSS import qss
 class DiagnosisWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(594, 323, 500, 410)
+        self.setGeometry(594, 323, 865, 614)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss) # qss load
@@ -41,7 +41,7 @@ class DiagnosisTitle_BG(ABCLabel):
         super().__init__(parent, widget_name)
         self.setFixedHeight(25 + 10) # Title size + margin * 2
         hl = QHBoxLayout(self)
-        hl.setContentsMargins(5, 5, 5, 5)
+        hl.setContentsMargins(10, 5, 5, 5)
         hl.addWidget(DiagnosisTitle(self))
         hl.addStretch(1)
 class DiagnosisTitle(ABCLabel):
@@ -54,19 +54,25 @@ class DiagnosisResultWidget_BG(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
-        vl.setContentsMargins(10, 10, 10, 10)
+        vl.setContentsMargins(15, 15, 15, 15)
         vl.addWidget(DiagnosisResultWidget(self))
         vl.addWidget(DiagnosisResultAlarmWidget(self))
+        vl.setSpacing(15)
         hl = QHBoxLayout()
+        hl.setContentsMargins(0, 0, 0, 0)
         hl.addStretch(1)
         hl.addWidget(DiagnosisResultClose(self))
         vl.addLayout(hl)
 class DiagnosisResultWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        # self.setFixedSize(835, 50)
+        self.setFixedHeight(50)
         hl = QHBoxLayout(self)
         hl.addWidget(DiagnosisResultWidgetTitle(self))
         hl.addWidget(DiagnosisResultWidgetResult(self))
+        hl.setSpacing(10)
+        hl.addStretch(1)
 class DiagnosisResultWidgetTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -80,7 +86,7 @@ class DiagnosisResultAlarmWidget(ABCWidget):
         super().__init__(parent, widget_name)
         self.startTimer(600)
         self.gl = QGridLayout(self)
-        self.gl.setContentsMargins(2, 2, 2, 2)
+        self.gl.setContentsMargins(3, 3, 3, 3)
         self.gl.setSpacing(0)
 
         self.fault_alarms = {
@@ -100,10 +106,10 @@ class DiagnosisResultAlarmWidget(ABCWidget):
             13: DiagnosisResultPackWidget(self, in_text='AB23-03\n1차측 RCS 누설 (Leak)',                  nub=13),
             14: DiagnosisResultPackWidget(self, in_text='AB80-02\n주급수 펌프 2/3대 정지',                  nub=14, corners=['2', '4']),
             15: DiagnosisResultPackWidget(self, in_text='AB06-02\n재생열 교환기 전단 파열',                 nub=15),
-            16: DiagnosisResultPackWidget(self, in_text='AB59-02\n충전수 유량조절밸브 전단 누설 (Leak)',    nub=16),
+            16: DiagnosisResultPackWidget(self, in_text='AB59-02\n충전수 유량조절밸브\n전단 누설 (Leak)',    nub=16),
             17: DiagnosisResultPackWidget(self, in_text='AB23-01\n1차측 CVCS 계통 누설 (Leak)',            nub=17, corners=['2', '4']),
             18: DiagnosisResultPackWidget(self, in_text='AB23-06\n증기발생기 전열관 누설 (Leak)',           nub=18, corners=['7', '6']),
-            19: DiagnosisResultPackWidget(self, in_text='AB59-01\n충전수 유량조절밸브 후단 누설 (Leak)',    nub=19, corners=['6', '6']),
+            19: DiagnosisResultPackWidget(self, in_text='AB59-01\n충전수 유량조절밸브\n후단 누설 (Leak)',    nub=19, corners=['6', '6']),
             20: DiagnosisResultPackWidget(self, in_text='AB64-03\n주증기관 밸브 고장 (닫힘)',               nub=20, corners=['6', '5']),
         }
 
@@ -124,9 +130,9 @@ class DiagnosisResultPackWidget(ABCWidget):
         hl.setContentsMargins(0, 0, 0, 0)
         hl.setSpacing(0)
         self.ab_name_w = DiagnosisResultAlarmItem(self, in_text=in_text, corner=corners[0])
-        self.ab_name_w.setFixedWidth(370)
+        self.ab_name_w.setFixedSize(180, 65)
         self.ab_val_w = DiagnosisResultAlarmItem(self, in_text='', corner=corners[1])
-        self.ab_val_w.setFixedWidth(80)
+        self.ab_val_w.setFixedSize(100, 65)
         hl.addWidget(self.ab_name_w)
         hl.addWidget(self.ab_val_w)
 
@@ -143,6 +149,7 @@ class DiagnosisResultAlarmItem(ABCLabel):
     def __init__(self, parent, widget_name='', in_text='', corner='2'):
         super().__init__(parent, widget_name)
         self.setText(in_text)
+        self.setWordWrap(True)
         self.setProperty('Corner', corner)
         self.blink = False
 

@@ -60,7 +60,7 @@ class SignalTitle_BG(ABCWidget):
         super().__init__(parent, widget_name)
         layout = QHBoxLayout(self)
         layout.addWidget(SignalTitle(self))
-        layout.setContentsMargins(5, 5, 5, 5)
+        layout.setContentsMargins(10, 5, 5, 5)
         layout.addStretch(1)
         self.setFixedHeight(35)
 
@@ -147,6 +147,7 @@ class SignalResultAlarmItem(ABCLabel):
         self.setText(in_text)
         self.setFixedSize(285, 75)
         self.blink = False
+        self.setWordWrap(True)
         self.coner_type = coner_type
 
     def blink_fun(self, run=False):
