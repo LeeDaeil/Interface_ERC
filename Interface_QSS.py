@@ -22,6 +22,7 @@ def rgb_to_qCOLOR(color_code:str):
 DarkGray = 'rgb(80, 80, 80)'
 Gray = 'rgb(181, 181, 181)'
 LightGray = 'rgb(231, 231, 234)'
+Gray = 'rgb(178, 178, 178)'
 LightWhite = 'rgb(255, 255, 255)'
 LightBlue = 'rgb(0, 178, 216)'
 DarkRed = 'rgb(192, 0, 0)'
@@ -652,6 +653,82 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    builder('QPushButton', 'MainRightTop3ListAlarm:hover', [f'background-color: {LightBlue};']),
+    builder('QWidget', 'ListAlarmTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'ListAlarmTitle', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size2};',
+        'font-weight: bold;',
+        'border-radius: 10px;',
+        'padding-left: 3px;',
+        ]),
+    builder('QWidget', 'ListAlarmBoard_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'ListAlarmBoard', [f'background-color: {LightGray};', 'border: none;']),
+    builder('QTableWidget', 'ListAlarmTable', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};',
+        'border-bottom-left-radius: 10px;',
+        'border-bottom-right-radius: 10px;',
+    ]),
+    builder('QTableWidget', 'ListAlarmTable QHeaderView::section', [
+        f'background-color: {Gray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-top: 3px;',
+        'padding-left: 3px;',
+    ]),
+    builder('QTableWidget', 'ListAlarmTable:item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'text-align: left;',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-left: 3px;',
+    ]),
+    builder('QPushButton', 'ListROAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListTOAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListEOAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListAlarmClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font2};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+
     builder('QPushButton', 'MainRightTop3Control', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
