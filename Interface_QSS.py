@@ -29,7 +29,7 @@ Yellow = 'rgb(249, 249, 0)'
 DarkYellow = 'rgb(255, 192, 0)'
 Black = 'rgb(0, 0, 0)'
 Green = 'rgb(0, 170, 0)'
-Orange = 'rgb(255, 85, 0)'
+Orange = 'rgb(255, 192, 0)'
 # Font Table --------------------------------------------------
 Content_font_size_nub = 12
 Mimic_font_size_nub = 12
@@ -287,13 +287,13 @@ QssMainLeft = ''.join([
     ]),
     builder('QWidget', 'SignalResultWidget', [
         f'background-color: {LightGray};',
-        f'border: 3px solid {Gray};'
+        f'border: 2px solid {Gray};'
         'border-radius: 10px;'
         ]),
     builder('QLabel', 'SignalResultWidgetTitle', [
         'background-color: None;',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size4};',
+        f'font-size: {Global_font_size3};',
         "text-align: Left;",
         'font-weight: bold;',
         'padding-left: 3px;',
@@ -314,7 +314,7 @@ QssMainLeft = ''.join([
     builder('QLabel', 'SignalResultAlarmItem', [
         f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Global_font_size1};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
         ]),
@@ -327,12 +327,12 @@ QssMainLeft = ''.join([
     builder('QLabel', 'SignalResultAlarmItem[blinking="false"]', [f'background-color: {LightGray};']),
     builder('QPushButton', 'SignalResultClose', [
         f'background-color: {LightWhite};',
-        f'font-family: {Global_font2};',
+        f'font-family: {Global_font};',
         f'font-size: {Global_font_size1};',
         'border: none;'
         'text-align:center;',
         'font-weight: bold;',
-        'border-radius: 10px;'
+        'border-radius: 5px;'
         ]),
     # MainLeftTop3CSF -------------------------------------
     builder('QPushButton', 'MainLeftTop3CSF', [
@@ -370,7 +370,7 @@ QssMainLeft = ''.join([
         f'font-family: {Global_font};',
         f'font-size: {Title_font_size2};',
         'font-weight: bold;',
-        f'border: 2px solid {Gray};'
+        f'border: 2px solid {Gray};',
         'border-radius: 10px;',
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel1Item:checked', [
@@ -382,7 +382,7 @@ QssMainLeft = ''.join([
         f'font-size: {Title_font_size2};',
         'font-weight: bold;',
         f'border: 2px solid {Gray};',
-        'border-radius: 10px;'
+        'border-radius: 10px;',
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel2Item:checked', [
         f'background-color: {Yellow};',
@@ -403,7 +403,7 @@ QssMainLeft = ''.join([
         f'font-family: {Global_font};',
         f'font-size: {Title_font_size2};',
         'font-weight: bold;',
-        f'border: 2px solid {Gray};',
+        f'border: 2px solid {Gray};'
         'border-radius: 10px;',
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel4Item:checked', [
@@ -652,6 +652,82 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    builder('QPushButton', 'MainRightTop3ListAlarm:hover', [f'background-color: {LightBlue};']),
+    builder('QWidget', 'ListAlarmTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'ListAlarmTitle', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size2};',
+        'font-weight: bold;',
+        'border-radius: 10px;',
+        'padding-left: 3px;',
+        ]),
+    builder('QWidget', 'ListAlarmBoard_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'ListAlarmBoard', [f'background-color: {LightGray};', 'border: none;']),
+    builder('QTableWidget', 'ListAlarmTable', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};',
+        'border-bottom-left-radius: 10px;',
+        'border-bottom-right-radius: 10px;',
+    ]),
+    builder('QTableWidget', 'ListAlarmTable QHeaderView::section', [
+        f'background-color: {Gray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-top: 3px;',
+        'padding-left: 3px;',
+    ]),
+    builder('QTableWidget', 'ListAlarmTable:item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'text-align: left;',
+        'font-weight: bold;',
+        'border: none;',
+        'padding-left: 3px;',
+    ]),
+    builder('QPushButton', 'ListROAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListTOAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListEOAlarmSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+    builder('QPushButton', 'ListAlarmClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font2};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 10px;'
+    ]),
+
     builder('QPushButton', 'MainRightTop3Control', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
