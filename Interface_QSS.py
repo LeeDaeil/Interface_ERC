@@ -360,7 +360,7 @@ QssMainLeft = ''.join([
     builder('QLabel', 'CSFMonitoringAlarmLabel', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
         'border-radius: 10px;',
@@ -368,7 +368,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel1Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         'font-weight: bold;',
         f'border: 2px solid {Gray};',
         'border-radius: 10px;',
@@ -379,7 +379,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel2Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         'font-weight: bold;',
         f'border: 2px solid {Gray};',
         'border-radius: 10px;',
@@ -390,7 +390,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel3Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         'font-weight: bold;',
         f'border: 2px solid {Gray};',
         'border-radius: 10px;',
@@ -401,7 +401,7 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel4Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size3};',
         'font-weight: bold;',
         f'border: 2px solid {Gray};'
         'border-radius: 10px;',
@@ -679,8 +679,6 @@ QssMainRight = ''.join([
         f'font-size: {Global_font_size1};',
         'font-weight: bold;',
         'border: none;',
-        'padding-top: 3px;',
-        'padding-left: 3px;',
     ]),
     builder('QTableWidget', 'ListAlarmTable:item', [
         f'background-color: {LightGray};',
@@ -689,7 +687,6 @@ QssMainRight = ''.join([
         'text-align: left;',
         'font-weight: bold;',
         'border: none;',
-        'padding-left: 3px;',
     ]),
     builder('QPushButton', 'ListROAlarmSorting', [
         f'background-color: {LightWhite};',
@@ -727,7 +724,7 @@ QssMainRight = ''.join([
         'font-weight: bold;',
         'border-radius: 10px;'
     ]),
-
+    # -----------------------------------------------------------
     builder('QPushButton', 'MainRightTop3Control', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
@@ -736,44 +733,66 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
-    # ListAlarm ----------------------------------------------------------------------
-    builder('QWidget', 'ListAlarmTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
-    builder('QLabel', 'ListAlarmTitle', [
+    builder('QPushButton', 'MainRightTop3Control:hover', [f'background-color: {LightBlue};']),
+    builder('QWidget', 'ControlTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'ControlTitle', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size3};',
+        f'font-size: {Global_font_size2};',
         'font-weight: bold;',
         'border-radius: 10px;',
         'padding-left: 3px;',
         ]),
-    builder('QWidget', 'ListAlarmWidget_BG', [f'background-color: {LightGray};']),
-    builder('QWidget', 'ListAlarmWidget', [f'background-color: {Yellow};', 'border:none;']),
-    builder('QTableWidget', 'ListAlarmTable', ['border:none;']),
-    
-    builder('QLabel', 'ListAlarmItemLabel', [f'background-color: {DarkGray};', f'font-family: {Global_font};', f'font-size: {Title_font_size3};','font-weight: bold;']),
-    
-    builder('QLabel', 'ListAlarmHeaderLabel', [f'background-color: {Gray};', f'font-family: {Global_font};', f'font-size: {Title_font_size3};','font-weight: bold;']),
-    builder('QLabel', 'ListAlarmHeaderLabel[Pos="In"]', ['']),
-    builder('QLabel', 'ListAlarmHeaderLabel[Pos="R"]', ['border-top-right-radius: 10px;']),
-    builder('QLabel', 'ListAlarmHeaderLabel[Pos="L"]', ['border-top-left-radius: 10px;']),
-
-    builder('QPushButton', 'ListAlarmOperatorSorting', [
-        f'background-color: {LightWhite};',
+    builder('QWidget', 'ControlBoard_BG', [f'background-color: {LightGray};', f'border: 2px solid {DarkGray};']),
+    builder('QWidget', 'ControlOperationWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QLabel', 'ControlOperationWidgetTitle', [
         f'font-family: {Global_font};',
-        f'font-size: {Content_font_size};',
-        'border: none;'
-        'text-align:center;',
+        f'font-size: {Title_font_size2};',
+        "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
-        'border-radius: 5px;'
+        'border: none;',
+        ]),
+    builder('QLabel', 'ControlOperationWidgetResult', [
+        f'font-family: {Global_font};',
+        f'font-size: {Title_font_size2};',
+        "qproperty-alignment: 'AlignLeft';",
+        'font-weight: bold;',
+        'border: none;',
+        ]),
+    builder('QWidget', 'ControlTrendWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QWidget', 'ControlHistory', [f'background-color: {LightGray};', 'border: none;']),
+    builder('QTableWidget', 'ControlHistoryTable', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        f'border: 1px solid {Gray};',
+        'border-bottom-left-radius: 10px;',
+        'border-bottom-right-radius: 10px;',
     ]),
-    builder('QPushButton', 'ListAlarmClose', [
-        f'background-color: {LightWhite};',
+    builder('QTableWidget', 'ControlHistoryTable QHeaderView::section', [
+        f'background-color: {Gray};',
         f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'font-weight: bold;',
+        'border: none;',
+    ]),
+    builder('QTableWidget', 'ControlHistoryTable:item', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Global_font_size1};',
+        'text-align: left;',
+        'font-weight: bold;',
+        'border: none;',
+    ]),
+    builder('QPushButton', 'ControlClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font2};',
         f'font-size: {Content_font_size};',
         'border: none;'
         'text-align:center;',
         'font-weight: bold;',
-        'border-radius: 5px;'
+        'border-radius: 10px;'
     ]),
 ])
 # final qss !! 

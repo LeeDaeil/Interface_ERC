@@ -8,7 +8,7 @@ from Interface_QSS import qss
 class ListAlarmWindow(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setGeometry(640, 543, 880, 565)
+        self.setGeometry(1107, 866, 880, 565)
         self.setWindowFlags(Qt.FramelessWindowHint)  # 상단바 제거
         self.setAttribute(Qt.WA_TranslucentBackground)  # widget 투명화
         self.setStyleSheet(qss)  # qss load
@@ -97,14 +97,14 @@ class ListAlarmTable(ABCTableWidget):
         self.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft and Qt.AlignmentFlag.AlignVCenter)
         self.horizontalHeader().setFixedHeight(35)
-        self.setHorizontalHeaderLabels([' Description', 'Value', 'Setpoint', 'Unit', 'Time'])
+        self.setHorizontalHeaderLabels([' Description', ' Value', ' Setpoint', ' Unit', ' Time'])
         self.verticalHeader().setVisible(False)
         self.setShowGrid(False)
         # Scroll
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBar(ScrollBarW)
-
+                    
     def resizeEvent(self, e: QResizeEvent) -> None:
         radius = 10.0
         path = QPainterPath()
@@ -117,13 +117,15 @@ class ListAlarmTable(ABCTableWidget):
         self.setMask(QRegion(path.toFillPolygon().toPolygon()))
         return super().resizeEvent(e)
 
-    def add_new_item(self, t_, des_):
+    def add_new_item(self, oper_, des_, val_, setp_, unit_):
+        # E.x : self.add_new_item('RO', 'Test', '10', '15', '%')
         row_index = self.rowCount()
         self.insertRow(row_index)
-        # self.setItem(row_index, 0, QTableWidgetItem(f'[{t_}]'))
-        # self.setItem(row_index, 1, QTableWidgetItem(f'[{self.inmem.get_time()}]'))
-        # self.setItem(row_index, 2, QTableWidgetItem(des_))
-
+        items = [QTableWidgetItem(des_), QTableWidgetItem(val_), QTableWidgetItem(setp_), QTableWidgetItem(unit_), QTableWidgetItem(f'[{self.inmem.get_time()}]')]
+        for i, w in enumerate(items):
+            w.operator_type = oper_         # Operator 별 Alarm sorting 용
+            self.setItem(row_index, i, w)
+            
 class ListAlarmScroller(ABCScrollBar):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
