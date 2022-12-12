@@ -350,7 +350,7 @@ QssMainLeft = ''.join([
     builder('QLabel', 'CSFMonitoringTitle', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
         'border-radius: 10px;',
         'padding-left: 3px;',
@@ -360,16 +360,18 @@ QssMainLeft = ''.join([
     builder('QLabel', 'CSFMonitoringAlarmLabel', [
         f'background-color: {LightWhite};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel1Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
         f'border: 1px solid {Gray};'
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel1Item:checked', [
         f'background-color: {Green};',
@@ -377,9 +379,10 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel2Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
-        f'border: 1px solid {Gray};'
+        f'border: 1px solid {Gray};',
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel2Item:checked', [
         f'background-color: {Yellow};',
@@ -387,9 +390,10 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel3Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
-        f'border: 1px solid {Gray};'
+        f'border: 1px solid {Gray};',
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel3Item:checked', [
         f'background-color: {Orange};',
@@ -397,9 +401,10 @@ QssMainLeft = ''.join([
     builder('QPushButton', 'CSFMonitoringAlarmLevel4Item', [
         f'background-color: {LightGray};',
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size2};',
+        f'font-size: {Title_font_size2};',
         'font-weight: bold;',
-        f'border: 1px solid {Gray};'
+        f'border: 1px solid {Gray};',
+        'border-radius: 10px;'
         ]),
     builder('QPushButton', 'CSFMonitoringAlarmLevel4Item:checked', [
         f'background-color: {DarkRed};',
@@ -655,7 +660,45 @@ QssMainRight = ''.join([
         'text-align:center;',
         'font-weight: bold;',
         ]),
+    # ListAlarm ----------------------------------------------------------------------
+    builder('QWidget', 'ListAlarmTitle_BG', [f'background-color: {DarkGray};', 'border-top-left-radius: 10px;', 'border-top-right-radius: 10px;']),
+    builder('QLabel', 'ListAlarmTitle', [
+        f'background-color: {LightGray};',
+        f'font-family: {Global_font};',
+        f'font-size: {Title_font_size3};',
+        'font-weight: bold;',
+        'border-radius: 10px;',
+        'padding-left: 3px;',
+        ]),
+    builder('QWidget', 'ListAlarmWidget_BG', [f'background-color: {LightGray};']),
+    builder('QWidget', 'ListAlarmWidget', [f'background-color: {Yellow};', 'border:none;']),
+    builder('QTableWidget', 'ListAlarmTable', ['border:none;']),
+    
+    builder('QLabel', 'ListAlarmItemLabel', [f'background-color: {DarkGray};', f'font-family: {Global_font};', f'font-size: {Title_font_size3};','font-weight: bold;']),
+    
+    builder('QLabel', 'ListAlarmHeaderLabel', [f'background-color: {Gray};', f'font-family: {Global_font};', f'font-size: {Title_font_size3};','font-weight: bold;']),
+    builder('QLabel', 'ListAlarmHeaderLabel[Pos="In"]', ['']),
+    builder('QLabel', 'ListAlarmHeaderLabel[Pos="R"]', ['border-top-right-radius: 10px;']),
+    builder('QLabel', 'ListAlarmHeaderLabel[Pos="L"]', ['border-top-left-radius: 10px;']),
 
+    builder('QPushButton', 'ListAlarmOperatorSorting', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
+    ]),
+    builder('QPushButton', 'ListAlarmClose', [
+        f'background-color: {LightWhite};',
+        f'font-family: {Global_font};',
+        f'font-size: {Content_font_size};',
+        'border: none;'
+        'text-align:center;',
+        'font-weight: bold;',
+        'border-radius: 5px;'
+    ]),
 ])
 # final qss !! 
 qss = ''.join(
