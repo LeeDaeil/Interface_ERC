@@ -98,7 +98,7 @@ class OperationSelectionTree(ABCTreeWidget):
             self.setItemWidget(item_top, 0, btn_x)
             op_mode = {
                 0: ['Refueling', 'Cold Shutdown', 'Hot Shutdown', 'Hot Standby', 'Startup', 'Power Operation'],
-                1: ['Ab01', 'Ab02', 'Ab03', 'Ab04','Ab06'],
+                1: ['Ab01', 'Ab02', 'Ab03', 'Ab04', 'Ab05', 'Ab06'],
                 2: ['LOCA', 'SGTR', 'MSLB', 'SBO', 'LOAF'],
             }
             btn_list = [OperationSelectionTreeItem(self, in_text=_, fixwidth=175) for _ in op_mode[i]]

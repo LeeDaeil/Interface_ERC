@@ -759,7 +759,7 @@ QssMainRight = ''.join([
         'font-weight: bold;',
         'border: none;',
         ]),
-    builder('QWidget', 'ControlTrendWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QStackWidget', 'ControlTrendWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
     builder('QWidget', 'ControlHistory', [f'background-color: {LightGray};', 'border: none;']),
     builder('QTableWidget', 'ControlHistoryTable', [
         f'background-color: {LightGray};',

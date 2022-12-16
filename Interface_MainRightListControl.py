@@ -38,6 +38,18 @@ class ControlWindow(ABCWidget):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
         print(self.widget_name, self.geometry())
+        
+    def show(self) -> None:
+        opmode = self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].text()
+        self.inmem.widget_ids['ControlOperationWidgetResult'].setText(opmode)
+        if opmode == 'Startup':
+            self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(1)
+            return super().show()
+        if opmode == 'LOCA':
+            self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(2)
+            return super().show()
+        self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(0)
+        return super().show()
 class ControlTitle_BG(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -95,9 +107,25 @@ class ControlOperationWidgetResult(ABCLabel):
         super().__init__(parent, widget_name)
         self.setText('')
 #--------------------------------------------------------------------------------------------------------
-class ControlTrendWidget(ABCWidget):
+class ControlTrendWidget(ABCStackWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        self.addWidget(ControlTrendNoWidget(self))
+        self.addWidget(ControlTrendStartUpWidget(self))
+        self.addWidget(ControlTrendEmergencyWidget(self))
+        self.setContentsMargins(10, 10, 10, 10)        
+class ControlTrendStartUpWidget(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+class ControlTrendEmergencyWidget(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        
+class ControlTrendNoWidget(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.addWidget(QLabel('No'))
 #--------------------------------------------------------------------------------------------------------
 class ControlHistory(ABCWidget):
     def __init__(self, parent, widget_name=''):
