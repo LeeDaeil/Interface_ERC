@@ -48,7 +48,7 @@ class InterfaceRun(Process):
 class FastRun:
     def __init__(self) -> None:
         mem = ShMem()
-        mem.change_para_val('iFixOpMode', 3) # 'Hotstand-by
+        mem.change_para_val('iFixOpMode', 4) # 'Startup
         InterfaceRun(mem)
 
 if __name__ == '__main__':

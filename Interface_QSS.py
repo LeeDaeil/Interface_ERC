@@ -17,7 +17,12 @@ def builder(objecttype:str, objectname:str, contents:list):
 def rgb_to_qCOLOR(color_code:str):
     color_code = color_code.replace('rgb(', '').replace(')', '').replace(' ', '').split(',')
     return QColor(int(color_code[0]), int(color_code[1]), int(color_code[2]))
-
+def rgb_to_hex(color_code:str):
+    color_code = color_code.replace('rgb(', '').replace(')', '').replace(' ', '').split(',')
+    r = int(color_code[0])
+    g = int(color_code[1])
+    b = int(color_code[2])
+    return '#' + hex(r)[2:].zfill(2) + hex(g)[2:].zfill(2) + hex(b)[2:].zfill(2)
 # Color Table -------------------------------------------------
 DarkGray = 'rgb(80, 80, 80)'
 Gray = 'rgb(181, 181, 181)'
@@ -760,6 +765,13 @@ QssMainRight = ''.join([
         'border: none;',
         ]),
     builder('QStackWidget', 'ControlTrendWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QStackWidget', 'ControlTrendStartUpWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    
+    builder('QWidget', 'ControlTrendStartUpPowerWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
+    builder('QWidget', 'ControlTrendStartUpTemperatureWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
+    
+    builder('QStackWidget', 'ControlTrendEmergencyWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QStackWidget', 'ControlTrendNoWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
     builder('QWidget', 'ControlHistory', [f'background-color: {LightGray};', 'border: none;']),
     builder('QTableWidget', 'ControlHistoryTable', [
         f'background-color: {LightGray};',
@@ -794,6 +806,7 @@ QssMainRight = ''.join([
         'font-weight: bold;',
         'border-radius: 10px;'
     ]),
+    
 ])
 # final qss !! 
 qss = ''.join(
