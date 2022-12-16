@@ -45,8 +45,13 @@ class InterfaceRun(Process):
         w = Main(mem)
         w.show()
         sys.exit(app.exec_())
-
+class FastRun:
+    def __init__(self) -> None:
+        mem = ShMem()
+        mem.change_para_val('iFixOpMode', 3) # 'Hotstand-by
+        InterfaceRun(mem)
 
 if __name__ == '__main__':
-    MainProcess = Run()
-    MainProcess.start_process()
+    # MainProcess = Run()
+    # MainProcess.start_process()
+    FastRun()
