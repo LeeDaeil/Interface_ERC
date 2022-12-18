@@ -98,7 +98,7 @@ class OperationSelectionTree(ABCTreeWidget):
             self.setItemWidget(item_top, 0, btn_x)
             op_mode = {
                 0: ['Refueling', 'Cold Shutdown', 'Hot Shutdown', 'Hot Standby', 'Startup', 'Power Operation'],
-                1: ['Ab01', 'Ab02', 'Ab03', 'Ab04', 'Ab05', 'Ab06'],
+                1: ['Ab2101', 'Ab2102', 'Ab2001', 'Ab2004', 'Ab1507', 'Ab1508', 'Ab6304', 'Ab1508', 'Ab2301'],
                 2: ['LOCA', 'SGTR', 'MSLB', 'SBO', 'LOAF'],
             }
             btn_list = [OperationSelectionTreeItem(self, in_text=_, fixwidth=175) for _ in op_mode[i]]
@@ -162,10 +162,13 @@ class OperationSelectionOk(ABCPushButton):
         self.setText('확인')
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        self.call_OK()
+        return super().mousePressEvent(e)
+
+    def call_OK(self):
         self.inmem.ShMem.change_para_val('iFixOpMode', self.inmem.widget_ids['OperationSelectionTree'].get_operation_mode_nub())
         self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].setText(self.inmem.widget_ids['OperationSelectionTree'].selected_operation_mode)
         self.inmem.widget_ids['OperationSelectionWindow'].close()
-        return super().mousePressEvent(e)
 
 class OperationSelectionClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):

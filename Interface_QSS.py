@@ -468,11 +468,11 @@ QssMainLeft = ''.join([
     builder('QLabel', 'DiagnosisResultAlarmItem', [
         f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
-        f'font-size: {Global_font_size0};',
+        f'font-size: {Title_font_size2};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
         ]),
-    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="true"]', [f'background-color: {Yellow};', f'color: {LightWhite}']),
+    builder('QLabel', 'DiagnosisResultAlarmItem[blinking="true"]', [f'background-color: {Yellow};', f'color: {Black}']),
     builder('QLabel', 'DiagnosisResultAlarmItem[blinking="false"]', [f'background-color: {LightGray};', f'color: {Black}']),
     builder('QLabel', 'DiagnosisResultAlarmItem[Corner="1"]', [f'border-right: 1px solid {Gray};', f'border-bottom: 1px solid {Gray};', 'border-top-left-radius: 10px;']),
     builder('QLabel', 'DiagnosisResultAlarmItem[Corner="2"]', [f'border-right: 1px solid {Gray};', f'border-bottom: 1px solid {Gray};']),
@@ -606,7 +606,6 @@ QssMainRight = ''.join([
         f'font-family: {Global_font};',
         f'font-size: {Title_font_size3};',
         'text-align: left;',
-        'font-weight: bold;',
         'border: none;',
         'padding-left: 3px;',
         ]),
@@ -753,20 +752,21 @@ QssMainRight = ''.join([
     builder('QLabel', 'ControlOperationWidgetTitle', [
         f'font-family: {Global_font};',
         f'font-size: {Title_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
         'border: none;',
         ]),
     builder('QLabel', 'ControlOperationWidgetResult', [
         f'font-family: {Global_font};',
         f'font-size: {Title_font_size2};',
-        "qproperty-alignment: 'AlignLeft';",
         'font-weight: bold;',
         'border: none;',
         ]),
     builder('QStackWidget', 'ControlTrendWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
     builder('QStackWidget', 'ControlTrendStartUpWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
     
+    builder('QWidget', 'ControlTrendStartUpRODBOXWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
+    builder('QLabel', 'ControlTrendStartUpRODBOXWidget_Title', [
+        f'border-bottom: 2px solid {Gray};', f'font-family: {Global_font};', f'font-size: {Title_font_size3};',]),
     builder('QWidget', 'ControlTrendStartUpPowerWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
     builder('QWidget', 'ControlTrendStartUpTemperatureWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
     

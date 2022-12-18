@@ -42,7 +42,7 @@ class MainLeftTop1ReactorPower(ABCLabel):
         self.startTimer(200)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
-        self.setText(f'Reactor Power\n{self.inmem.ShMem.get_para_val("KBCDO23")} [%]')
+        self.setText(f'Reactor Power\n{self.inmem.ShMem.get_para_val("QPROREL")*100:.1f} [%]')
         return super().timerEvent(a0)
 class MainLeftTop1Electric(ABCLabel):
     def __init__(self, parent, widget_name=''):

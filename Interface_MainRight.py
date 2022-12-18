@@ -92,10 +92,10 @@ class MainRightTop2(ABCWidget):
 class MainRightTop2TimeTable(ABCTableWidget):
     def __init__(self, parent, widget_name='', ScrollBarW=''):
         super().__init__(parent, widget_name)
-        self.setFixedHeight(1085)
+        self.setFixedHeight(1145)
         self.setColumnCount(3)
-        self.setColumnWidth(0, 20)
-        self.setColumnWidth(1, 80)
+        self.setColumnWidth(0, 40)
+        self.setColumnWidth(1, 100)
         self.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft and Qt.AlignmentFlag.AlignVCenter)
         self.horizontalHeader().setFixedHeight(35)

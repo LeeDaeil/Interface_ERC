@@ -4,9 +4,9 @@ from collections import deque
 import pandas as pd
 
 class ShMem:
-    def __init__(self):
+    def __init__(self, recode_tape='./recoded_tape.txt'):
         # load tape
-        self.tape_db = pd.read_csv('./recoded_tape.txt')
+        self.tape_db = pd.read_csv(recode_tape)
         self.tape_db_step = 0
         #
         self.mem = self.make_cns_mem(max_len=10)
@@ -44,7 +44,7 @@ class ShMem:
     def one_step_tape(self):
         self.tape_db_step += 1
         for para in self.mem.keys():
-            v_ = self.tape_db.at[self.tape_db_step, para] if para in self.tape_db.columns else 0
+            v_ = self.tape_db.at[self.tape_db_step, para] if para in self.tape_db.columns else self.mem[para]['Val']
             self.mem[para]['Val'] = int(v_) if self.mem[para]['Sig'] == 'INTEGER' else float(v_)
         self.update_alarmdb()
 
@@ -52,7 +52,7 @@ class ShMem:
         [self.mem[para]['List'].append(self.mem[para]['Val']) for para in self.mem.keys()]
 
     def change_para_val(self, para, val):
-        self.mem[para]['Val'] = val
+        self.mem[para]['Val'] = int(val) if self.mem[para]['Sig'] == 'INTEGER' else float(val)
         self.update_alarmdb()
 
     def get_para_val(self, para):

@@ -22,14 +22,14 @@ class Run:
         BaseManager.register('ShMem', ShMem)
         manager = BaseManager()
         manager.start()
-        mem = manager.ShMem()
+        mem = manager.ShMem(recode_tape='./DUMY_ALL_ROD2.csv')
         return mem
 
     def start_process(self):
         """ MainProcess 동작 """
         mem = self.make_shmem()
         
-        mem.change_para_val('iFixOpMode', 3) # 'Hotstand-by
+        mem.change_para_val('iFixOpMode', 4) # 'Startup
         
         p_list = [InterfaceRun(mem)]
         [pr_.start() for pr_ in p_list]
@@ -40,15 +40,19 @@ class InterfaceRun(Process):
         super(InterfaceRun, self).__init__()
         app = QApplication(sys.argv)
         app.setStyle('Windows')
-        cns = CNS(mem)
-        cns.show()
         w = Main(mem)
         w.show()
+        cns = CNS(w)
+        cns.show()
         sys.exit(app.exec_())
 class FastRun:
     def __init__(self) -> None:
-        mem = ShMem()
+        # Start-up
+        mem = ShMem(recode_tape='./DUMY_ALL_ROD2.csv')
         mem.change_para_val('iFixOpMode', 4) # 'Startup
+        # Abnormal + Emergency
+        mem = ShMem(recode_tape='./DUMP_AB_EM.csv')
+        mem.change_para_val('iFixOpMode', 5) # 'Power Operation
         InterfaceRun(mem)
 
 if __name__ == '__main__':

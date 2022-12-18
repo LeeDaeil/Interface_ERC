@@ -25,6 +25,8 @@ class ControlWindow(ABCWidget):
         vl.addWidget(self.title_label)
         vl.addWidget(ControlBoard_BG(self))
 
+        self.startTimer(300)
+
     # window drag
     def mousePressEvent(self, event):
         if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
@@ -42,6 +44,11 @@ class ControlWindow(ABCWidget):
         self.m_flag = False
         self.setCursor(QCursor(Qt.ArrowCursor))
         print(self.widget_name, self.geometry())
+
+    def timerEvent(self, a0: 'QTimerEvent') -> None:
+        opmode = self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].text()
+        self.inmem.widget_ids['ControlOperationWidgetResult'].setText(opmode)
+        return super().timerEvent(a0)
         
     def show(self) -> None:
         opmode = self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].text()
@@ -49,7 +56,7 @@ class ControlWindow(ABCWidget):
         if opmode == 'Startup':
             self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(1)
             return super().show()
-        if opmode == 'LOCA':
+        if opmode == 'LOCA' or opmode == 'Ab2301':
             self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(2)
             return super().show()
         self.inmem.widget_ids['ControlTrendWidget'].setCurrentIndex(0)
@@ -73,13 +80,13 @@ class ControlBoard_BG(ABCWidget):
         super().__init__(parent, widget_name)
         hl = QHBoxLayout(self)
         hl.setContentsMargins(10, 10, 10, 10)
-        hl.setSpacing(10)
+        hl.setSpacing(5)
         vr = QVBoxLayout()
         vr.setContentsMargins(0, 0, 0, 0)
-        vr.setSpacing(10)
+        vr.setSpacing(5)
         vl = QVBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
-        vl.setSpacing(10)
+        vl.setSpacing(5)
         
         hl.addLayout(vl)
         hl.addLayout(vr)
@@ -98,6 +105,7 @@ class ControlOperationWidget(ABCWidget):
         super().__init__(parent, widget_name)
         self.setFixedSize(1070, 50)
         hl = QHBoxLayout(self)
+        hl.setContentsMargins(0, 0, 0, 0)
         hl.addWidget(ControlOperationWidgetTitle(self))
         hl.addWidget(ControlOperationWidgetResult(self))
         hl.setSpacing(10)
@@ -105,11 +113,13 @@ class ControlOperationWidget(ABCWidget):
 class ControlOperationWidgetTitle(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.setText('Operation Mode :')
+        self.setText(' Operation Mode : ')
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
 class ControlOperationWidgetResult(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setText('')
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
 #--------------------------------------------------------------------------------------------------------
 class ControlTrendWidget(ABCStackWidget):
     def __init__(self, parent, widget_name=''):
@@ -117,7 +127,7 @@ class ControlTrendWidget(ABCStackWidget):
         self.addWidget(ControlTrendNoWidget(self))
         self.addWidget(ControlTrendStartUpWidget(self))
         self.addWidget(ControlTrendEmergencyWidget(self))
-        self.setContentsMargins(10, 10, 10, 10)
+        self.setContentsMargins(5, 5, 5, 5)
 class ControlTrendStartUpWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -132,6 +142,7 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
         super().__init__(parent, widget_name)
         self.setFixedHeight(250)
         vl = QVBoxLayout(self)
+        vl.setContentsMargins(5, 5, 5, 5)
         #
         self.fig = plt.Figure(tight_layout=True, facecolor=rgb_to_hex(LightGray))
         gs = GridSpec(1, 1, figure=self.fig)
@@ -141,7 +152,7 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
         vl.addWidget(self.canvas)
         #
         self.set_yaxis()
-        paras = ['KCNTOMS', 'QPROREL']
+        paras = ['KCNTOMS', 'QPROREL', 'UP_D', 'DOWN_D']
         self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
         #        
         self.startTimer(300)
@@ -166,7 +177,15 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
             # 2. Clear
             [ax.clear() for ax in self.axs]
             # 3. Draw
+            self.axs[0].set_title('Reactor power')
             self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['QPROREL'], label='Reactor power')
+
+            self.axs[0].fill_between(self.gp_db['KCNTOMS'], self.gp_db['UP_D'], self.gp_db['DOWN_D'],
+                                         color='gray', alpha=0.5, label='Boundary')
+            self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['UP_D'], color='gray', lw=1, linestyle='--')
+            self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['DOWN_D'], color='gray', lw=1, linestyle='--')
+
+            self.axs[0].legend(fontsize=10, loc=2)
             # 4. Refresh
             self.set_yaxis()
             self.canvas.draw()
@@ -176,7 +195,7 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
         super().__init__(parent, widget_name)
         vl = QVBoxLayout(self)
         #
-        self.fig = plt.Figure(tight_layout=True)
+        self.fig = plt.Figure(tight_layout=True, facecolor=rgb_to_hex(LightGray))
         gs = GridSpec(3, 2, figure=self.fig)
         self.axs = [
             self.fig.add_subplot(gs[0:2, 0]),
@@ -189,7 +208,7 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
         vl.addWidget(self.canvas)
         #
         self.set_yaxis()
-        paras = ['KCNTOMS', 'UAVLEGS', 'KBCDO20', 'KBCDO21', 'KBCDO22', 'KBCDO16', 'CXEMPCM']
+        paras = ['KCNTOMS', 'UAVLEGS', 'KBCDO20', 'KBCDO21', 'KBCDO22', 'KBCDO16', 'UAVLEGM', 'BOR', 'MAKE_UP']
         self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
         #        
         self.startTimer(300)
@@ -233,7 +252,46 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
             # 2. Clear
             [ax.clear() for ax in self.axs]
             # 3. Draw
-            self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['UAVLEGS'], label='Reactor power')
+            
+            # 2] Average Temperature
+            self.axs[0].set_title('Average Temperature')
+            UpBound = [_ + 1.3 for _ in self.gp_db['UAVLEGS']]
+            DownBound = [_ - 1.3 for _ in self.gp_db['UAVLEGS']]
+            self.axs[0].fill_between(self.gp_db['KCNTOMS'], UpBound, DownBound,
+                                          color='gray', alpha=0.5, label='Boundary')
+
+            self.axs[0].plot(self.gp_db['KCNTOMS'], UpBound,
+                                  color='gray', lw=1, linestyle='--', label='')
+            self.axs[0].plot(self.gp_db['KCNTOMS'], DownBound,
+                                  color='gray', lw=1, linestyle='--', label='')
+            self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['UAVLEGS'],
+                                  color='black', lw=1, linestyle='--', label='Reference Temperature')
+
+            self.axs[0].plot(self.gp_db['KCNTOMS'], self.gp_db['UAVLEGM'],
+                                  color='black', label='Average Temperature')
+            self.axs[0].legend(fontsize=10, loc=2)
+
+            # 3] Electric Power
+            self.axs[1].set_title('Electric Power')
+            self.axs[1].plot(self.gp_db['KCNTOMS'], self.gp_db['KBCDO20'],
+                                    color='gray', linestyle='--', label='Load Set-point [MWe]')
+            self.axs[1].plot(self.gp_db['KCNTOMS'], self.gp_db['KBCDO21'],
+                                    color='gray', linestyle='-', label='Load Rate [MWe]')
+            self.axs[1].plot(self.gp_db['KCNTOMS'], self.gp_db['KBCDO22'],
+                                    color='black', label='Electric Power [MWe]')
+            self.axs[1].legend(fontsize=10, loc=2)
+
+            # 4] Boron Concentration
+            self.axs[2].set_title('Boron Concentration')
+            self.axs[2].plot(self.gp_db['KCNTOMS'], self.gp_db['KBCDO16'],
+                                    color='black', label='Boron Concentration [PPM]')
+            self.axs[2].legend(fontsize=10, loc=2)
+
+            # 5] Inject Boron / Make-up
+            self.axs[3].set_title('Injected Boron / Make-up')
+            self.axs[3].step(self.gp_db['KCNTOMS'], self.gp_db['BOR'], label='Injected boron mass', color='blue')
+            self.axs[3].step(self.gp_db['KCNTOMS'], self.gp_db['MAKE_UP'], label='Injected make-up water mass', color='black')
+            self.axs[3].legend(fontsize=10, loc=2)
             # 4. Refresh
             self.set_yaxis()
             self.canvas.draw()
@@ -241,13 +299,24 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
 class ControlTrendStartUpRODBOXWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        hl = QHBoxLayout(self)
+        vl = QVBoxLayout(self)
+        vl.setContentsMargins(0, 0, 0, 0)
+        title_label = ABCLabel(self, widget_name='ControlTrendStartUpRODBOXWidget_Title')
+        title_label.setText(' Control Rod Position')
+        title_label.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
+        title_label.setFixedHeight(40)
+
+        hl = QHBoxLayout()
+        hl.setContentsMargins(10, 10, 10, 10)
         hl.addWidget(ControlTrendStartUpRODWidget(self, bank='A'))
         hl.addWidget(ControlTrendStartUpRODWidget(self, bank='B'))
         hl.addWidget(ControlTrendStartUpRODWidget(self, bank='C'))
         hl.addWidget(ControlTrendStartUpRODWidget(self, bank='D'))
         hl.setSpacing(10)
-        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+
+        vl.addWidget(title_label)
+        vl.addLayout(hl)
+        self.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 class ControlTrendStartUpRODWidget(ABCWidget):
     def __init__(self, parent, bank, widget_name=''):
         super().__init__(parent, widget_name)
@@ -270,7 +339,7 @@ class ControlTrendStartUpRODWidget(ABCWidget):
         qp.setFont(QFont(Global_font, 12))
         qp.setPen(QPen(rgb_to_qCOLOR(Black), 1))
         qp.drawText(QRectF(0.0, 125, 54.0, 20), Qt.AlignCenter, f'Bank {self.bank}')
-        qp.drawText(QRectF(0.0, 125 + 15, 54.0, 20), Qt.AlignCenter, f'[{self.inmem.ShMem.get_para_val(self.bank_para):03}]')
+        qp.drawText(QRectF(0.0, 125 + 15, 54.0, 20), Qt.AlignCenter, f'[{int(self.inmem.ShMem.get_para_val(self.bank_para)):03}]')
         qp.end()
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
@@ -328,8 +397,8 @@ class ControlHistoryTable(ABCTableWidget):
         # E.x : self.add_new_item('Test')
         row_index = self.rowCount()
         self.insertRow(row_index)
-        self.setItem(row_index, 0, QTableWidgetItem(des_))
-        self.setItem(row_index, 1, QTableWidgetItem(f'[{self.inmem.get_time()}]'))
+        self.setItem(row_index, 0, QTableWidgetItem(f'[{self.inmem.get_time()}]'))
+        self.setItem(row_index, 1, QTableWidgetItem(des_))
 class ControlHistoryScroller(ABCScrollBar):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
