@@ -24,7 +24,7 @@ class MainTopBarTimer(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setFixedSize(376, 35)
-        self.startTimer(200)
+        self.startTimer(300)
 
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         self.setText(datetime.now().strftime('%Y.%m.%d') + " / " + self.inmem.get_time())

@@ -95,7 +95,7 @@ class SignalResultWidgetResult(ABCLabel):
 class SignalResultAlarmWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(600)
+        self.startTimer(300)
         self.gl = QGridLayout(self)
         self.gl.setContentsMargins(2, 2, 2, 2)
         self.gl.setSpacing(0)

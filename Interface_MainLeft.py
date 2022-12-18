@@ -39,7 +39,7 @@ class MainLeftTop1(ABCWidget):
 class MainLeftTop1ReactorPower(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(200)
+        self.startTimer(300)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         self.setText(f'Reactor Power\n{self.inmem.ShMem.get_para_val("QPROREL")*100:.1f} [%]')
@@ -47,10 +47,10 @@ class MainLeftTop1ReactorPower(ABCLabel):
 class MainLeftTop1Electric(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(200)
+        self.startTimer(300)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
-        self.setText(f'Electric Power\n{self.inmem.ShMem.get_para_val("KBCDO22")} [MWe]')
+        self.setText(f'Electric Power\n{int(self.inmem.ShMem.get_para_val("KBCDO22"))} [MWe]')
         return super().timerEvent(a0)
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop2(ABCWidget):
@@ -81,9 +81,12 @@ class MainLeftTop2OperationSelectionBtn(ABCPushButton):
         super().__init__(parent, widget_name)
         self.setFixedHeight(40)
         self.w = OperationSelectionWindow(self)
+        self.update_text()
+    
+    def update_text(self):
         OpMode = self.inmem.ShMem.get_para_val('iFixOpMode')
         self.setText(self.inmem.widget_ids['OperationSelectionTree'].transform_nub_to_procedure_name(OpMode))
-    
+
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
         self.w.initiation()
@@ -101,7 +104,7 @@ class MainLeftTop2OperationControllerBtnM(ABCPushButton):
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 0 else False)
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
 
     def nextCheckState(self) -> None:
         super().nextCheckState()
@@ -124,7 +127,7 @@ class MainLeftTop2OperationControllerBtnA(ABCPushButton):
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 1 else False)
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
 
     def nextCheckState(self) -> None:
         super().nextCheckState()
@@ -169,7 +172,7 @@ class MainLeftTop3PreTrip(ABCPushButton):
         # self.w = PretripWindow(self)
         self.setText('Pre-trip')
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         # self.w.show()
@@ -190,7 +193,7 @@ class MainLeftTop3Signal(ABCPushButton):
         self.w = SignalWindow(self)
         self.setText('Signal')
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -211,7 +214,7 @@ class MainLeftTop3CSF(ABCPushButton):
         self.w = CSFMonitoringWindow(self)
         self.setText('CSF Monitoring')
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
         
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -232,7 +235,7 @@ class MainLeftTop3Diagnosis(ABCPushButton):
         self.w = DiagnosisWindow(self)
         self.setText('Diagnosis')
         self.blink = False
-        self.startTimer(600)
+        self.startTimer(300)
         
     def mousePressEvent(self, e: QMouseEvent) -> None:
         self.w.show()
@@ -290,7 +293,7 @@ class MainLeftTop4Alarm(ABCLabel):
         self.setText(self.inmem.ShMem.get_alarm_des(alarm_id))
         self.setAlignment(Qt.AlignCenter)
         self.setWordWrap(True)
-        self.startTimer(600)
+        self.startTimer(300)
 
     def timerEvent(self, e: QTimerEvent) -> None:
         if self.inmem.ShMem.get_para_val(self.alarm_id) == 0:

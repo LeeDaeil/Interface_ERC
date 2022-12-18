@@ -118,10 +118,33 @@ class CNS(QWidget):
                 
                 self.add_des('Operation Strategy : Auto Control LSTM', show_control_his=False)
                 self.add_des('Operation Condition : Normal -> Abnormal', show_control_his=False)
-                self.Inmem.widget_ids['OperationSelectionOk'].call_OK()
-        if self.ShMem.get_para_val('iFixOpMode') == 14: # Abnormal - AB 23-01
-            pass
+                self.Inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].update_text()
 
+        if self.ShMem.get_para_val('iFixOpMode') == 14: # Abnormal - AB 23-01
+            if self.ShMem.get_para_val("KCNTOMS") == 170: self.add_des('Charging Valve Open', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 170: self.add_des('Charging Pump 2 Start', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 525:
+                self.add_des('Reactor trip', show_total_his=False)
+                self.add_des('Operation Strategy : Auto Control ES', show_control_his=False)
+                self.add_des('Operation Condition : Abnormal -> Emergency', show_control_his=False)
+                self.ShMem.change_para_val('iFixOpMode', 15)
+                self.ShMem.change_para_val('iOpStrategy', 19) # Auto Control ES
+                self.ShMem.change_para_val('iOpHistory', 2)  # Emergency
+                self.ShMem.change_para_val('iDigBLK', 0)
+                self.Inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].update_text()
+
+        if self.ShMem.get_para_val('iFixOpMode') == 15: # Emergency LOCA
+            if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('SI Valve Open', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Containment ISO', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Feedwater ISO', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Aux feed pump 1 start', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Aux feed pump 2 start', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 595: self.add_des('Charging pump 3 start', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 700: self.add_des('Aux feed pump 3 start', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('Main steam line ISO', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 1 stop', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 2 stop', show_total_his=False)
+            if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 3 stop', show_total_his=False)
 
     def add_des(self, txt, show_control_his=True, show_total_his=True):
         if show_control_his:

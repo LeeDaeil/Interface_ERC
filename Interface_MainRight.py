@@ -40,7 +40,7 @@ class MainRightTop1(ABCWidget):
         vl.addLayout(hl)
         vl.setSpacing(10)
 
-        self.startTimer(200)
+        self.startTimer(300)
     
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         for i, btn in enumerate(self.btn_group.buttons()):

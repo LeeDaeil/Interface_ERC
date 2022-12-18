@@ -51,7 +51,7 @@ class MainMiddleMimicScene(ABCGraphicsScene):
         
         self.load_scene()
 
-        self.startTimer(600)
+        self.startTimer(300)
 
     def load_scene(self):
         """

@@ -84,7 +84,7 @@ class DiagnosisResultWidgetResult(ABCLabel):
 class DiagnosisResultAlarmWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(600)
+        self.startTimer(300)
         self.gl = QGridLayout(self)
         self.gl.setContentsMargins(3, 3, 3, 3)
         self.gl.setSpacing(0)

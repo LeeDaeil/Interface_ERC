@@ -65,7 +65,7 @@ class CSFMonitoringAlarmWidget_BG(ABCWidget):
 class CSFMonitoringAlarmWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(600)
+        self.startTimer(300)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         vl = QVBoxLayout(self)
         vl.setContentsMargins(0, 0, 0, 0)

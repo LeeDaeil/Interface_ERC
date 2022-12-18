@@ -4,6 +4,8 @@ from PyQt5.QtGui import *
 from Interface_ABCWidget import *
 from Interface_QSS import *
 
+from TOOL_PTCurve import PTCureve
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib.gridspec import GridSpec
@@ -348,6 +350,183 @@ class ControlTrendStartUpRODWidget(ABCWidget):
 class ControlTrendEmergencyWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.addWidget(ControlTrendEmergencyGPWidget(self))
+class ControlTrendEmergencyGPWidget(ABCWidget):
+    def __init__(self, parent, widget_name=''):
+        super().__init__(parent, widget_name)
+        vl = QVBoxLayout(self)
+        vl.setContentsMargins(5, 5, 5, 5)
+        #
+        self.fig = plt.Figure(tight_layout=True, facecolor=rgb_to_hex(LightGray))
+        gs = GridSpec(8, 1, figure=self.fig)
+        self.axs = [
+            self.fig.add_subplot(gs[0:4, :], projection='3d'),
+            self.fig.add_subplot(gs[4:5, :]),
+            self.fig.add_subplot(gs[5:6, :]),
+            self.fig.add_subplot(gs[6:7, :]),
+            self.fig.add_subplot(gs[7:8, :]),]
+        self.fig.canvas.draw()
+        self.canvas = FigureCanvasQTAgg(self.fig)
+        vl.addWidget(self.canvas)
+        #
+        self.set_yaxis()
+        paras = ['KCNTOMS', 'cCOOLRATE', 'UAVLEG2', 'ZINST65', 'WAFWS1', 'WAFWS2', 'WAFWS3', 'KLAMPO134', 'KLAMPO135', 'KLAMPO136',
+        'PMSS', 'BPRZSP', 'QPRZH', 'KLAMPO118', 'BHV22', 'cCOOLRATE']
+        self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
+        #        
+        self.startTimer(300)
+        
+    @ticker.FuncFormatter
+    def major_formatter_time(time, pos):
+        time = int(time/5)
+        return f"{time}[Sec]"
+
+    @ticker.FuncFormatter
+    def major_formatter(x, pos):
+        return f"{abs(int(x/5))}"
+
+    @ticker.FuncFormatter
+    def major_formatter_aux(aux, pos):
+        return f"{int(aux)}[Kg/sec]"
+
+    @ticker.FuncFormatter
+    def major_formatter_dump(dump, pos):
+        return f"{dump/100000:.1f}[kg/cm^2]"
+
+    @ticker.FuncFormatter
+    def major_formatter_val(val, pos):
+        return f"{val:.1f}[%]"
+        
+    def set_yaxis(self):
+        self.axs[1].xaxis.set_major_formatter(self.major_formatter_time)
+        self.axs[2].xaxis.set_major_formatter(self.major_formatter_time)
+        self.axs[3].xaxis.set_major_formatter(self.major_formatter_time)
+        self.axs[4].xaxis.set_major_formatter(self.major_formatter_time)
+        #
+        self.axs[1].yaxis.set_major_formatter(self.major_formatter_aux)
+        self.axs[2].yaxis.set_major_formatter(self.major_formatter_dump)
+        self.axs[3].yaxis.set_major_formatter(self.major_formatter_val)
+    
+    def timerEvent(self, a0: 'QTimerEvent') -> None:
+        if self.gp_db['KCNTOMS'][-1] != self.inmem.ShMem.get_para_val('KCNTOMS'):
+            # 1. DB add
+            [self.gp_db[para].append(self.inmem.ShMem.get_para_val(para)) for para in self.gp_db.keys()]
+            # 2. Clear
+            [ax.clear() for ax in self.axs]
+            # 3. Draw
+            
+            KCNTOMS_len = len(self.gp_db['KCNTOMS'])
+            # max_len = max_ if max_ > KCNTOMS_len else KCNTOMS_len
+            max_len = 300
+            inv_KCNTOMS = [- val for val in self.gp_db['KCNTOMS']]
+
+            Temp = []
+            UpPres = []
+            BotPres = []
+            for _ in range(0, max_len):
+                uppres, botpres = PTCureve()._get_pres(_)
+                Temp.append([_])
+                UpPres.append([uppres])
+                BotPres.append([botpres])
+
+            PTX = np.array(Temp)
+            BotZ = np.array(BotPres)
+            UpZ = np.array(UpPres)
+            PTY = np.array([[0] for _ in range(0, max_len)])
+
+            PTX = np.hstack([PTX[:, 0:1], Temp])
+            BotZ = np.hstack([BotZ[:, 0:1], BotPres])
+            UpZ = np.hstack([UpZ[:, 0:1], UpPres])
+            PTY = np.hstack([PTY[:, 0:1], np.array([[inv_KCNTOMS[-1]] for _ in range(0, max_len)])])
+
+            zero = [0 for _ in range(len(self.gp_db['KCNTOMS']))]
+
+            # Cooling rate 그래프 -------------------------------------------------------------------------------------------
+            if True:
+                Cooling_Temp, Cooling_Time, Cooling_Zero = [], [], []
+                for i, val in enumerate(self.gp_db['cCOOLRATE']):
+                    if val != 0:
+                        Cooling_Temp.append(val)
+                        Cooling_Time.append(inv_KCNTOMS[i])
+                        Cooling_Zero.append(0)
+
+                self.axs[0].plot3D(Cooling_Temp, Cooling_Time, Cooling_Zero, color='orange', lw=1.5, ls='--')
+            # PT 커브 -------------------------------------------------------------------------------------------------------
+            if True:
+                self.axs[0].plot3D([170, 0, 0, 170, 170],
+                                [inv_KCNTOMS[-1], inv_KCNTOMS[-1], 0, 0, inv_KCNTOMS[-1]],
+                                [29.5, 29.5, 29.5, 29.5, 29.5], color='black', lw=0.5, ls='--')
+                self.axs[0].plot3D([170, 0, 0, 170, 170],
+                                [inv_KCNTOMS[-1], inv_KCNTOMS[-1], 0, 0, inv_KCNTOMS[-1]],
+                                [17, 17, 17, 17, 17], color='black', lw=0.5, ls='--')
+                self.axs[0].plot3D([170, 170], [inv_KCNTOMS[-1], inv_KCNTOMS[-1]],
+                                [17, 29.5], color='black', lw=0.5, ls='--')
+                self.axs[0].plot3D([170, 170], [0, 0], [17, 29.5], color='black', lw=0.5, ls='--')
+                self.axs[0].plot3D([0, 0], [inv_KCNTOMS[-1], inv_KCNTOMS[-1]], [17, 29.5], color='black', lw=0.5, ls='--')
+                self.axs[0].plot3D([0, 0], [0, 0], [17, 29.5], color='black', lw=0.5, ls='--')
+
+                self.axs[0].plot_surface(PTX, PTY, UpZ, rstride=8, cstride=8, alpha=0.15, color='r')
+                self.axs[0].plot_surface(PTX, PTY, BotZ, rstride=8, cstride=8, alpha=0.15, color='r')
+            # 냉각 감압 그래프 -----------------------------------------------------------------------------------------------
+            if True:
+                self.axs[0].plot3D(self.gp_db['UAVLEG2'], inv_KCNTOMS, self.gp_db['ZINST65'], color='blue', lw=1.5)
+                # each
+                self.axs[0].plot3D(self.gp_db['UAVLEG2'], inv_KCNTOMS, zero, color='black', lw=1, ls='--')  # temp
+                self.axs[0].plot3D(zero, inv_KCNTOMS, self.gp_db['ZINST65'], color='black', lw=1, ls='--')  # pres
+                self.axs[0].plot3D(self.gp_db['UAVLEG2'], zero, self.gp_db['ZINST65'], color='black', lw=1, ls='--')  # PT
+            # 냉각 감압 그래프 표시기 -----------------------------------------------------------------------------------------
+            if True:
+                # linewidth or lw: float
+                self.axs[0].plot3D([self.gp_db['UAVLEG2'][-1], self.gp_db['UAVLEG2'][-1]],
+                                [inv_KCNTOMS[-1], inv_KCNTOMS[-1]],
+                                [0, self.gp_db['ZINST65'][-1]], color='blue', lw=0.5, ls='--')
+                self.axs[0].plot3D([0, self.gp_db['UAVLEG2'][-1]],
+                                [inv_KCNTOMS[-1], inv_KCNTOMS[-1]],
+                                [self.gp_db['ZINST65'][-1], self.gp_db['ZINST65'][-1]], color='blue', lw=0.5, ls='--')
+                self.axs[0].plot3D([self.gp_db['UAVLEG2'][-1], self.gp_db['UAVLEG2'][-1]],
+                                [0, inv_KCNTOMS[-1]],
+                                [self.gp_db['ZINST65'][-1], self.gp_db['ZINST65'][-1]], color='blue', lw=0.5, ls='--')
+            # --------------------------------------------------------------------------------------------------------------
+            self.axs[0].yaxis.set_major_formatter(self.major_formatter)
+            self.axs[0].set_xlabel('Temperature')
+            self.axs[0].set_ylabel('Time [Sec]')
+            self.axs[0].set_zlabel('Pressure')
+            self.axs[0].set_title('PT-Curve')
+
+            self.axs[0].set_xlim(0, max_len)
+            self.axs[0].set_zlim(0, 200)
+
+            # Aux
+            tot_aux = [aux1 * aux1p + aux2 * aux2p + aux3 * aux3p for aux1, aux2, aux3, aux1p, aux2p, aux3p in
+                    zip(self.gp_db['WAFWS1'], self.gp_db['WAFWS2'], self.gp_db['WAFWS3'],
+                        self.gp_db['KLAMPO134'], self.gp_db['KLAMPO135'], self.gp_db['KLAMPO136'])]
+            self.axs[1].set_ylim(-0.2, 100)
+            self.axs[1].plot(self.gp_db['KCNTOMS'], tot_aux, label='Total Aux Feed Water')
+            self.axs[1].legend(fontsize=9, loc=2)
+
+            # Dump
+            self.axs[2].plot(self.gp_db['KCNTOMS'], self.gp_db['PMSS'], label='Dump Valve Set-point')
+            self.axs[2].legend(fontsize=9, loc=2)
+
+            # Spray and Heater
+            self.axs[3].plot(self.gp_db['KCNTOMS'], self.gp_db['BPRZSP'], label='PZR Spray Position')
+            self.axs[3].plot(self.gp_db['KCNTOMS'], self.gp_db['QPRZH'], label='PZR Proportional Heater')
+            self.axs[3].plot(self.gp_db['KCNTOMS'], self.gp_db['KLAMPO118'], label='PZR Back-up Heater')
+            self.axs[3].set_ylim(-0.2, 1.2)
+            self.axs[3].legend(fontsize=9, loc=2)
+
+            # SI Charging
+            self.axs[4].plot(self.gp_db['KCNTOMS'], self.gp_db['BHV22'], label='SI Valve')
+            self.axs[4].set_ylim(-0.2, 1.2)
+            self.axs[4].set_yticks([0, 1])
+            self.axs[4].set_yticklabels(['Close', 'Open'])
+            self.axs[4].legend(fontsize=9, loc=2)
+
+            # 4. Refresh
+            self.set_yaxis()
+            self.canvas.draw()
+        return super().timerEvent(a0)
 class ControlTrendNoWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)

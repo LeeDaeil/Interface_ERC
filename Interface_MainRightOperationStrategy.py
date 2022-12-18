@@ -208,7 +208,7 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
             self.items['e9n']     = OperationStrategyBoardYNItem(self, self.items['e9'].RightP, 1, 'N')
             self.items['e9y']     = OperationStrategyBoardYNItem(self, self.items['e9'].BottomP, 3, 'Y')
         [self.addItem(w) for w in self.items.values()]
-        self.startTimer(600)
+        self.startTimer(300)
 
     def update_boxs(self, v_, top_id, sub_ids=None):
         if sub_ids != None:

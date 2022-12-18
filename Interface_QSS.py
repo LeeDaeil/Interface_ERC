@@ -41,11 +41,13 @@ Mimic_font_size_nub = 12
 Title_font_size1_nub = 25
 Title_font_size2_nub = 20
 Title_font_size3_nub = 15
+Title_font_size4_nub = 12
 Alarm_font_size_nub = 10
 Content_font_size = f'{Content_font_size_nub}pt'
 Title_font_size1 = f'{Title_font_size1_nub}pt'
 Title_font_size2 = f'{Title_font_size2_nub}pt'
 Title_font_size3 = f'{Title_font_size3_nub}pt'
+Title_font_size4 = f'{Title_font_size4_nub}pt'
 Alarm_font_size = f'{Alarm_font_size_nub}pt'
 Global_font = 'Arial'
 Global_font2 = '맑은 고딕'
@@ -468,7 +470,7 @@ QssMainLeft = ''.join([
     builder('QLabel', 'DiagnosisResultAlarmItem', [
         f'background-color: {LightGray};',        
         f'font-family: {Global_font};',
-        f'font-size: {Title_font_size2};',
+        f'font-size: {Title_font_size4};',
         "qproperty-alignment: 'AlignCenter';",
         'font-weight: bold;',
         ]),
@@ -771,6 +773,7 @@ QssMainRight = ''.join([
     builder('QWidget', 'ControlTrendStartUpTemperatureWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
     
     builder('QStackWidget', 'ControlTrendEmergencyWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
+    builder('QWidget', 'ControlTrendEmergencyGPWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 2px solid {Gray};']),
     builder('QStackWidget', 'ControlTrendNoWidget', [f'background-color: {LightGray};', 'border-radius: 10px;', f'border: 3px solid {Gray};']),
     builder('QWidget', 'ControlHistory', [f'background-color: {LightGray};', 'border: none;']),
     builder('QTableWidget', 'ControlHistoryTable', [
