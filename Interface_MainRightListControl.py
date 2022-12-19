@@ -27,8 +27,6 @@ class ControlWindow(ABCWidget):
         vl.addWidget(self.title_label)
         vl.addWidget(ControlBoard_BG(self))
 
-        self.startTimer(300)
-
     # window drag
     def mousePressEvent(self, event):
         if (event.button() == Qt.LeftButton) and self.title_label.underMouse():
@@ -47,10 +45,9 @@ class ControlWindow(ABCWidget):
         self.setCursor(QCursor(Qt.ArrowCursor))
         print(self.widget_name, self.geometry())
 
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         opmode = self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].text()
         self.inmem.widget_ids['ControlOperationWidgetResult'].setText(opmode)
-        return super().timerEvent(a0)
         
     def show(self) -> None:
         opmode = self.inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].text()
@@ -156,8 +153,6 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
         self.set_yaxis()
         paras = ['KCNTOMS', 'QPROREL', 'UP_D', 'DOWN_D']
         self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
-        #        
-        self.startTimer(300)
         
     @ticker.FuncFormatter
     def major_formatter_time(time, pos):
@@ -172,7 +167,7 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
         self.axs[0].xaxis.set_major_formatter(self.major_formatter_time)
         self.axs[0].yaxis.set_major_formatter(self.major_formatter_reactor_power)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         if self.gp_db['KCNTOMS'][-1] != self.inmem.ShMem.get_para_val('KCNTOMS'):
             # 1. DB add
             [self.gp_db[para].append(self.inmem.ShMem.get_para_val(para)) for para in self.gp_db.keys()]
@@ -191,7 +186,6 @@ class ControlTrendStartUpPowerWidget(ABCWidget):
             # 4. Refresh
             self.set_yaxis()
             self.canvas.draw()
-        return super().timerEvent(a0)
 class ControlTrendStartUpTemperatureWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -212,8 +206,6 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
         self.set_yaxis()
         paras = ['KCNTOMS', 'UAVLEGS', 'KBCDO20', 'KBCDO21', 'KBCDO22', 'KBCDO16', 'UAVLEGM', 'BOR', 'MAKE_UP']
         self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
-        #        
-        self.startTimer(300)
         
     @ticker.FuncFormatter
     def major_formatter_time(time, pos):
@@ -247,7 +239,7 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
         self.axs[2].yaxis.set_major_formatter(self.major_formatter_ppm)
         self.axs[3].yaxis.set_major_formatter(self.major_formatter_liter)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         if self.gp_db['KCNTOMS'][-1] != self.inmem.ShMem.get_para_val('KCNTOMS'):
             # 1. DB add
             [self.gp_db[para].append(self.inmem.ShMem.get_para_val(para)) for para in self.gp_db.keys()]
@@ -297,7 +289,6 @@ class ControlTrendStartUpTemperatureWidget(ABCWidget):
             # 4. Refresh
             self.set_yaxis()
             self.canvas.draw()
-        return super().timerEvent(a0)
 class ControlTrendStartUpRODBOXWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -374,8 +365,6 @@ class ControlTrendEmergencyGPWidget(ABCWidget):
         paras = ['KCNTOMS', 'cCOOLRATE', 'UAVLEG2', 'ZINST65', 'WAFWS1', 'WAFWS2', 'WAFWS3', 'KLAMPO134', 'KLAMPO135', 'KLAMPO136',
         'PMSS', 'BPRZSP', 'QPRZH', 'KLAMPO118', 'BHV22', 'cCOOLRATE']
         self.gp_db = {para: [self.inmem.ShMem.get_para_val(para)] for para in paras}
-        #        
-        self.startTimer(300)
         
     @ticker.FuncFormatter
     def major_formatter_time(time, pos):
@@ -408,7 +397,7 @@ class ControlTrendEmergencyGPWidget(ABCWidget):
         self.axs[2].yaxis.set_major_formatter(self.major_formatter_dump)
         self.axs[3].yaxis.set_major_formatter(self.major_formatter_val)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         if self.gp_db['KCNTOMS'][-1] != self.inmem.ShMem.get_para_val('KCNTOMS'):
             # 1. DB add
             [self.gp_db[para].append(self.inmem.ShMem.get_para_val(para)) for para in self.gp_db.keys()]
@@ -525,8 +514,9 @@ class ControlTrendEmergencyGPWidget(ABCWidget):
 
             # 4. Refresh
             self.set_yaxis()
+
+            self.fig.tight_layout()
             self.canvas.draw()
-        return super().timerEvent(a0)
 class ControlTrendNoWidget(ABCWidget):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)

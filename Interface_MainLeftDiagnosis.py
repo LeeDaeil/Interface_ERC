@@ -120,7 +120,6 @@ class DiagnosisResultAlarmWidget(ABCWidget):
         
     def timerEvent(self, a0: 'QTimerEvent') -> None:
         [self.fault_alarms[key].blink_fun() for key in self.fault_alarms.keys()]
-        return super().timerEvent(a0)
 class DiagnosisResultPackWidget(ABCWidget):
     def __init__(self, parent, in_text='', nub='', corners=['2', '2'], widget_name=''):
         super().__init__(parent, widget_name)

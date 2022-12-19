@@ -39,14 +39,11 @@ class MainRightTop1(ABCWidget):
         hl.setSpacing(10)
         vl.addLayout(hl)
         vl.setSpacing(10)
-
-        self.startTimer(300)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         for i, btn in enumerate(self.btn_group.buttons()):
             if self.inmem.ShMem.get_para_val('iOpHistory') == i:
                 btn.setChecked(True)
-        return super().timerEvent(a0)
 
 class MainRightTop1Title(ABCLabel):
     def __init__(self, parent, widget_name=''):
@@ -149,6 +146,15 @@ class MainRightTop3LCO(ABCPushButton):
         self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
 class MainRightTop3OperationStrategy(ABCPushButton):
@@ -159,6 +165,15 @@ class MainRightTop3OperationStrategy(ABCPushButton):
         self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
 
@@ -170,6 +185,15 @@ class MainRightTop3ListAlarm(ABCPushButton):
         self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
 
@@ -181,17 +205,15 @@ class MainRightTop3Control(ABCPushButton):
         self.setFixedHeight(50)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
-        self.w.show()
-        return super().mousePressEvent(e)
-
-class MainRightTop3Diagnosis(ABCPushButton):
-    def __init__(self, parent, widget_name=''):
-        super().__init__(parent, widget_name)
-        self.w = DiagnosisWindow(self)
-        self.setText('Diagnosis')
-        self.setFixedHeight(50)
-
-    def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
 

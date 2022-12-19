@@ -51,8 +51,6 @@ class MainMiddleMimicScene(ABCGraphicsScene):
         
         self.load_scene()
 
-        self.startTimer(300)
-
     def load_scene(self):
         """
         저장 화면 불러오기 (Ctrl+L)
@@ -100,9 +98,8 @@ class MainMiddleMimicScene(ABCGraphicsScene):
             if direction == 'left':
                 item.move_pos(-1, 0)
 
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         [item.update_state() for item in self.ItemBox.values()]
-        return super().timerEvent(a0)
     
     def mousePressEvent(self, event: 'QGraphicsSceneMouseEvent') -> None:
         print(event.scenePos())

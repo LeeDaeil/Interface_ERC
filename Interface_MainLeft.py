@@ -39,19 +39,15 @@ class MainLeftTop1(ABCWidget):
 class MainLeftTop1ReactorPower(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(300)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         self.setText(f'Reactor Power\n{self.inmem.ShMem.get_para_val("QPROREL")*100:.1f} [%]')
-        return super().timerEvent(a0)
 class MainLeftTop1Electric(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
-        self.startTimer(300)
     
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         self.setText(f'Electric Power\n{int(self.inmem.ShMem.get_para_val("KBCDO22"))} [MWe]')
-        return super().timerEvent(a0)
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop2(ABCWidget):
     def __init__(self, parent, widget_name=''):
@@ -104,21 +100,19 @@ class MainLeftTop2OperationControllerBtnM(ABCPushButton):
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 0 else False)
         self.blink = False
-        self.startTimer(300)
 
     def nextCheckState(self) -> None:
         super().nextCheckState()
         print(f'{type(self).__name__} is changed as {self.isChecked()}')
         self.inmem.ShMem.change_para_val('iFixMAMode', 0)
 
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iManBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 class MainLeftTop2OperationControllerBtnA(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -127,21 +121,19 @@ class MainLeftTop2OperationControllerBtnA(ABCPushButton):
         self.setCheckable(True)
         self.setChecked(True if self.inmem.ShMem.get_para_val('iFixMAMode') == 1 else False)
         self.blink = False
-        self.startTimer(300)
 
     def nextCheckState(self) -> None:
         super().nextCheckState()
         print(f'{type(self).__name__} is changed as {self.isChecked()}')
         self.inmem.ShMem.change_para_val('iFixMAMode', 1)
     
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iAutoBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop3(ABCWidget):
     def __init__(self, parent, widget_name=''):
@@ -172,20 +164,18 @@ class MainLeftTop3PreTrip(ABCPushButton):
         # self.w = PretripWindow(self)
         self.setText('Pre-trip')
         self.blink = False
-        self.startTimer(300)
 
     def mousePressEvent(self, e: QMouseEvent) -> None:
         # self.w.show()
         return super().mousePressEvent(e)
 
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iPreTripBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 class MainLeftTop3Signal(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -193,20 +183,27 @@ class MainLeftTop3Signal(ABCPushButton):
         self.w = SignalWindow(self)
         self.setText('Signal')
         self.blink = False
-        self.startTimer(300)
     
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
 
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iSignalBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 class MainLeftTop3CSF(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -214,20 +211,27 @@ class MainLeftTop3CSF(ABCPushButton):
         self.w = CSFMonitoringWindow(self)
         self.setText('CSF Monitoring')
         self.blink = False
-        self.startTimer(300)
         
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
     
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iCSFBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 class MainLeftTop3Diagnosis(ABCPushButton):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
@@ -235,20 +239,27 @@ class MainLeftTop3Diagnosis(ABCPushButton):
         self.w = DiagnosisWindow(self)
         self.setText('Diagnosis')
         self.blink = False
-        self.startTimer(300)
         
     def mousePressEvent(self, e: QMouseEvent) -> None:
+        # L
+        self.inmem.widget_ids['SignalWindow'].close()
+        self.inmem.widget_ids['CSFMonitoringWindow'].close()
+        self.inmem.widget_ids['DiagnosisWindow'].close()
+        # R
+        self.inmem.widget_ids['LCOWindow'].close()
+        self.inmem.widget_ids['OperationStrategyWindow'].close()
+        self.inmem.widget_ids['ControlWindow'].close()
+        self.inmem.widget_ids['ListAlarmWindow'].close()
         self.w.show()
         return super().mousePressEvent(e)
     
-    def timerEvent(self, e: QTimerEvent) -> None:
+    def call_update(self):
         if self.inmem.ShMem.get_para_val('iDigBLK') == 0:
             self.setProperty('blinking', False)
         else:
             self.setProperty('blinking', self.blink)
             self.blink = not self.blink
         self.style().polish(self)
-        return super().timerEvent(e)
 # ------------------------------------------------------------------------------------------------
 class MainLeftTop4_1(ABCWidget):
     def __init__(self, parent, widget_name=''):

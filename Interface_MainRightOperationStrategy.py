@@ -208,14 +208,13 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
             self.items['e9n']     = OperationStrategyBoardYNItem(self, self.items['e9'].RightP, 1, 'N')
             self.items['e9y']     = OperationStrategyBoardYNItem(self, self.items['e9'].BottomP, 3, 'Y')
         [self.addItem(w) for w in self.items.values()]
-        self.startTimer(300)
 
     def update_boxs(self, v_, top_id, sub_ids=None):
         if sub_ids != None:
             [self.items[id].update_blinking(2) for id in sub_ids]
         self.items[top_id].update_blinking(1)
 
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         [self.items[id].update_blinking(0) for id in self.items.keys()]
         v_ = self.inmem.ShMem.get_para_val('iOpStrategy')
         if v_ == 0: self.update_boxs(v_, 't1', None),
@@ -239,7 +238,6 @@ class OperationStrategyBoardScene(ABCGraphicsScene):
         if v_ == 18: self.update_boxs(v_, 'e6', ['t1', 't2', 'e1', 'e2']),
         if v_ == 19: self.update_boxs(v_, 'e8', ['t1', 't2', 'e1', 'e2', 'e3', 'e4', 'e5']),
         if v_ == 20: self.update_boxs(v_, 'e10', ['t1', 't2', 'e1', 'e2', 'e3', 'e7']),
-        return super().timerEvent(a0)
 class OperationStrategyBoardItem(ABCGraphicsPolygonItem):
     def __init__(self, parent, x, y, w=None, h=None, in_text='', box=True, widget_name=''):
         super().__init__(parent, widget_name)

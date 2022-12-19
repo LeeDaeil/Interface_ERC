@@ -24,11 +24,9 @@ class MainTopBarTimer(ABCLabel):
     def __init__(self, parent, widget_name=''):
         super().__init__(parent, widget_name)
         self.setFixedSize(376, 35)
-        self.startTimer(300)
 
-    def timerEvent(self, a0: 'QTimerEvent') -> None:
+    def call_update(self):
         self.setText(datetime.now().strftime('%Y.%m.%d') + " / " + self.inmem.get_time())
-        return super().timerEvent(a0)
 
 class MainTopBarClose(ABCPushButton):
     def __init__(self, parent, widget_name=''):

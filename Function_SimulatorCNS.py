@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from Function_Mem_ShMem import *
+from TOOL_CSF import *
+from TOOL_PTCurve import *
 import pandas as pd
 import numpy as np
 
@@ -134,6 +136,50 @@ class CNS(QWidget):
                 self.Inmem.widget_ids['MainLeftTop2OperationSelectionBtn'].update_text()
 
         if self.ShMem.get_para_val('iFixOpMode') == 15: # Emergency LOCA
+            # CSF Tree
+            trip = self.ShMem.get_para_val("KLAMPO9")
+            p_range = self.ShMem.get_para_val("ZINST1")
+            i_range = self.ShMem.get_para_val("ZINST2")
+            s_range = self.ShMem.get_para_val("ZINST3")
+            CoreExitTemp = self.ShMem.get_para_val("UUPPPL")
+            PTcurve = PTCureve().Check(self.ShMem.get_para_val("UAVLEG2"), self.ShMem.get_para_val("ZINST65"))
+
+            SG1Nar = self.ShMem.get_para_val('ZINST78') 
+            SG2Nar = self.ShMem.get_para_val('ZINST77')
+            SG3Nar = self.ShMem.get_para_val('ZINST76')
+            SG1Pres = self.ShMem.get_para_val('ZINST75')
+            SG2Pres =  self.ShMem.get_para_val('ZINST74')
+            SG3Pres = self.ShMem.get_para_val('ZINST73')
+            SG1Feed = self.ShMem.get_para_val('WFWLN1')
+            SG2Feed = self.ShMem.get_para_val('WFWLN2')
+            SG3Feed = self.ShMem.get_para_val('WFWLN3')
+            AllSGFeed = self.ShMem.get_para_val('WFWLN1') + self.ShMem.get_para_val('WFWLN2') + self.ShMem.get_para_val('WFWLN3')
+
+            SG1Wid = self.ShMem.get_para_val('ZINST72') 
+            SG2Wid = self.ShMem.get_para_val('ZINST71')
+            SG3Wid = self.ShMem.get_para_val('ZINST70')
+            SG123Wid = [self.ShMem.get_para_val('ZINST72'), self.ShMem.get_para_val('ZINST71'), self.ShMem.get_para_val('ZINST70')]
+
+            # CSF 4 Value RCS 건전성 상태 추적도
+            RCSColdLoop1 = self.ShMem.get_para_val('UCOLEG1') 
+            RCSColdLoop2 = self.ShMem.get_para_val('UCOLEG2')
+            RCSColdLoop3 = self.ShMem.get_para_val('UCOLEG3') 
+            RCSPressure = self.ShMem.get_para_val('ZINST65')
+            CNSTimeL = self.ShMem.get_para_val('KCNTOMS')  # PTCurve: ...
+            # CSF 5 Value 격납용기 건전성 상태 추적도
+            CTMTPressre = self.ShMem.get_para_val('ZINST26')
+            CTMTSumpLevel = self.ShMem.get_para_val('ZSUMP')
+            CTMTRad = self.ShMem.get_para_val('ZINST22')
+            # CSF 6 Value RCS 재고량 상태 추적도
+            PZRLevel = self.ShMem.get_para_val('ZINST63')
+
+            self.ShMem.change_para_val('iCSFReactivity', CSFTree.CSF1(trip, p_range, i_range, s_range)['L'])
+            self.ShMem.change_para_val('iCSFCoreHeat',   CSFTree.CSF2(trip, CoreExitTemp, PTcurve)['L'])
+            self.ShMem.change_para_val('iCSFRCSHeat',    CSFTree.CSF3(trip, SG1Nar, SG2Nar, SG3Nar, SG1Pres, SG2Pres, SG3Pres, SG1Feed, SG2Feed, SG3Feed)['L'])
+            # self.ShMem.change_para_val('iCSFRCSPres',    CSFTree.CSF4(trip, RCSColdLoop1, RCSColdLoop2, RCSColdLoop3, RCSPressure, PTcurve, CNSTimeL)['L'])
+            self.ShMem.change_para_val('iCSFCTMT',       CSFTree.CSF5(trip, CTMTPressre, CTMTSumpLevel, CTMTRad)['L'])
+            self.ShMem.change_para_val('iCSFRCSInvt',    CSFTree.CSF6(trip, PZRLevel)['L'])
+            # ==============================================================================================
             if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('SI Valve Open', show_total_his=False)
             if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Containment ISO', show_total_his=False)
             if self.ShMem.get_para_val("KCNTOMS") == 590: self.add_des('Feedwater ISO', show_total_his=False)
@@ -145,6 +191,28 @@ class CNS(QWidget):
             if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 1 stop', show_total_his=False)
             if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 2 stop', show_total_his=False)
             if self.ShMem.get_para_val("KCNTOMS") == 900: self.add_des('RCP 3 stop', show_total_his=False)
+
+        # Call Update
+
+        self.Inmem.widget_ids['MainLeftTop1ReactorPower'].call_update()
+        self.Inmem.widget_ids['MainLeftTop1Electric'].call_update()
+        self.Inmem.widget_ids['MainLeftTop2OperationControllerBtnM'].call_update()
+        self.Inmem.widget_ids['MainLeftTop2OperationControllerBtnA'].call_update()
+        self.Inmem.widget_ids['MainLeftTop3PreTrip'].call_update()
+        self.Inmem.widget_ids['MainLeftTop3Signal'].call_update()
+        self.Inmem.widget_ids['MainLeftTop3CSF'].call_update()
+        self.Inmem.widget_ids['MainLeftTop3Diagnosis'].call_update()
+        self.Inmem.widget_ids['MainMiddleMimicScene'].call_update()
+        self.Inmem.widget_ids['MainRightTop1'].call_update()
+        self.Inmem.widget_ids['ControlWindow'].call_update()
+        if self.ShMem.get_para_val('iFixOpMode') == 4:
+            self.Inmem.widget_ids['ControlTrendStartUpPowerWidget'].call_update()
+            self.Inmem.widget_ids['ControlTrendStartUpTemperatureWidget'].call_update()
+        if self.ShMem.get_para_val('iFixOpMode') == 14 or self.ShMem.get_para_val('iFixOpMode') == 15:
+            self.Inmem.widget_ids['ControlTrendEmergencyGPWidget'].call_update()
+
+        self.Inmem.widget_ids['OperationStrategyBoardScene'].call_update()
+        self.Inmem.widget_ids['MainTopBarTimer'].call_update()
 
     def add_des(self, txt, show_control_his=True, show_total_his=True):
         if show_control_his:

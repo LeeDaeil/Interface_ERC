@@ -51,8 +51,8 @@ class FastRun:
         mem = ShMem(recode_tape='./DUMY_ALL_ROD2.csv')
         mem.change_para_val('iFixOpMode', 4) # 'Startup
         # Abnormal + Emergency
-        mem = ShMem(recode_tape='./DUMP_AB_EM.csv')
-        mem.change_para_val('iFixOpMode', 5) # 'Power Operation
+        # mem = ShMem(recode_tape='./DUMP_AB_EM.csv')
+        # mem.change_para_val('iFixOpMode', 5) # 'Power Operation
         InterfaceRun(mem)
 
 if __name__ == '__main__':
